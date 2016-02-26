@@ -1,11 +1,20 @@
 # ComputerScienceBerlin
+
 Hana Cherif
 
+Mariam Badr
+
+George Moheb
+
 Kareem Amer
-George Moheb++
+
 Youssef Swailem
 
 George Moheb
+
+Kareem Ismail
+
+Mohamed Ahmed Mousa
 
 Mostafa Samy
 
