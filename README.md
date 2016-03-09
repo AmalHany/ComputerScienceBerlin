@@ -1,6 +1,8 @@
 
 # ComputerScienceBerlin
 
+Mohamed Osama
+
 Hana Cherif
 
 Mariam Badr
