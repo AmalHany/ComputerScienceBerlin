@@ -1,6 +1,8 @@
 ﻿
 # ComputerScienceBerlin
 
+Mohamed Osama
+
 Hana Cherif
 
 Mariam Badr
@@ -30,6 +32,10 @@ Omar Abdelwahab
 Omar Ayman Ragab
 
 Abdellatif emarah
+
+Hazem Hassib
+
+Amr Ahmed
 
 Mohamed Abo El Enien
 
