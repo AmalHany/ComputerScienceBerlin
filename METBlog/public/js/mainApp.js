@@ -6,7 +6,7 @@
   function($routeProvider) {
     $routeProvider.
       when('/', {
-        templateUrl: '/partials/about.html',
-        controller: 'aboutController'
+        templateUrl: '/partials/home.html',
+        controller: 'homeController'
       });
   }]);

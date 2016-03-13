@@ -20,7 +20,7 @@ app.use(express.static(__dirname + '/public'));
 
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost/myapp');
+mongoose.connect('mongodb://localhost/blogapp');
 mongoose.connection.once('open', function() {
 
   // Load the models.
