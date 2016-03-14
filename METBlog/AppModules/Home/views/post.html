@@ -1,3 +1,18 @@
 <div ng-app="postApp" class="container-fluid">
-  hello world from my blog
+
+  <div ng-controller="postController">
+    <h3 ng-bind="post.title"></h3>
+    <span ng-bind="post.date"></span>
+    <p ng-bind="post.content"></p>
+    <div>
+      <div ng-repeat="comments in post.comments">
+        comment by:
+        <br>
+        <span ng-bind="comment.user.f_name"></span>
+        <span ng-bind="comment.date"></span>
+        <div ng-bind="comment.text"></div>
+      </div>
+    </div>
+  </div>
+
 </div>
