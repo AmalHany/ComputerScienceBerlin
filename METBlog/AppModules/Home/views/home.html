@@ -3,7 +3,7 @@
   <div ng-controller="homeController">
 
     <div ng-repeat="blog in blogs">
-      <h3 ng-bind="blog.title"></h3>
+      <a ng-href="#/blog/{{blog.id}}" ng-bind="blog.title"></a>
       <p ng-bind="blog.description"></p>
       <div>
         by:
