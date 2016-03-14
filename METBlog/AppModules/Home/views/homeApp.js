@@ -1,11 +1,3 @@
-var blogApp = angular.module('blogApp', []);
-
-blogApp.controller('blogController', ['$routeParams',
-  function($scope, $routeParams, $http) {
-    $scope.blogId = $routeParams.blogId;
-  }
-]);
-
 var homeApp = angular.module('homeApp', []);
 
 homeApp.controller('homeController',
@@ -22,11 +14,3 @@ homeApp.controller('homeController',
       }
   }
 );
-
-var postApp = angular.module('postApp', []);
-
-postApp.controller('postController', ['$routeParams',
-  function($scope, $routeParams) {
-    $scope.postId = $routeParams.postId;
-  }
-]);

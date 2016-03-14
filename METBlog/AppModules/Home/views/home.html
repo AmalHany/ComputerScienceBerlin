@@ -1,3 +1,16 @@
-<div class="container-fluid">
-  hello world from my blog
+<div ng-app="homeApp" class="container-fluid">
+
+  <div ng-controller="homeController">
+
+    <div ng-repeat="blog in blogs">
+      <h3 ng-bind="blog.title"></h3>
+      <p ng-bind="blog.description"></p>
+      <div>
+        by:
+        <p ng-bind="blog.user.f_name"></p>
+      </div>
+    </div>
+
+  </div>
+
 </div>
