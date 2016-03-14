@@ -6,6 +6,11 @@ var BlogSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  description: String,
+  date: {
+    type: Date,
+    required: true
+  }
   posts:[
       {type: Schema.Types.ObjectId, ref: 'Post'}
   ],
