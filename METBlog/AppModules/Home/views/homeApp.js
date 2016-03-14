@@ -12,5 +12,7 @@ homeApp.controller('homeController',
             $scope.blogs = response.data;
         });
       }
+
+    $scope.getBlogs();
   }
 );
