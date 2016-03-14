@@ -1,3 +1,18 @@
 <div ng-app="blogApp" class="container-fluid">
-  blog :D
+
+  <div ng-controller="blogController">
+    <h3 ng-bind="blog.title"></h3>
+    <p ng-bind="blog.description"></p>
+    <div>
+      by:
+      <p ng-bind="blog.user.f_name"></p>
+    </div>
+    <div>
+      <div ng-repeat="post in blog.posts">
+        <a ng-href="#/post/{{post.id}}" ng-bind="post.title"></a>
+        <span ng-bind="post.date"></span>
+      </div>
+    </div>
+  </div>
+
 </div>

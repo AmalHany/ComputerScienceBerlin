@@ -16,6 +16,13 @@ module.exports = function(app, route, express) {
     });
   });
 
+  //get a blogs
+  app.get('/blogs/:blog_id', function(req, res){
+    app.models.Blog.find({_id: params.blog_id}, function(err, blog) {
+      res.json(blog);
+    });
+  });
+
   return function(req, res, next) {
       next();
   };
