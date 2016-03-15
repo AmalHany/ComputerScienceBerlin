@@ -6,15 +6,15 @@
                     function($routeProvider) {
                       $routeProvider.
                         when('/', {
-                          templateUrl: '/partials/home.html',
+                          templateUrl: '/partials/Home/home.html',
                           controller: 'homeController'
                         })
                         .when('/blog/:blogId', {
-                          templateUrl: '/partials/blog.html',
+                          templateUrl: '/partials/Blog/blog.html',
                           controller: 'blogController'
                         })
                         .when('/post/:postId', {
-                          templateUrl: '/partials/post.html',
+                          templateUrl: '/partials/Post/post.html',
                           controller: 'postController'
                         });
                     }

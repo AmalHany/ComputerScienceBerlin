@@ -11,8 +11,10 @@
   "dependencies": {
     "body-parser": "latest",
     "consolidate": "^0.14.0",
+    "del": "^2.2.0",
     "express": "latest",
     "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
     "gulp-concat": "^2.6.0",
     "gulp-flatten": "^0.2.0",
     "gulp-nodemon": "^2.0.6",
