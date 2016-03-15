@@ -10,7 +10,7 @@ module.exports = function(app, route, express) {
 
   //get post with comments
   app.get('/posts/:post_id', function(req, res){
-    app.models.Post.find({_id: params.post_id})
+    app.models.Post.findOne({_id: params.post_id})
                    .populate({
                      path: 'comments',
                      populate: { path: 'user' }

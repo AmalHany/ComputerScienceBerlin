@@ -10,7 +10,7 @@ module.exports = function(app, route, express) {
 
   //get a blogs
   app.get('/blogs/:blog_id', function(req, res){
-    app.models.Blog.find({_id: params.blog_id})
+    app.models.Blog.findOne({_id: params.blog_id})
                    .populate('posts user')
                    .exec(function(err, blog) {
                      if (err) throw err;
