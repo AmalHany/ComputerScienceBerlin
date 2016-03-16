@@ -10,6 +10,7 @@ var db = mongoose.connection;
   var Blog= require('./../AppModules/Blog/models/Blog');
   var Post= require('./../AppModules/Post/models/Post');
   var User= require('./../AppModules/User/models/User');
+  var Comment = require('./../AppModules/Post/models/Comment');
 
 
 // var UsersBag = [{_id:"u1",f_name:"hazem",l_name:"agaty",blogs:{_id:"b12"}},
@@ -152,9 +153,41 @@ p3.save(function (err) {
   }
 });
 
+var c1 = new Comment({text:"comment1",date:"1111-11-1",user:u1._id});
+var c2 = new Comment({text:"comment2",date:"1111-11-1",user:u2._id});
+var c3 = new Comment({text:"comment3",date:"1111-11-1",user:u3._id});
 
+p1.comments= [c1._id,c2._id,c3._id];
 
+c1.save(function (err) {
+  if (err) {
+    console.log(err);
+    console.info("failc");
+  }
+  else{
+    console.info("success");
+  }
+});
 
+c2.save(function (err) {
+  if (err) {
+    console.log(err);
+    console.info("failc");
+  }
+  else{
+    console.info("success");
+  }
+});
+
+c3.save(function (err) {
+  if (err) {
+    console.log(err);
+    console.info("failc");
+  }
+  else{
+    console.info("success");
+  }
+});
 
 
 

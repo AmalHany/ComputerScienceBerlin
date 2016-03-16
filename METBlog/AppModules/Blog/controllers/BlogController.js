@@ -1,6 +1,6 @@
 module.exports = function(app, route, express) {
 
-  //get a blogs
+  //get a blog
   app.get('/blogs/:blog_id', function(req, res){
     app.models.Blog.findOne({_id: req.params.blog_id})
                    .populate('posts user')

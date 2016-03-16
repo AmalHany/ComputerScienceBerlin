@@ -10,11 +10,8 @@ module.exports = function(app, route, express) {
 
   //get post with comments
   app.get('/posts/:post_id', function(req, res){
-    app.models.Post.findOne({_id: params.post_id})
-                   .populate({
-                     path: 'comments',
-                     populate: { path: 'user' }
-                   })
+    app.models.Post.findOne({_id: req.params.post_id})
+                   .populate('comments user')
                    .exec(function(err, post){
                      if (err) throw err;
                      res.json(post);
