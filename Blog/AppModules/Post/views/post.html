@@ -6,11 +6,24 @@
     <p ng-bind="post.content"></p>
     <div>
       <div ng-repeat="comments in post.comments">
+      <!-- roshdy -->
+    <!--   <form ng-submit="addMovie()" class="navbar-form form-inline">
+            <div class="form-group">
+              <input style="width: 500px;" class="form-control" type="text" ng-model="movieName">
+            </div>
+            <input class="btn btn-default" type="submit" value="Add a new movie">
+          </form>
+       -->
+
         comment by:
         <br>
+        
+      <!--   <div ng-repeat="x in comments" class="list-group">
+          <a class="list-group-item">
         <span ng-bind="comment.user.f_name"></span>
         <span ng-bind="comment.date"></span>
         <div ng-bind="comment.text"></div>
+ -->        </a>
       </div>
     </div>
   </div>
