@@ -1,23 +1,3 @@
-var blogApp = angular.module('blogApp', []);
-
-blogApp.controller('blogController',
-  function($scope, $http, $routeParams) {
-    $scope.getBlog = function(){
-        var config = {
-          method: "GET",
-          url: '/blogs/' + $routeParams.blogId,
-          headers: {"Content-Type": "application/json;charset=utf-8"}
-        };
-        $http(config).then(function(response) {
-            $scope.searchStr = "";
-            $scope.blog = response.data;
-        });
-    }
-
-    $scope.getBlog();
-  }
-);
-
 var homeApp = angular.module('homeApp', []);
 
 homeApp.controller('homeController',
@@ -37,20 +17,49 @@ homeApp.controller('homeController',
   }
 );
 
-var postApp = angular.module('postApp', []);
+var blogApp = angular.module('blogApp', []);
 
-postApp.controller('postController', ['$routeParams',
-  function($scope,$http, $routeParams) {
-    $scope.getPost = function(){
+blogApp.controller('blogController',
+  function($scope, $http, $routeParams) {
+    $scope.getBlog = function(){
         var config = {
           method: "GET",
-          url: "/posts/"+ $routeParams.postId,
+          url: '/blogs/' + $routeParams.blogId,
           headers: {"Content-Type": "application/json;charset=utf-8"}
         };
         $http(config).then(function(response) {
-            $scope.post = response.data;
+            $scope.searchStr = "";
+            $scope.blog = response.data;
         });
+        console.log($routeParams.blogId);
     }
+
+    $scope.getBlog();
+  }
+);
+
+var postApp = angular.module('postApp', []);
+
+postApp.controller('postController', ['$routeParams',
+  function($scope, $http,$routeParams) {
+    $scope.getPost = function(){
+        var config = {
+          method: "GET",
+          url: "/posts/" + $routeParams.postId,
+          headers: {"Content-Type": "application/json;charset=utf-8"}
+        };
+        $http(config).then(function(response) {
+
+            $scope.post = response.data;
+
+        });
+        console.log($routeParams.postId);
+    }
+
+
+
+
+
 
     $scope.getPost();
   }

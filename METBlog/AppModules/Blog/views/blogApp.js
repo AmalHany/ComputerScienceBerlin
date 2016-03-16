@@ -12,6 +12,7 @@ blogApp.controller('blogController',
             $scope.searchStr = "";
             $scope.blog = response.data;
         });
+        console.log($routeParams.blogId);
     }
 
     $scope.getBlog();
