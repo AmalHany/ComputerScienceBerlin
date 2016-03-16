@@ -8,7 +8,7 @@ var _ = require('lodash');
 // Create the application.
 var app = express();
 
-
+// Choose module to parse html
 app.engine('html', engines.hogan);
 
 
