@@ -1,4 +1,4 @@
-  var mainApp = angular.module('mainApp', [ 'ngRoute', 'postApp', 'blogApp', 'homeApp']);
+  var mainApp = angular.module('mainApp', [ 'ngRoute', 'postApp', 'blogApp', 'homeApp', 'userApp']);
 
   mainApp.controller('aboutController', function($scope){});
 
@@ -16,6 +16,14 @@
                         .when('/post/:postId', {
                           templateUrl: '/partials/Post/post.html',
                           controller: 'postController'
+                        })
+                        .when('/signUp', {
+                          templateUrl: '/partials/User/sign_up.html',
+                          controller: 'signUpController'
+                        })
+                        .when('/signIn', {
+                          templateUrl: '/partials/User/sign_in.html',
+                          controller: 'signInController'
                         });
                     }
                   ]
