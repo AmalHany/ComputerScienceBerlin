@@ -7,9 +7,14 @@
       by:
       <p ng-bind="blog.user.f_name"></p>
     </div>
+
     <div>
-      <div ng-repeat="post in blog.posts">
-        <a ng-href="#/post/{{post.id}}" ng-bind="post.title"></a>
+      <input style="width: 500px;" class="form-control" type="text" ng-model="searchStr">
+    </div>
+
+    <div>
+      <div ng-repeat="post in blog.posts | filter: searchStr">
+        <a ng-href="#/post/{{post._id}}" ng-bind="post.title"></a>
         <span ng-bind="post.date"></span>
       </div>
     </div>
