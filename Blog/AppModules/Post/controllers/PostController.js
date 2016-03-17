@@ -37,6 +37,24 @@ module.exports = function(app, route, express) {
 
   //   });
  //end roshdy
+
+
+ //Samy's task
+ 
+  // app.put('/movies', function(req, res){
+  //   for (prop in req.body){
+  //     comment[prop]= req.body[prop];
+  //   }
+  //   comment.save(function(err){
+  //     if (err){
+  //       return res.send(err);
+  //     }
+  //     res.json({message:"Comment Updated!"})
+  //   });
+  // });
+
+//End Samy
+
   });
 
   return function(req, res, next) {

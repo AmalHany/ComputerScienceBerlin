@@ -17,13 +17,25 @@
 
         comment by:
         <br>
-        
+        <!-- Roshdy -->
       <!--   <div ng-repeat="x in comments" class="list-group">
           <a class="list-group-item">
         <span ng-bind="comment.user.f_name"></span>
         <span ng-bind="comment.date"></span>
         <div ng-bind="comment.text"></div>
+
  -->        </a>
+
+  <!--  End Roshdy -->
+
+    <!-- Samy -->
+        <div ng-repeat="x in comments" class="list-group">
+          <a class="list-group-item">
+            <span ng-bind="x.text"></span>
+            <button class="btn btn-danger pull-right" ng-click="editComment(x)">Edit</button>
+            <br>
+
+              <!-- End Samy -->
       </div>
     </div>
   </div>
