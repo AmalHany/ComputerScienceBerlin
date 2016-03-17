@@ -7,9 +7,9 @@ var db = mongoose.connection;
 // });
 
 
-  var Blog= require('./../AppModules/Blog/models/Blog');
-  var Post= require('./../AppModules/Post/models/Post');
-  var User= require('./../AppModules/User/models/User');
+  var Blog = require('./../AppModules/Blog/models/Blog');
+  var Post = require('./../AppModules/Post/models/Post');
+  var User = require('./../AppModules/User/models/User');
 
 
 // var UsersBag = [{_id:"u1",f_name:"hazem",l_name:"agaty",blogs:{_id:"b12"}},
@@ -113,9 +113,9 @@ b3.save(function (err) {
 
 
 
-var p1 = new Post({title:"post1",content:"post1",date:"1111-11-1",blog: b1._id,comments:[]});
-var p2 = new Post({title:"post2",content:"post2",date:"1111-11-1",blog: b2._id,comments:[]});
-var p3 = new Post({title:"post3",content:"post3",date:"1111-11-1",blog: b3._id,comments:[]});
+var p1 = new Post({title:"post1",content:"post1dfgpojdfpgojdp",date:"1111-11-1",blog: b1._id,comments:[]});
+var p2 = new Post({title:"post2",content:"post2dopfgjdopfg",date:"1111-11-1",blog: b2._id,comments:[]});
+var p3 = new Post({title:"post3",content:"post3 gfsdigifdhg",date:"1111-11-1",blog: b3._id,comments:[]});
 
 b1.posts = [p1._id];
 b2.posts = [p2._id];

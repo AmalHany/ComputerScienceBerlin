@@ -21,6 +21,16 @@ module.exports = function(app, route, express) {
                    });
   });
 
+//to edit a specific post:
+
+  app.put('/posts/:post_id/edit', function(req, res){
+    app.models.Post.find({}, function(err, posts){
+      if (err) throw err;
+      res.json(posts);
+    });
+  });
+
+
   return function(req, res, next) {
     next();
   };

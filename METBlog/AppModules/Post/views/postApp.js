@@ -6,6 +6,7 @@ postApp.controller('postController', ['$routeParams',
         var config = {
           method: "GET",
           url: "/posts",
+      //    console.log(post.title);
           data: {post_id: $routeParams.postId},
           headers: {"Content-Type": "application/json;charset=utf-8"}
         };

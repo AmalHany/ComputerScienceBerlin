@@ -4,6 +4,8 @@ var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var engines = require('consolidate');
 var _ = require('lodash');
+var session = require('express-session');
+
 
 // Create the application.
 var app = express();

@@ -21,8 +21,11 @@ blogApp.controller('blogController',
 var homeApp = angular.module('homeApp', []);
 
 homeApp.controller('homeController',
+
   function($scope, $http) {
+
     $scope.getBlogs = function(){
+
         var config = {
           method: "GET",
           url: "/blogs",
@@ -45,7 +48,8 @@ postApp.controller('postController', ['$routeParams',
         var config = {
           method: "GET",
           url: "/posts",
-          data: {post_id: $routeParams.postId},
+      //    console.log(post.title);
+          data: {post_id: $routeParams.postId},  //what is wrong with this line? throws error
           headers: {"Content-Type": "application/json;charset=utf-8"}
         };
         $http(config).then(function(response) {
