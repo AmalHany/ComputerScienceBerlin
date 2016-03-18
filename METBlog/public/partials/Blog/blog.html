@@ -13,22 +13,31 @@
     </div>
 
     <div>
+
+
+
+      <form ng-submit="addPost()" class="navbar-form form-inline">
+            <div class="form-group">
+             
+              <input style="width: 500px;" class="form-control" type="text" ng-model="PostName">
+            </div>
+
+            <input class="btn btn-default" type="submit" value="New Post" >
+          </form>
+
+
       <div ng-repeat="post in blog.posts | filter: searchStr">
-        <a ng-href="#/post/{{post._id}}" ng-bind="post.title"></a>
-        <span ng-bind="post.date"></span>
+        <a ng-href="#/post/{{post._id}}" ng-bind="post.title"></a>:
+        <span ng-bind="post.content"></span>(
+        <span ng-bind="post.date"></span>)
         <button  ng-click="removePost(post)">Remove</button>
         <button  ng-click="editPost(post)">Edit</button>
 
         </div>
 
 
-        <form ng-submit="addPost()" class="navbar-form form-inline">
-            <div class="form-group">
-              <input style="width: 500px;" class="form-control" type="text" ng-model="PostName">
-            </div>
-            <input class="btn btn-default" type="submit" value="New Post" >
-          </form>
 
+        
 
 
 

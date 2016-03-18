@@ -1,7 +1,7 @@
 var blogApp = angular.module('blogApp', []);
 
 blogApp.controller('blogController',
-  function($scope, $http, $routeParams) {
+  function($scope, $http, $routeParams, $location) {
     $scope.getBlog = function(){
         var config = {
           method: "GET",
@@ -16,6 +16,9 @@ blogApp.controller('blogController',
     }
 
 
+
+
+
      $scope.addPost = function(){
       console.log($scope.PostName);
         if($scope.PostName !== null
@@ -26,13 +29,12 @@ blogApp.controller('blogController',
           var config = {
             method: "POST",
             url: "/blogs/" + $routeParams.blogId,
-            data: {title: $scope.PostName, content:"first post", date:"1995-23-1",blog:$routeParams.blogId},
+            data: {title: $scope.PostName, content:"first sd post", date:"1995-23-1",blog:$routeParams.blogId},
             headers: {"Content-Type": "application/json;charset=utf-8"}
           };
-          $http(config).then(function(response) {
-              $scope.getBlog();
+          $http(config).then(function(response) {       
               $scope.PostName = "";
-
+              $location.path( "/blog/" + $routeParams.blogId);
           });
          }
       }
@@ -60,7 +62,7 @@ blogApp.controller('blogController',
         };
         $http(config).then(function(response) {
             $scope.getBlog();
-            $scope.PostName = x.title;
+            $scope.PostName = x.content;
         });
       }
 

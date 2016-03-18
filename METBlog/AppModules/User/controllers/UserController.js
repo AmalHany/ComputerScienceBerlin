@@ -2,7 +2,7 @@ module.exports = function(app, route, express) {
 
   //sign up
   app.post('/users/signup', function(req, res){
-
+    
     var newUser = new app.models.User({
       f_name: req.body.newUser.fName,
       l_name: req.body.newUser.lName,

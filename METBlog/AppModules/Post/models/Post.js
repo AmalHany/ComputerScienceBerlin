@@ -6,8 +6,7 @@ var CommentSchema = new mongoose.Schema({
   date: Date,
   user: {
     type: Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
+    ref: 'User'    // removed required for testing
   }
 });
 

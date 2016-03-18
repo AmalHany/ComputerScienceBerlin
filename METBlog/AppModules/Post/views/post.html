@@ -6,12 +6,28 @@
     <p ng-bind="post.content"></p>
     <div>
       <div ng-repeat="comments in post.comments">
-        comments: 
+        
         <br>
-        <span ng-bind="comment.user.f_name"></span>
-        <span ng-bind="comment.date"></span>
-        <div ng-bind="comment.text"></div>
+        <span ng-bind="comments.user.f_name"></span>
+        <div ng-bind="comments.text"></div>
+        <span ng-bind="comments.date"></span>
+        <button  ng-click="removeComment(comments)">Remove</button>
+        <button  ng-click="editComment(comments)">Edit</button>
+        <br>
       </div>
+
+      <form ng-submit="addComment()" class="navbar-form form-inline">
+            <div class="form-group">
+             
+              <input style="width: 500px;" class="form-control" type="text" ng-model="commTxt">
+            </div>
+
+            <input class="btn btn-default" type="submit" value="New Comment" >
+          </form>
+
+
+
+
     </div>
   </div>
 

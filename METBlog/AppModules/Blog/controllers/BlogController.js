@@ -19,7 +19,7 @@ module.exports = function(app, route, express) {
   });
 
    app.post('/blogs/:blog_id', function(req, res){
-
+    
     var postTitle = req.body.title;
     var postContent = req.body.content;
     var postBlog = req.body.blog;
@@ -32,10 +32,12 @@ module.exports = function(app, route, express) {
       blog: postBlog,
       date: postDate
     });
+
     newPost.save(function(err) {
       if (err) throw err;
     });
     res.sendStatus(200);
+
   });
 
 
