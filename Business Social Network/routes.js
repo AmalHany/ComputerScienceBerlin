@@ -1,3 +1,3 @@
 module.exports = {
-  'socialRec': require('./AppModules/SocialNetworkInfo/controllers/SocialRecController')
+  'socialTags': require('./AppModules/SocialNetworkInfo/controllers/SocialRecController')
 };
