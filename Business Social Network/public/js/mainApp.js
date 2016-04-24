@@ -1,4 +1,4 @@
-  var mainApp = angular.module('mainApp', [ 'ngRoute', 'searchApp']);
+var mainApp = angular.module('mainApp', [ 'ngRoute', 'searchApp']);
 
   mainApp.config(['$routeProvider',
                     function($routeProvider) {
