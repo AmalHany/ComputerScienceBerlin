@@ -1,0 +1,91 @@
+<html ng-app = "searchApp">
+
+
+<div ng-controller = "SearchBoxController">
+
+  <head>
+
+    <br /><br />
+
+    <div class="col-lg-6">
+
+      <div class="input-group">
+
+        <!-- input box -->
+        <input type="text" ng-model = "search_term" ng-bind = "search_term"
+        class="form-control" placeholder="Enter product name/tags...">
+
+        <!-- search button-->
+
+        <span class="input-group-btn">
+
+          <button type="button" class="btn btn-default" ng-click = "search()" >
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search!
+          </button>
+
+        </span>
+
+      </div>
+
+
+    </div>    <!-- whole search box and button -->
+
+
+
+    <br /><br /><br /><br /><br />
+
+    <!-- search results area -->
+
+    <div class = "container" ng-show = "search_term.length > 0 ">
+
+
+      <!-- show number of matches and search term -->
+
+      <h1>Search Results</h1>
+
+      <br /> <br />
+
+      <table class = "table" >
+
+        <thead>
+
+          <tr>
+            <th>Product Name</th>
+            <th>Price</th>
+            <th>Seller</th>
+            <th>Reviews and Ratings</th>
+          </tr>
+
+
+          <tr ng-repeat = "product in searchResults |
+          filter: {name: search_term}
+          filter: {tags: search_term}">
+
+
+          <td>{{product.name}}</td>
+          <td>{{product.price}}</td>
+          <td>{{product.seller}}</td>
+          <td>{{product.review}}</td>
+
+        </tr>
+
+      </thead>
+
+
+    </table>
+
+
+  </div>
+
+
+</head>
+
+
+<body>
+
+
+</body>
+
+</div>
+
+</html>
