@@ -1,0 +1,11 @@
+<div ng-app="businessApp">
+	<div ng-controller="searchController">
+		<input ng-model="searchString">
+		<button class="btn btn-primary" ng-click="searchByCategory(searchString)"> Search</button>
+		<div ng-repeat="business in businesses">
+			<h1>Name: {{business.name}} </h1>
+			<h2>Category: {{business.category}} </h2>
+		</div>
+	</div>
+
+</div>
