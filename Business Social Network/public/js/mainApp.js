@@ -1,8 +1,7 @@
-  var mainApp = angular.module('mainApp', [ 'ngRoute']);
-  
-  mainApp.config(['$routeProvider',
-                    function($routeProvider) {
+var mainApp = angular.module('mainApp', [ 'ngRoute']);
+mainApp.config(['$routeProvider',
+                  function($routeProvider) {
 
-                    }
-                  ]
-  );
+                  }
+               ]
+);
