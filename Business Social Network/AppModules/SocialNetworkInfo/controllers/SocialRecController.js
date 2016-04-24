@@ -2,12 +2,13 @@ module.exports = function(app, route, express) {
 
   var graph = require('fbgraph');
 
-  app.get('/socialTags', function(req, res){
+  app.get('/socialRecs', function(req, res){
     var access_token = "CAACEdEose0cBACnyOfKvTEpDUCg3pXp4gWszv2cg5KPXpzfqgOwZASfZCm8qZAWpUp3OAC3AuZAvGav8LdKXnH30h3V05e8qb3ElOuDijjvGYLcSKulUZAvUo6dIbQDvm6luOrcO9jZArdhFAk4bPR2oIf5p9xj0UhIrPOwqS9B8rvYCOWl6LZB2lThV7iqpwX8JKc5AwZBZAvlPEdjQQdAjO";
     var query = "me?fields=age_range,gender,feed{description,message,likes},likes{about,name},location,books{name,description,written_by},movies{genre,name,description},groups{name},television{genre,name},music{name,genre},events{name}";
     graph.setAccessToken(access_token);
     graph.get(query, function(err, response) {
       var tags = getTags(response);
+      
       res.send(tags);
     });
   });
