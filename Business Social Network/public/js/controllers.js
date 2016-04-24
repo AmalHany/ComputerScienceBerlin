@@ -8,9 +8,7 @@ var search = angular.module("searchApp", []);
 search.controller('SearchBoxController', function($scope, $http){
   //why are there sometimes more arguments in second argument (array?)
 
-  var userSearch = $scope.search_term;  //user search is the term the user entered in the search
-  $scope.searchTerm = userSearch
-
+  var userSearch;
 
   var test1 = {
     name: "test1 bob",
@@ -30,43 +28,42 @@ search.controller('SearchBoxController', function($scope, $http){
 
   var allProducts = [test1, test2];
 
+  $scope.update = function(){   //this will run whenever the input changes
 
-  $scope.searchResults = allProducts
-
-  // var searchResults = [];
-  //
-  //
-  // for(var i = 0; i<allProducts.length; i++){
-  //
-  //
-  //   if(allProducts[i].name.indexOf(userSearch) != -1
-  //   || allProducts[i].tags.indexOf(userSearch) != -1){
-  //
-  //     searchResults.push(allProducts[i]);
-  //
-  //   }
-  //
-  // };
-  //
-  // $scope.searchResults = searchResults
+    userSearch = $scope.search_term;  //user search is the term the user entered in the search
+    var searchResults = []
 
 
+    for(var i = 0; i<allProducts.length; i++){
+
+      if(
+        (allProducts[i].name.indexOf(userSearch) !== -1)
+        ||
+        (allProducts[i].tags.indexOf(userSearch.toLowerCase()) !== -1)
+      )
+
+      {
+
+        searchResults.push(allProducts[i]);
+
+      }
+
+    };
+
+
+    $scope.searchResults = searchResults
+
+
+  }
 
 
   //on button click
   $scope.search = function(){
 
-  };
-
-  $scope.customSearchFilter = function(product){
-
-    // return (product.name.indexOf(userSearch) !== -1
-    // || product.tags.indexOf(userSearch) !== -1);
-
-
-
+    $scope.update()
 
   };
+
 
 
 
