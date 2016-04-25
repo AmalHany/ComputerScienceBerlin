@@ -1,7 +1,3 @@
-facebookSocialApi = {
-
-};
-
 var wishListApp = angular.module('wishListApp', []);
 
 wishListApp.controller('WishListController',
