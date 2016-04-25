@@ -2,10 +2,12 @@
 	<div ng-controller="searchController">
 		<input ng-model="searchString">
 		<button class="btn btn-primary" ng-click="searchByCategory(searchString)"> Search</button>
+		<h2 ng-if="businesses.length === 0 ">No business with this category</h2>
 		<div ng-repeat="business in businesses">
 			<h1>Name: {{business.name}} </h1>
 			<h2>Category: {{business.category}} </h2>
 		</div>
+
 	</div>
 
 </div>
