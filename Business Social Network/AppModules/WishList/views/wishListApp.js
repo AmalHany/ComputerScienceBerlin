@@ -18,6 +18,22 @@ wishListApp.controller('WishListController',
 
     }
 
+
+
+    $scope.removeProduct = function(x){
+        console.log(x._id);
+        console.log($routeParams.wishlistId);
+        var config = {
+          method: "DELETE",
+          url: "/wishlists/" + $routeParams.wishlistId,
+          data: {productID: x._id , wishlistID: $routeParams.wishlistId},
+          headers: {"Content-Type": "application/json;charset=utf-8"}
+        };
+        $http(config).then(function(response) {
+            $scope.getWishList();
+        });
+      }
+
     $scope.getWishList();
 
   }

@@ -12,6 +12,26 @@ app.get('/wishlists/:wishlist_id', function(req, res){
                      res.json(newArr);
                    });
   });
+
+
+
+  app.delete('/wishlists/:wishlist_id', function(req, res){
+    
+  var wishlist_id = req.body.wishlistID,
+   product_id = req.body.productID;
+  console.info(product_id);
+  app.models.WishList.findByIdAndUpdate(
+    wishlist_id,
+   { $pull: { 'products': {  _id: product_id } } },function(err,model){
+      if(err){
+        console.log(err);
+        return res.send(err);
+        }
+        return res.json(model);
+    });
+
+
+});
 	
 	return function(req, res, next) {
       next();
