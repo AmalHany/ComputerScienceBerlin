@@ -7,10 +7,38 @@ module.exports = function(app, route, express) {
     var query = "me?fields=age_range,gender,feed{description,message,likes},likes{about,name},location,books{name,description,written_by},movies{genre,name,description},groups{name},television{genre,name},music{name,genre},events{name}";// facebook graph api query string
     graph.setAccessToken(access_token);// perform the query to the session's user account
     graph.get(query, function(err, response) {// perform a get request to facebook graph api
-      var tags = getTags(response);// process the response json object to extract usefull tags
+      var mytags = getTags(response);// process the response json object to extract usefull tags
 
-      res.send(tags);
+      app.models.Product.aggregate([
+        {
+          $project: {
+            name: 1,
+            match_count: {
+              $size: {
+                $setIntersection: [ "$tags", mytags]
+              }
+            }
+          }
+        },
+        {
+          $match: {
+            match_count: { "$gt": 0 }
+          }
+        },
+        {
+          $sort: { match_count: -1 }
+        }
+      ], function(err, result){
+        if(err){
+          console.log(err);
+        }
+        else {
+          res.json(result);
+        }
+      });
+
     });
+    
   });
 
   var getTags = function(fbObj){
