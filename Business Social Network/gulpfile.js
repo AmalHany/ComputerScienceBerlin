@@ -4,7 +4,6 @@ var flatten = require('gulp-flatten');
 var runSequence = require('run-sequence');
 var nodemon = require('gulp-nodemon');
 var del = require('del');
-var env = require('gulp-env');
 
 var srcJs = ['AppModules/*/views/**/*.js'];
 var srcHtml = ['AppModules/*/views/**/*.html'];
@@ -37,19 +36,14 @@ gulp.task('collect-assets',function(){
 });
 
 gulp.task('start', function () {
-	// env({
-  //   vars: {
-  //     APPID: '234922790201545',
-	// 		APPSECRET: '84eaac99cf37fef83728fb538b183355'
-  //   }
-  // });
-
   nodemon({
     script: 'app.js',
     ext: 'js html',
     ignore: ['public/js/controllers.js', 'public/partials/'],
     tasks: ['setup'],
-    env: { 'NODE_ENV': 'development' }
+    env: { 'NODE_ENV': 'development',
+		 			 'APPID':  '234922790201545',
+				   'APPSECRET': '84eaac99cf37fef83728fb538b183355'}
   })
 });
 

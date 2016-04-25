@@ -3,7 +3,7 @@ module.exports = function(app, route, express) {
   var graph = require('fbgraph');// facebook graph api module
 
   app.get('/socialRecs', function(req, res){
-    var access_token = "CAACEdEose0cBACnyOfKvTEpDUCg3pXp4gWszv2cg5KPXpzfqgOwZASfZCm8qZAWpUp3OAC3AuZAvGav8LdKXnH30h3V05e8qb3ElOuDijjvGYLcSKulUZAvUo6dIbQDvm6luOrcO9jZArdhFAk4bPR2oIf5p9xj0UhIrPOwqS9B8rvYCOWl6LZB2lThV7iqpwX8JKc5AwZBZAvlPEdjQQdAjO";//user facebook access token
+    var access_token = "CAACEdEose0cBAAtunrmyO8YFqhOnzKwbOr7qHOQJqFJlcYfQ6bU149m0m0EbdN3hR6yDPimtMFncA9KE8KSkGJfUKGMz3Pa0ZAH3idSE7WxIfNUI7jvB1oWAKdZATFV3HC1qAUTws5YPZAYPpIk3Je5GjCbMFvkYDFG9wCz56ZAVLxklCMwi4WMRmFNn8f3iRaAZA8QxDXSgWIyf6bOQC";//user facebook access token
     var query = "me?fields=age_range,gender,feed{description,message,likes},likes{about,name},location,books{name,description,written_by},movies{genre,name,description},groups{name},television{genre,name},music{name,genre},events{name}";// facebook graph api query string
     graph.setAccessToken(access_token);// perform the query to the session's user account
     graph.get(query, function(err, response) {// perform a get request to facebook graph api
