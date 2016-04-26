@@ -11,9 +11,26 @@ function($scope, $routeParams){
          headers: {"Content-Type": "application/json;charset=utf-8"}
     };
     $http(config).then(function(response){
+      $scope.getProduct();
     });
   }
   $scope.getProduct();
+
+  $scope.addProduct = function(){
+    if($scope.Name !==null
+    && $scope.Name !==""
+    && $scope.Name !==  undefined)
+    {
+      var config = {
+        method:"POST",
+        url:"/Product",
+        data: {title: $scope.Name},
+        headers: {"Content-Type": "application/json;charset=utf-8"}
+
+      };
+
+    }
+  }
 }
 
 ]);
