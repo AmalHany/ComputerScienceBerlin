@@ -9,7 +9,7 @@ module.exports = function(app, route, express) {
     graph.get(query, function(err, response) {// perform a get request to facebook graph api
       var mytags = getTags(response);// process the response json object to extract usefull tags
 
-      app.models.Product.aggregate([
+      app.models.Product.aggregate([//query all products and set match count by the number of common tags in the product and the social recommendaton tags
         {
           $project: {
             name: 1,
@@ -27,7 +27,8 @@ module.exports = function(app, route, express) {
         },
         {
           $sort: { match_count: -1 }
-        }
+        },
+        { $limit : 20 }
       ], function(err, result){
         if(err){
           console.log(err);
@@ -38,7 +39,7 @@ module.exports = function(app, route, express) {
       });
 
     });
-    
+
   });
 
   var getTags = function(fbObj){
