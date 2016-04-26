@@ -1,9 +1,9 @@
 module.exports = function(app, route, express) {
 
 
-  //get all blogs
+
   app.get('/Product', function(req, res){
-    app.models.Blog.find({}, function(err, blogs) {
+    app.models.Product.find({}, function(err, products) {
       if (err) throw err;
       res.json(products);
     });
