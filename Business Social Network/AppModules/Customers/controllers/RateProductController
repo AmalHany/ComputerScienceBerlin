@@ -1,0 +1,23 @@
+module.exports = function(app, route, express) {
+module.require ='ProductsModel';
+    //rate a product
+    app.get('/rateProducts', function(req, res){
+    });
+
+    
+
+    app.addRating('/rateProducts:productID', function(req, res){
+        var productID = req.body.productID
+        
+
+
+    });
+    return function(req, res, next) {
+        next();
+    };
+
+
+};
+
+
+

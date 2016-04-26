@@ -38,7 +38,3 @@ RateProductApp.controller('RateAppController',
 
     }
 );
-
-facebookSocialApi = {
-
-};
