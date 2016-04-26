@@ -29,8 +29,18 @@
            <h2 ng-bind="product.Name"></h2>
            <h2>{{product.Price | currency: "&euro;"}}</h2>
            <br><br><br><br><br>
-      	   <a class="btn btn-primary" href="#">Buy</a>
-      	   <a class="btn btn-danger" ng-click="removeProduct(product)">Remove</a>
+    
+
+		<button type="button" class="btn btn-default" aria-label="Left Align" data-toggle="tooltip" data-placement="bottom" title="Buy">
+  <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+		</button>
+
+
+
+		<button type="button" class="btn btn-default" aria-label="Left Align" ng-click="removeProduct(product)" data-toggle="tooltip" data-placement="bottom" title="Remove">
+  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+		</button>
+
         </div>
     </div>
 </div>

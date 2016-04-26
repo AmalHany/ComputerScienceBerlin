@@ -35,6 +35,9 @@ wishListApp.controller('WishListController',
       }
 
     $scope.getWishList();
+    $(function(){
+    $('body').tooltip({ selector: '[data-toggle="tooltip"]' });
+});
 
   }
 );
