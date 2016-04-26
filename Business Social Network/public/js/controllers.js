@@ -1,7 +1,3 @@
-facebookSocialApi = {
-
-};
-
 var search = angular.module("searchApp", []);
 
 search.controller('SearchBoxController', function($scope, $http){
@@ -34,24 +30,37 @@ search.controller('SearchBoxController', function($scope, $http){
     tags: ["black", "purple", "sweater"]
   };
 
+  var test4 = {
+    name: "swailem gedan",
+    price: 1024,
+    seller: "Apple",
+    review: "4 stars",
+    tags: ["black", "purple", "male", "clothes"]
+  };
 
 
-  var allProducts = [test1, test2, test3];
+
+  var allProducts = [test1, test2, test3, test4];
 
 
   $scope.update = function(){   //this will run whenever the input changes
 
     userSearch = $scope.search_term;  //user search is the term the user entered in the search
     $scope.searchTerm = userSearch
-    var userSearchArray = userSearch.split(" ")   //array of search terms entered by user
+
+    var userSearchArray = userSearch.toLowerCase().split(" ")
+    //array of search terms entered by user changed to lowercase
 
 
     var bestMatches = []    //the products to show (in this order)
 
     for(var i = 0; i<allProducts.length; i++){
 
-      var productTags = allProducts[i].tags
+      var productTags = ("" + allProducts[i].tags).toLowerCase().split(",")
+      //change all tags to lowercase so comparison is more accurate
+
       var productNameArray = allProducts[i].name.toLowerCase().split(" ")
+      //change product name to lowercase and placed in array
 
       var tagCount = count(userSearchArray, productTags)
       var nameCount = count(userSearchArray, productNameArray)
@@ -69,7 +78,7 @@ search.controller('SearchBoxController', function($scope, $http){
       return a[1] < b[1]
     }));
 
-    //return the best matches in the correct order
+    //return the best matches in the correct order (descending)
     $scope.searchResults = bestMatches
 
 
@@ -86,12 +95,15 @@ search.controller('SearchBoxController', function($scope, $http){
   count = function(search, comp){
 
     var len = (search.length >= comp.length) ? search.length : comp.length
+    //to loop on the length of the larger array
+
     var count = 0
 
     for(var i = 0; i<len; i++){
 
       if(comp.indexOf(search[i]) !== -1){
         count++
+        //increment count if current search term is found in other array
       }
 
     }
@@ -108,7 +120,7 @@ search.controller('SearchBoxController', function($scope, $http){
     for(var i = 0; i<array.length; i++){
 
       //this if condition prevents a product
-      //that doesnt match at from being returned
+      //that doesnt match at all from being returned
 
       if((array[i])[1] !== 0){
 
@@ -120,3 +132,7 @@ search.controller('SearchBoxController', function($scope, $http){
   };
 
 });
+
+facebookSocialApi = {
+
+};
