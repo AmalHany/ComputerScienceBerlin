@@ -11,7 +11,7 @@ function($scope, $routeParams){
          headers: {"Content-Type": "application/json;charset=utf-8"}
     };
     $http(config).then(function(response){
-      $scope.getProduct();
+     $scope.products = response.data;
     });
   }
 
@@ -22,8 +22,8 @@ function($scope, $routeParams){
     var config = {
       method : "POST",
       url: "/Product",
-      data:{title: "Offer on "+ $scope.Name,
-            Price: $scope.Price,
+      data:{title: "Offer on "+ $scope.productName,
+            Price: $scope.productPrice,
             ProductDescription: $scope.ProductDescription},
         headers: {"Content-Type": "application/json;charset=utf-8"}
     };
