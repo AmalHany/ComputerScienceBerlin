@@ -38,8 +38,8 @@ gulp.task('collect-assets',function(){
 gulp.task('start', function () {
   nodemon({
     script: 'app.js',
-    ext: 'js html',
-    ignore: ['public/js/controllers.js', 'public/partials/'],
+    ext: 'js html css',
+    ignore: ['public/js/controllers.js', 'public/partials/','public/assets/'],
     tasks: ['setup'],
     env: { 'NODE_ENV': 'development' }
   })

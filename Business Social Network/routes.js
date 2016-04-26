@@ -1,9 +1,6 @@
 module.exports = {
+  'socialRec': require('./AppModules/SocialNetworkInfo/controllers/SocialRecController'),
+  'products': require('./AppModules/Product/controllers/ProductController')
 
-
-  'Product': require('./AppModules/Product/controllers/productController'),
-
-
-  'socialRec': require('./AppModules/SocialNetworkInfo/controllers/SocialRecController')
 
 };

@@ -1,3 +1,5 @@
 module.exports = {
-	Product: require('./AppModules/Product/models/Product'),
+
+	Product: require('./AppModules/Product/models/Product')
+
 };

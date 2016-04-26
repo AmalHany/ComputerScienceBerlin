@@ -1,11 +1,126 @@
-<div ng-app="ProductApp">
+	
 
-    <div ng-controller="addingProduct">
+ <link rel="stylesheet" type="text/css" href="/assets/Product/product.css" >
+
+  <div ng-app="productApp">
+
+    <div ng-controller="productCRUD">
+        
+        <div class="active">
+           <span class="glyphicon glyphicon-apple icon-apple" role="group" aria-hidde="true"></span>
+        
+            <h2> Adding product </h2>
+      
+          <form ng-submit="addProducts()" class="navbar-form form-inline">
+           
+          <table>
+            
+            <tr>
+            
+            <td>
+            <label>Name</label>
+            </td>
+            <!-- input of the product Name -->
+            <td>
+            <input style="width: 150px;" class="form-control" type="text" ng-model="productName">
+            </td>
+
+              <td>
+              <label>Price </label>
+              </td>
+              <!-- input of the product price -->
+              <td>
+              <input style="width: 150px;" class="form-control" type="text" ng-model="productPrice">
+              </td>
+              
+              <td>
+              <label>Tags</label>
+              </td>
+              <!-- input of the product Tags -->
+             <td>
+             <input style="width: 150px;" class="form-control" type="text" ng-model="tags">
+          	 </td>
+
+            </tr>
+              
+          </table>
+
+            
+            <br>
+            
+               <table>
+              <tr>
+                <td>
+            <label>
+            Description
+
+            </label>
+            </td>
+            <td>
+             <input style="width: 500px;" class="form-control" type="text" ng-model="ProductDescription">
+            </td>
+
+              </tr>
+
+            </table>
+            
+            <br>
+            
+            <input class="btn btn-success icon-add" type="submit" value="Add a new Product">
+            
+          </form>
+        </div>
+        <table>
+          
+        </table>
 
 
 
+      <div ng-repeat="x in products" class="list-group">
 
+        <img src="http://i.imgur.com/Ik8pcQx.png?1" >
 
-     </div>
+        	<br>
+          	<span  class="label label-primary" >Name</span>
+            <span ng-bind="x.Name"> </span>
+
+            <span  class="label label-info" >Price</span>
+            <span ng-bind= "x.Price | currency"> </span>
+
+            <br>
+            <span  class="label label-warning" >Tags</span>
+            <span ng-bind="x.tags"> </span>
+
+            <table>
+            	<tr>
+            		<td>
+            		<br>
+                <span  class="label label-default pull left" >Description</span>
+                </td>
+
+                <td>
+                <br>
+                 <span ng-bind= "x.ProductDescription"> </span>
+              	</td>
+
+              </tr>
+
+            </table>
+          
+            <br>
+            
+            <table>
+            
+            <tr>
+            <td>
+            <button class="btn btn-danger "
+             ng-click="removeProduct(x)">Remove</button>
+          	</td>
+            </tr>
+
+            
+      </div>
+
+  </div>
 
   </div>
