@@ -1,0 +1,40 @@
+
+[
+	{
+		"fname":"amal",
+		"lname":"xx",
+		"email":"amal@gmail.com",
+		"adress":"alexanderplatz",
+		"favourite_category_1":null,
+		"favourite_category_2":null
+
+	},
+	{
+		"fname":"ahmed",
+		"lname":"sayed",
+		"email":"sayed@gmail.com",
+		"adress":"antonien strasse",
+		"favourite_category_1":null,
+		"favourite_category_2":null
+	},
+	{
+
+		"fname":"Omar",
+		"lname":"Ragab",
+		"email":"oaragab@gmail.com",
+		"adress":"antonien  strasse",
+		"favourite_category_1":null,
+		"favourite_category_2":null
+	},
+
+	{
+        "fname":"George",
+		"lname":"maged",
+		"email":"george@gmail.com",
+		"adress":"sttutgart  strasse",
+		"favourite_category_1":null,
+		"favourite_category_2":null
+
+	}
+
+]
