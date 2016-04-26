@@ -6,12 +6,7 @@ module.require ='ProductsModel';
 
     
 
-    app.addRating('/rateProducts:productID', function(req, res){
-        var productID = req.body.productID
-        
-
-
-    });
+ 
     return function(req, res, next) {
         next();
     };

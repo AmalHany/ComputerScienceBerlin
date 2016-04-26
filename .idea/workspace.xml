@@ -2,6 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="edd4449d-364b-4f30-b30d-a7bf3f4ee749" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/FBO.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Business Social Network/.idea/Business Social Network.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Business Social Network/.idea/jsLibraryMappings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Business Social Network/.idea/libraries/Business_Social_Network_node_modules.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Business Social Network/.idea/modules.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Business Social Network/.idea/workspace.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Business Social Network/AppModules/Customers/controllers/RateProductController" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Business Social Network/AppModules/Customers/views/RateProductApp.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Business Social Network/AppModules/Customers/views/RateProductView.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Business Social Network/AppModules/Products/models/ProductsModel" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Business Social Network/public/partials/Customers/RateProductView.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Business Social Network/public/bower_components/angular-route/angular-route.js" afterPath="$PROJECT_DIR$/Business Social Network/public/bower_components/angular-route/angular-route.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Business Social Network/public/bower_components/angular/angular.js" afterPath="$PROJECT_DIR$/Business Social Network/public/bower_components/angular/angular.js" />
@@ -503,12 +516,12 @@
       <workItem from="1461618205887" duration="81000" />
       <workItem from="1461618952999" duration="139000" />
       <workItem from="1461700680509" duration="5269000" />
-      <workItem from="1461706683076" duration="996000" />
+      <workItem from="1461706683076" duration="1097000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15061000" />
+    <option name="totallyTimeSpent" value="15162000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="6" />

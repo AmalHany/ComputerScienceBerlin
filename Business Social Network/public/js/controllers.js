@@ -1,5 +1,5 @@
 var RateProductApp = angular.module('RateProductApp', []);
-RateProductApp.controller('RateAppController',
+RateProductApp.controller('RateProductController',
     function($scope, $http,$routeParams) {
 
         $scope.getRate = function(){
