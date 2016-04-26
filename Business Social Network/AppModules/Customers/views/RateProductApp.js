@@ -34,7 +34,5 @@ RateProductApp.controller('RateProductController',
 
         };
 
-        $scope.getWishList();
-
     }
 );

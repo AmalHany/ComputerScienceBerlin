@@ -4,7 +4,6 @@ module.require ='ProductsModel';
     app.get('/rateProducts', function(req, res){
     });
 
-    
 
  
     return function(req, res, next) {
