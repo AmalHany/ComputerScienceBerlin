@@ -6,8 +6,7 @@ RateProductApp.controller('RateProductController',
 
             var config ={
                 method: "GET",
-                url: "/rateProducts/",
-
+                url: "/rateProducts/"
             };
             $http(config).then(function(response) {
                 $scope.RateProductController = response.data;

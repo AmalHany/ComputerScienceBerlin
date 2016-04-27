@@ -6,13 +6,7 @@ module.require ='ProductsModel';
 
 
 
-    app.addRating('/rateProducts/:productName',function (req,res) {
-        var rating = req.body.Rating;
-        var productName= req.body.ProductName;
-        app.models.ProductSchema.find({ProductName: productName}).$push({Rating:rating});
-
-
-    });
+   
     return function(req, res, next) {
         next();
     };
