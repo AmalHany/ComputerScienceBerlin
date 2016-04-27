@@ -1,3 +1,3 @@
 module.exports = {
-	signup: require('./AppModules/signup/models/Signup')
+	updateUserInfo: require('./AppModules/Update_user_information/Model/Update_Mongo')
 };

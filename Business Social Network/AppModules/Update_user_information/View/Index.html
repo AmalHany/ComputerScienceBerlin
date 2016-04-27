@@ -1,0 +1,88 @@
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+
+<div ng-app="myApp">
+
+  <div ng-controller="myCtrl">
+
+
+<h1 style="color : red"> User Profile </h1>
+
+
+
+      <div>
+<br>
+
+          <div style="font-size: large; font-family: sans-serif ; color : black"> Name
+
+                   <input type="text" id="txtName" placeholder="Ex Hazem , Ahmed" ng-model="name" style="font-face: 'Comic Sans MS'; font-size: larger; color: grey; background-color: #FFFFC0"></input>
+
+          <br>
+<br>
+          <br>
+                 </div>
+    <div style="font-size: large; font-family: sans-serif ; color : black"> Phone
+             <input type="text" id="txtPhone" placeholder="Ex 010000000000" ng-model="phone" style="font-face: 'Comic Sans MS'; font-size: larger; color: grey; background-color: #FFFFC0"></input>
+      <br>
+               <br>
+  <br>
+          </div>
+  <div style="font-size: large; font-family: sans-serif ; color : black">  Email
+        <input type="text" id="txtEmail" placeholder="Ex fbo@SEcourse.com" ng-model="email" style="font-face: 'Comic Sans MS'; font-size: larger; color: grey; background-color: #FFFFC0"></input>
+            <br>
+            <br>
+      <br>
+  </div>
+          <div style="font-size: large; font-family: sans-serif ; color : black"> New Password
+               <input type="password" id= "txtPassword" placeholder="" ng-model="password"></input>
+      <br>
+  <br>
+    <br>
+    </div>
+  <div style="font-size: large; font-family: sans-serif ; color : black">Confirm Password
+<input type="password" id= "txtConfirmPassword" placeholder="" ng-model="password" ></input>
+            <br>
+                <br>  <br>
+          </div>
+
+
+          <form ng-submit="update()">
+          <button style="color:white ; background:green" type="submit" id="btnSubmit" class="btn btn-Red"> Update</button>
+          </form>
+          <br>
+  </div></div></div>
+
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <script type="text/javascript">
+      $(function () {
+          $("#btnSubmit").click(function () {
+              var password = $("#txtPassword").val();
+              var confirmPassword = $("#txtConfirmPassword").val();
+              var name = $("#txtName").val();
+              var phone = $("#txtPhone").val();
+              var email =$("#txtEmail").val();
+              if (password != confirmPassword) {
+                  alert("Passwords do not match.");
+                  return false;
+               }
+               if(!name || !phone || !email){
+                 alert("Please fill the empty requirments.");
+                 return false;
+
+        }
+
+
+
+
+              return true;
+
+          });
+      });
+  </script>
