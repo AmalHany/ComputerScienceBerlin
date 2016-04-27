@@ -7,4 +7,5 @@ mainApp.config(['$routeProvider',
         controller: 'rateadd'
       });
                   }]
+
 );

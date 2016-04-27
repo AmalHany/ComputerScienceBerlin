@@ -75,11 +75,11 @@ function $RouteProvider() {
    *
    *    Object properties:
    *
-   *    - `controller` – `{(string|function()=}` – Controller fn that should be associated with
+   *    - `controllers` – `{(string|function()=}` – Controller fn that should be associated with
    *      newly created scope or the name of a {@link angular.Module#controller registered
-   *      controller} if passed as a string.
-   *    - `controllerAs` – `{string=}` – An identifier name for a reference to the controller.
-   *      If present, the controller will be published to scope under the `controllerAs` name.
+   *      controllers} if passed as a string.
+   *    - `controllerAs` – `{string=}` – An identifier name for a reference to the controllers.
+   *      If present, the controllers will be published to scope under the `controllerAs` name.
    *    - `template` – `{string=|function()=}` – html template as a string or a function that
    *      returns an html template as a string which should be used by {@link
    *      ngRoute.directive:ngView ngView} or {@link ng.directive:ngInclude ngInclude} directives.
@@ -99,8 +99,8 @@ function $RouteProvider() {
    *        `$location.path()` by applying the current route
    *
    *    - `resolve` - `{Object.<string, function>=}` - An optional map of dependencies which should
-   *      be injected into the controller. If any of these dependencies are promises, the router
-   *      will wait for them all to be resolved or one to be rejected before the controller is
+   *      be injected into the controllers. If any of these dependencies are promises, the router
+   *      will wait for them all to be resolved or one to be rejected before the controllers is
    *      instantiated.
    *      If all the promises are resolved successfully, the values of the resolved promises are
    *      injected and {@link ngRoute.$route#$routeChangeSuccess $routeChangeSuccess} event is
@@ -117,11 +117,11 @@ function $RouteProvider() {
    *      </div>
    *      The map object is:
    *
-   *      - `key` – `{string}`: a name of a dependency to be injected into the controller.
+   *      - `key` – `{string}`: a name of a dependency to be injected into the controllers.
    *      - `factory` - `{string|function}`: If `string` then it is an alias for a service.
    *        Otherwise if function, then it is {@link auto.$injector#invoke injected}
    *        and the return value is treated as the dependency. If the result is a promise, it is
-   *        resolved before its value is injected into the controller. Be aware that
+   *        resolved before its value is injected into the controllers. Be aware that
    *        `ngRoute.$routeParams` will still refer to the previous route within these resolve
    *        functions.  Use `$route.current.params` to access the new route parameters, instead.
    *
@@ -480,7 +480,7 @@ function $RouteProvider() {
            * {@link ng.$location $location} hasn't changed.
            *
            * As a result of that, {@link ngRoute.directive:ngView ngView}
-           * creates new scope and reinstantiates the controller.
+           * creates new scope and reinstantiates the controllers.
            */
           reload: function() {
             forceReload = true;
