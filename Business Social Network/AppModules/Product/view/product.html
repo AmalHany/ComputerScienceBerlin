@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>MakeOffer</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -16,25 +16,25 @@
   <script src="/js/mainApp.js"></script>
 </head>
 <body>
-
+<div ng-app="productApp">
+  <div ng-controller="ProductController">
 <div class="container">
   <h1>Make Offer on Product</h1>
   <p>Entry below the products to have offer</p>
 
 <p>Select Category</p>
   <div class="btn-group">
-    <button type="button" class="btn btn-primary">Category</button>
-    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-      <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" role="menu">
-      <li><a href="#">Tablets</a></li>
-      <li><a href="#">Electronics</a></li>
-    </ul>
+
+<select ng-models="tags">
+  <option value="t">Tablet</option>
+  <option value="p">Phones</option>
+  <option value="m">Mp3</option>
+  <option value="a">Accesories</option>
+</select>
 </div>
 <br>
 <hr>
-<input type ="text" class="form-control" placeholder = "Enter first Product"</input>
+<input type ="text" class="form-control" ng-model="productName" placeholder = "Enter first Product"</input>
 
 <br>
 <br>
@@ -46,15 +46,50 @@
 <input type ="text" class="form-control" placeholder = "Enter third Product"</input>
 <br>
 <br>
-  <input type ="text"  class="form-control" placeholder = "Enter Offer Price"></input>
+  <input type ="text"  class="form-control" ng-model = "productPrice" placeholder = "Enter Offer Price"></input>
 <br>
 <div class="form-group">
   <label for="comment" >Add Offer Description(Optional):</label>
-  <textarea class="form-control" rows="5" id="desc"placeholder="Description"></textarea>
+  <textarea class="form-control" ng-model="ProductDescription" rows="5" id="desc"placeholder="Description"></textarea>
 
-</div>
-<button type="button" ng-click="makeOffer()" class="btn btn-info"> Make offer </button>
-</div>
 
+<button type="button"  ng-click="makeOffer()" class="btn btn-info"> Make offer </button>
+
+<!--> Displaying the results
+
+<div ng-repeat="x in Product" class="list-group">
+
+
+         <br>
+           <span  class="label label-primary" >Name</span>
+           <span ng-bind="x.Name"> </span>
+
+           <span  class="label label-info" >Price</span>
+           <span ng-bind= "x.Price | currency"> </span>
+
+           <br>
+           <span  class="label label-warning" >Tags</span>
+           <span ng-bind="x.tags"> </span>
+
+           <table>
+             <tr>
+               <td>
+               <br>
+               <span  class="label label-default pull left" >Description</span>
+               </td>
+
+               <td>
+               <br>
+                <span ng-bind= "x.ProductDescription"> </span>
+               </td>
+
+             </tr>
+
+           </table>
+<-->
+           <br>
+</div>
+</div>
+</div>
 </body>
 </html>

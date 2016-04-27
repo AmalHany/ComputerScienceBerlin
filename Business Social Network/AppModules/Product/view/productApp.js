@@ -1,8 +1,7 @@
 var productApp = angular.module('productApp'. []);
 
 productApp.controller('ProductController',
-['$routeParams',
-function($scope, $routeParams){
+function($scope, $http){
   $scope.getProduct = function(){
 
     var config = {
@@ -22,31 +21,24 @@ function($scope, $routeParams){
     var config = {
       method : "POST",
       url: "/Product",
-      data:{title: "Offer on "+ $scope.productName,
+      data:{Name: "Offer on "+ $scope.productName,
             Price: $scope.productPrice,
-            ProductDescription: $scope.ProductDescription},
+            ProductDescription: $scope.ProductDescription
+            
+          },
         headers: {"Content-Type": "application/json;charset=utf-8"}
     };
+    $http(config).then(function(response){
+      $scope.getProduct();
+      $scope.productName = null;
+             $scope.productPrice = null;
+             $scope.ProductDescription = null;
+             $scope.tags=null;
+    });
   }
   }
   $scope.getProduct();
 
-  $scope.addProduct = function(){
-    if($scope.Name !==null
-    && $scope.Name !==""
-    && $scope.Name !==  undefined)
-    {
-      var config = {
-        method:"POST",
-        url:"/Product",
-        data: {title: $scope.Name,
-              Price: $scope.Price},
-        headers: {"Content-Type": "application/json;charset=utf-8"}
 
-      };
-
-    }
-  }
 }
-
-]);
+);
