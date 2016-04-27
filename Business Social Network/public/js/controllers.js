@@ -1,44 +1,35 @@
-var ProdreviewsApp = angular.module('prodreviewApp', []);
+var ProdratesApp = angular.module('prodrateApp', []);
 
+  ProdratesApp.controller('rateadd', function($scope, $http) {
 
-  ProdreviewsApp.controller('reviewadd', function($scope, $http) {
-
-     $scope.getProdReviews = function(){
+     $scope.getProdRates = function(){
         var config = {
           method: "GET",
-          url: "/prodreviews",
+          url: "/prodrates",
           headers: {"Content-Type": "application/json;charset=utf-8"}
         };
         $http(config).then(function(response) {
-            $scope.productreviews = response.data;
+            $scope.productrates = response.data;
         });
       }
 
-      $scope.addProdReviews = function(){
-        console.log("OO");
-        
-        if($scope.Text!== null && $scope.Text!== "")
-        
-        
-        {
-          var config = {
-            method: "POST",
-            url: "/prodreviews",
-            data: {Text: $scope.Text},
-            headers: {"Content-Type": "application/json;charset=utf-8"}
-          };
-          $http(config).then(function(response) {
-              $scope.getProdReviews();
-              $scope.Text = null;
-              
-    
-          });
-         }
+      $scope.addProdRates = function() {
+
+          if ($scope.RateName !== null && $scope.RateName !== "") {
+              var config = {
+                  method: "POST",
+                  url: "/prodrates",
+                  data: {Rate: $scope.RateName},
+                  headers: {"Content-Type": "application/json;charset=utf-8"}
+              };
+              $http(config).then(function (response) {
+                  $scope.getProdRates();
+                  $scope.RateName = null;
+              });
+          }
       }
-
-       $scope.getProdReviews();
-
-
+       $scope.getProdRates();
+      
   });
 facebookSocialApi = {
 

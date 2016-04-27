@@ -1,11 +1,10 @@
-var mainApp = angular.module('mainApp', [ 'ngRoute','prodreviewApp']);
+var mainApp = angular.module('mainApp', [ 'ngRoute','prodrateApp']);
 mainApp.config(['$routeProvider',
                   function($routeProvider) {
 		$routeProvider.
-		when('/prodreviews', {
-        templateUrl: '/partials/ProdReview/prodreview.html',
-        controller: 'reviewadd'
+		when('/prodrates', {
+        templateUrl: '/partials/ProdRate/prodrate.html',
+        controller: 'rateadd'
       });
-
                   }]
 );

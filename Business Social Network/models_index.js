@@ -1,5 +1,5 @@
 module.exports = {
 
-	ProdReview: require('./AppModules/ProdReview/models/ProdReview')
+	ProdRate: require('./AppModules/ProdRate/models/ProdRate')
 
 };

@@ -1,0 +1,38 @@
+
+    <div ng-app="rateApp">
+
+    <div ng-controller="rateadd">
+        <div class="active">
+           <title>Rate product</title>
+          <form ng-submit="addProdRates()" class="navbar-form form-inline">
+           
+          <table>
+            
+            <tr>
+            
+            <td>
+            <label>Enter your rating here :</label>
+            </td>
+            
+            <td>
+            <input style="width: 50px;" class="form-control" type="text" ng-model="RateName">
+
+            <input class="btn btn-default" id="button" type="submit" value="Add Rate">
+            </td>
+          </form>
+        </div>
+<table>
+      <div ng-repeat=" x in productrates" class="list-group">
+
+          <br>
+            <span >Rate:</span>
+            <span ng-bind="x.Rate"> </span>
+            <br>
+            
+      </div>
+</table>
+  </div>
+
+  </div>
+
+  
