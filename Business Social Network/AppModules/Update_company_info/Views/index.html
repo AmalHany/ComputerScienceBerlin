@@ -1,0 +1,53 @@
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+ <div ng-app="myApp">
+
+    <div ng-controller="myCtrl">
+
+<h1> Company Profile </h1>
+
+
+
+        <div>
+<br>
+            <div  > Company name   :   <input type="text" placeholder="Ex Microsoft" ng-model="name"></input>
+
+            <br>
+            <br>
+          </div>
+            <div > Company phone   :   <input type="text" placeholder="Ex 01000810088" ng-model="phone"></input>
+            <br>
+            <br>
+
+            </div>
+            <div > Company email   :   <input type="text" placeholder="Ex K@microsoft.com" ng-model="email"></input>
+            <br>
+              <br>
+            </div>
+            <div > Company category : <input type="text" placeholder="Ex Sports , Clothes " ng-model="category"></input>
+            <br>
+              <br>
+            </div>
+
+
+            <form ng-submit="update()">
+            <button type="submit" class="btn btn-Red"> Save & Update Info</button>
+            </form>
+            <br>
+
+
+
+
+        </div>
+
+
+    </div>
+
+  </div>
