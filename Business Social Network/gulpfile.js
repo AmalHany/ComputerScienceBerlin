@@ -6,7 +6,7 @@ var nodemon = require('gulp-nodemon');
 var del = require('del');
 
 var srcJs = ['AppModules/*/views/**/*.js'];
-var srcHtml = ['AppModules/*/views/**/*.html'];
+var srcHtml = ['AppModules/*/views/**/*.html', 'AppModules/*/views/**/*.handlebars'];
 var srcAssets = ['AppModules/*/views/assets/*'];
 var srcToClean = ['public/partials/*', 'public/js/*', '!public/js/mainApp.js', 'public/assets/*'];
 
@@ -41,7 +41,9 @@ gulp.task('start', function () {
     ext: 'js html',
     ignore: ['public/js/controllers.js', 'public/partials/'],
     tasks: ['setup'],
-    env: { 'NODE_ENV': 'development' }
+    env: { 'NODE_ENV': 'development',
+		 			 'APPID':  '234922790201545',
+				   'APPSECRET': '84eaac99cf37fef83728fb538b183355'}
   })
 });
 
