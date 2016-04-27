@@ -7,7 +7,7 @@ RateProductApp.controller('RateProductController',
             var config ={
                 method: "GET",
                 url: "/rateProducts/",
-                headers: {"Content-Type": "application/json;charset=utf-8"}
+
             };
             $http(config).then(function(response) {
                 $scope.RateProductController = response.data;
@@ -19,13 +19,13 @@ RateProductApp.controller('RateProductController',
 
 
 
-        $scope.addRating = function(x){
-
-            var config = {
+        $scope.addRating = function(){
+              var rating = $scope.Rating;
+                var config = {
                 method: "addRating",
-                url: "/rateProducts/" + $routeParams.productID,
-                data: {productID: x._id },
-                headers: {"Content-Type": "application/json;charset=utf-8"}
+                url: "/rateProducts/" + $routeParams.ProductName,
+                data: {productName: x.ProductName,Rating:rating},
+
             };
             alert("Your rating has successfully been added");
             $http(config).then(function(response) {
