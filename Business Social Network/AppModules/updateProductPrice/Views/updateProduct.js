@@ -1,7 +1,3 @@
-facebookSocialApi = {
-
-};
-
 var signupApp = angular.module('myApp', []);
 
 
