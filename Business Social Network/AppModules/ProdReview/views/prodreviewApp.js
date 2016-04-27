@@ -40,6 +40,3 @@ var ProdreviewsApp = angular.module('prodreviewApp', []);
 
 
   });
-facebookSocialApi = {
-
-};
