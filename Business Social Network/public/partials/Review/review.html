@@ -1,0 +1,58 @@
+
+    <div ng-app="reviewApp">
+
+    <div ng-controller="reviewPost">
+        
+        <div class="active">
+           
+            <h2> Zara </h2>
+      
+          <form ng-submit="addReviews()" class="navbar-form form-inline">
+           
+          <table>
+            
+            <tr>
+            
+            <td>
+            <label>Review</label>
+            </td>
+            
+            <td>
+            <input style="width: 100px;" class="form-control" type="text" ng-model="ReviewName">
+            </td>
+
+              <td>
+              <label>Date </label>
+              </td>
+              <td>
+              <input style="width: 100px;" class="form-control" type="text" ng-model="ReviewDate">
+              </td>
+            </tr>
+          </table>
+            <br>
+            <br>
+            
+            <input class="btn btn-default" type="submit" value="Add Review">
+            
+          </form>
+        </div>
+        <table>
+          
+        </table>
+
+      <div ng-repeat=" review in reviews" class="list-group">
+
+          <br>
+            <span >Review:</span>
+            <span ng-bind="review.Review"> </span>
+            <br>
+            <span  >Date:</span>
+            <span ng-bind= "review.Dates "> </span>
+
+      </div>
+
+  </div>
+
+  </div>
+
+  

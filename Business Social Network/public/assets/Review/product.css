@@ -1,0 +1,30 @@
+h2{
+	margin-left: 300px;
+	font-size: 20px;
+	
+}
+span{
+
+	margin:10px 10px 10px 10px;
+	
+}
+label{
+
+	margin-left: 10px;
+}
+button{
+
+	margin-left: 10px;
+}
+input{
+
+	margin-left: 20px;
+}
+img{
+
+	margin-left: 20px;
+}
+
+.icon-add{
+	margin-right: 10px;
+}

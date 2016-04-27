@@ -1,7 +1,3 @@
-facebookSocialApi = {
-
-};
-
 var reviewsApp = angular.module('reviewApp', []);
 
 
