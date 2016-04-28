@@ -75,16 +75,22 @@ search.controller('SearchBoxController', function($scope, $http){
 
     };
 
-    //sorts the array based on match points
-    //and then flattens it to return only the product
 
-    bestMatches = flatten(bestMatches.sort(function(a,b){
-      return b[1] - a[1];
-    }));
+    //filters out the products with 0 matchPoints
+    //then sorts the remaining products based on their matchPoints
+    //and then finally returns only the product and ignores the matchPoints
 
-    //return the best matches in the correct order (descending)
+    bestMatches = bestMatches.filter(function(a){
+      return a[1] !== 0
+    })
+    .sort(function(a,b){
+      return b[1] - a[1]
+    })
+    .map(function(a){
+      return a[0]
+    })
+
     $scope.searchResults = bestMatches;
-
 
   }
 
@@ -112,27 +118,6 @@ search.controller('SearchBoxController', function($scope, $http){
 
     }
     return count
-  };
-
-
-  //flattens 2D array of strings and int [["cat", 34], ["dog", 5]..] etc
-  //and only takes the first element
-
-  flatten = function(array){
-
-    var res = []
-    for(var i = 0; i<array.length; i++){
-
-      //this if condition prevents a product
-      //that doesnt match at all from being returned
-
-      if((array[i])[1] !== 0){
-
-        res.push((array[i])[0])
-
-      }
-    }
-    return res
   };
 
 });
