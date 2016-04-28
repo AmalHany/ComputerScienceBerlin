@@ -1,3 +1,7 @@
+facebookSocialApi = {
+
+};
+
 var search = angular.module("searchApp", []);
 
 search.controller('SearchBoxController', function($scope, $http){
@@ -52,7 +56,7 @@ search.controller('SearchBoxController', function($scope, $http){
     //array of search terms entered by user changed to lowercase
 
 
-    var bestMatches = []    //the products to show (in this order)
+    var bestMatches = [];    //the products to show (in this order)
 
     for(var i = 0; i<allProducts.length; i++){
 
@@ -75,11 +79,11 @@ search.controller('SearchBoxController', function($scope, $http){
     //and then flattens it to return only the product
 
     bestMatches = flatten(bestMatches.sort(function(a,b){
-      return a[1] < b[1]
+      return b[1] - a[1];
     }));
 
     //return the best matches in the correct order (descending)
-    $scope.searchResults = bestMatches
+    $scope.searchResults = bestMatches;
 
 
   }
@@ -132,7 +136,3 @@ search.controller('SearchBoxController', function($scope, $http){
   };
 
 });
-
-facebookSocialApi = {
-
-};
