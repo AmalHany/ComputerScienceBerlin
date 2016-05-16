@@ -1,3 +1,4 @@
+
   var mainApp = angular.module('mainApp', [ 'ngRoute', 'wishListApp']);
   
   mainApp.config(['$routeProvider',
@@ -8,6 +9,7 @@
                           templateUrl: '/partials/WishList/wishlist.html',
                           controller: 'WishListController'
                         });
+
                     }
                   ]
   );
