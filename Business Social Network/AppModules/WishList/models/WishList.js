@@ -2,19 +2,6 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 
-var ProductTestSchema = new mongoose.Schema({
-   Name: {
-    type: String,
-    required: true
-  },
-   Price: {
-    type: Number,
-    required: true
-  },
-  url: String
-
-});
-
 
 
 
@@ -27,7 +14,7 @@ var WishListSchema = new mongoose.Schema({
 	// }
 
 
-	products : [ProductTestSchema]
+	products : [{ type: Schema.Types.ObjectId, ref: 'Product' }]
 
 
 
@@ -37,3 +24,4 @@ var WishListSchema = new mongoose.Schema({
 
 
 module.exports = mongoose.model('WishList', WishListSchema);
+

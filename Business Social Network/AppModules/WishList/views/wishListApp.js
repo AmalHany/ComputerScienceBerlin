@@ -11,6 +11,7 @@ wishListApp.controller('WishListController',
         headers: {"Content-Type": "application/json;charset=utf-8"}
       };
               $http(config).then(function(response) {
+              // console.log(response.data);
             $scope.wishlist = response.data;
 
 

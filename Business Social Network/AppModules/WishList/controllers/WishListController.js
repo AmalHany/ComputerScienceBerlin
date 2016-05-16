@@ -4,6 +4,7 @@ module.exports = function(app, route, express) {
 app.get('/wishlists/:wishlist_id', function(req, res){
 
     app.models.WishList.findOne({_id: req.params.wishlist_id})
+                   .populate('products')
                    .exec(function(err, wishlists){
                      if (err) throw err;
                      var newArr = [];
@@ -16,19 +17,22 @@ app.get('/wishlists/:wishlist_id', function(req, res){
 
 
   app.delete('/wishlists/:wishlist_id', function(req, res){
-    
+  var ObjectId = require('mongoose').Types.ObjectId;  
   var wishlist_id = req.body.wishlistID,
    product_id = req.body.productID;
-  console.info(product_id);
+  console.info(wishlist_id);
   app.models.WishList.findByIdAndUpdate(
     wishlist_id,
-   { $pull: { 'products': {  _id: product_id } } },function(err,model){
+   { $pull: { 'products': new ObjectId(product_id) } },function(err,model){
       if(err){
         console.log(err);
         return res.send(err);
         }
         return res.json(model);
     });
+
+
+
 
 
 });
