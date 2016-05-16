@@ -21,6 +21,9 @@
     "lodash": "latest",
     "method-override": "latest",
     "mongoose": "latest",
-    "run-sequence": "^1.1.5"
+    "run-sequence": "^1.1.5",
+    "fbgraph": "latest",
+    "glossary": "latest"
+
   }
 }
