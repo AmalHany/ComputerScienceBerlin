@@ -8,6 +8,10 @@ var _ = require('lodash');
 // Create the application.
 var app = express();
 
+// Create realtime socket interface
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+
 // Choose module to parse html
 app.engine('html', engines.hogan);
 
