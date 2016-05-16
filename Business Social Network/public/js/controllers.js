@@ -9,6 +9,10 @@ function getRecommendationProducts($http){
   });
 };
 
+//usage
+// getRecommendationProducts($http).then(function(response){
+//   $scope.tests = response;
+// });
 
 var wishListApp = angular.module('wishListApp', []);
 
@@ -54,4 +58,3 @@ wishListApp.controller('WishListController',
 
   }
 );
-

@@ -14,8 +14,8 @@ var WishListSchema = new mongoose.Schema({
 	// }
 
 
-	products : [{ type: Schema.Types.ObjectId, ref: 'Product' }]
-
+	products : [ { type: Schema.Types.ObjectId, ref: 'Product' } ],
+	last_seen: Date
 
 
  });
