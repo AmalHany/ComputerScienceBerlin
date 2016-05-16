@@ -4,5 +4,6 @@ module.exports = {
   Message: require('./AppModules/Message/models/Message'),
   Business: require('./AppModules/Business/models/Business'),
   Transaction: require('./AppModules/Transaction/models/Transaction'),
-  User: require('./AppModules/User/models/User')
+  User: require('./AppModules/User/models/User'),
+  Tag: require('./AppModules/Tag/models/Tag')
 };

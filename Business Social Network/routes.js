@@ -6,5 +6,6 @@ module.exports = {
   'products': require('./AppModules/Product/controllers/ProductController'),
   'users': require('./AppModules/User/controllers/UserController'),
   'businesses': require('./AppModules/Business/controllers/BusinessController'),
-  'transactions': require('./AppModules/Transaction/controllers/TransactionController')
+  'transactions': require('./AppModules/Transaction/controllers/TransactionController'),
+  'tags': require('./AppModules/Tag/controllers/TagController')
 };
