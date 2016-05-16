@@ -1,15 +1,3 @@
-function getRecommendationProducts($http){
-  var tags = [];
-  var config = {
-    method: "GET",
-    url: '/socialRecs'
-  };
-  return $http(config).then(function(response) {
-    return response.data;
-  });
-};
-
-
 var wishListApp = angular.module('wishListApp', []);
 
 wishListApp.controller('WishListController',
@@ -54,4 +42,3 @@ wishListApp.controller('WishListController',
 
   }
 );
-
