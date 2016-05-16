@@ -7,7 +7,12 @@ var _ = require('lodash');
 
 // Create the application.
 var app = express();
+var server = require('http').createServer(app);
 
+// Create realtime socket interface
+app.socketIo = require('socket.io').listen(server);
+app.socketIo.on('connection', function (socket) {
+});
 
 // Choose module to parse html
 app.engine('html', engines.hogan);
@@ -40,16 +45,5 @@ mongoose.connection.once('open', function() {
 
   console.log('Listening on port 3000...');
 
-  var server = app.listen(3000);
-  // add realtime socket interface to application
-  app.socketIo = require('socket.io')(server);
-
-  app.socketIo.on('connection', function (socket) {
-    socket.emit('news', { hello: 'world' });
-    socket.on('my other event', function (data) {
-      console.log(data);
-      socket.emit('news', { hello: 'world' });
-    });
-  });
-
+  server.listen(3000);
 });

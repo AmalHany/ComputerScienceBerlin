@@ -11,14 +11,6 @@
     <script src="/js/mainApp.js"></script>
   </head>
 
-  <script>
-    var socket = io.connect();
-    socket.on('news', function (data) {
-      console.log(data);
-      socket.emit('my other event', { my: 'data' });
-    });
-  </script>
-
   <body ng-app="mainApp">
     <div ng-include src="''"></div>
     <div ng-view></div>
