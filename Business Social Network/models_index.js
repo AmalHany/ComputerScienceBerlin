@@ -5,5 +5,7 @@ module.exports = {
   Business: require('./AppModules/Business/models/Business'),
   Transaction: require('./AppModules/Transaction/models/Transaction'),
   User: require('./AppModules/User/models/User'),
-  Tag: require('./AppModules/Tag/models/Tag')
+  Tag: require('./AppModules/Tag/models/Tag'),
+  BusinessCategory: require('./AppModules/BusinessCategory/models/BusinessCategory'),
+  ProductCategory: require('./AppModules/ProductCategory/models/ProductCategory')
 };
