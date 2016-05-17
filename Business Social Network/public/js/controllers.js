@@ -11,7 +11,8 @@ search.controller('SearchBoxController', function($scope, $http){
     price: 200,
     seller: "H&M",
     review: "5 stars",
-    tags: ["blue", "male", "jeans"]
+    tags: ["blue", "male", "jeans"],
+    category: "clothes"
   };
 
   var test2 = {
@@ -19,7 +20,8 @@ search.controller('SearchBoxController', function($scope, $http){
     price: 1200,
     seller: "Zara",
     review: "2 stars",
-    tags: ["red", "female", "sweater"]
+    tags: ["red", "female", "sweater"],
+    category: "electronics"
   };
 
   var test3 = {
@@ -27,7 +29,8 @@ search.controller('SearchBoxController', function($scope, $http){
     price: 11900,
     seller: "Saturn",
     review: "5 stars",
-    tags: ["black", "purple", "sweater"]
+    tags: ["black", "purple", "sweater"],
+    category: "books"
   };
 
   var test4 = {
@@ -35,15 +38,16 @@ search.controller('SearchBoxController', function($scope, $http){
     price: 1024,
     seller: "Apple",
     review: "4 stars",
-    tags: ["black", "purple", "male", "clothes"]
+    tags: ["black", "purple", "male", "clothes"],
+    category: "bateekh"
   };
-
-
 
   var allProducts = [test1, test2, test3, test4];
 
 
   $scope.update = function(){   //this will run whenever the input changes
+
+    var chosenCat;
 
     userSearch = $scope.search_term;  //user search is the term the user entered in the search
     $scope.searchTerm = userSearch
@@ -51,16 +55,15 @@ search.controller('SearchBoxController', function($scope, $http){
     var userSearchArray = userSearch.toLowerCase().split(" ")
     //array of search terms entered by user changed to lowercase
 
-
     var bestMatches = [];    //the products to show (in this order)
 
     for(var i = 0; i<allProducts.length; i++){
 
-      var productTags = ("" + allProducts[i].tags).toLowerCase().split(",")
       //change all tags to lowercase so comparison is more accurate
+      var productTags = ("" + allProducts[i].tags).toLowerCase().split(",")
 
-      var productNameArray = allProducts[i].name.toLowerCase().split(" ")
       //change product name to lowercase and placed in array
+      var productNameArray = allProducts[i].name.toLowerCase().split(" ")
 
       var tagCount = count(userSearchArray, productTags)
       var nameCount = count(userSearchArray, productNameArray)
@@ -71,12 +74,15 @@ search.controller('SearchBoxController', function($scope, $http){
 
     };
 
-
     //filters out the products with 0 matchPoints
     //then sorts the remaining products based on their matchPoints
     //and then finally returns only the product and ignores the matchPoints
 
     bestMatches = bestMatches.filter(function(a){
+
+      if(chosenCat != null){
+        return (a[1] !== 0 && a[0].category == chosenCat)
+      }
       return a[1] !== 0
     })
     .sort(function(a,b){
@@ -85,6 +91,7 @@ search.controller('SearchBoxController', function($scope, $http){
     .map(function(a){
       return a[0]
     })
+
 
     $scope.searchResults = bestMatches;
 
@@ -105,7 +112,7 @@ search.controller('SearchBoxController', function($scope, $http){
 
     var count = 0
 
-    for(var i = 0; i<len; i++){
+    for(var i = 0; i < len; i++){
 
       if(comp.indexOf(search[i]) !== -1){
         count++

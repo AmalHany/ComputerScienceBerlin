@@ -19,9 +19,35 @@
 
   <!-- <br /><br /> -->
 
-  <div class="col-lg-6">  <!-- whole search box and button -->
+
+
+
+  <div class="col-lg-6">  <!-- whole search box and both buttons -->
+
+
+    <!-- Category button -->
 
     <div class="input-group">
+
+      <div class="input-group-btn">
+
+        <button type="button" class="btn btn-default dropdown-toggle"
+        data-toggle="dropdown" aria-haspopup="true"
+        aria-expanded="false">
+        Categories
+
+        <span class="caret"></span></button>
+
+        <ul class="dropdown-menu" ng-model = "cat">
+
+          <li><a href="#">Clothes</a></li>
+          <li><a href="#">Electronics</a></li>
+          <li><a href="#">Books</a></li>
+          <li role="separator" class="divider"></li>
+          <li><a href="#">Bateekh</a></li>
+        </ul>
+      </div>
+
 
       <!-- input box -->
       <input type="text" ng-model = "search_term" ng-bind = "search_term" id = "search_box"
@@ -40,6 +66,7 @@
 
 
   </div>
+
   <br /><br />
 
 
