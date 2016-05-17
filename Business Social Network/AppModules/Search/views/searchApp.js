@@ -43,19 +43,28 @@ search.controller('SearchBoxController', function($scope, $http){
   };
 
   var allProducts = [test1, test2, test3, test4];
+  var allCats = ["Clothes", "Electronics", "Books", "Bateekh"]
 
+  $scope.categories = allCats
 
-  $scope.update = function(){   //this will run whenever the input changes
+  //show all categories by default
+  $scope.selected = "All Categories"
 
-    var chosenCat;
+  //this will run whenever the input changes
+  $scope.update = function(){
 
-    userSearch = $scope.search_term;  //user search is the term the user entered in the search
+    //user search is the term the user entered in the search
+    userSearch = $scope.search_term;
     $scope.searchTerm = userSearch
 
-    var userSearchArray = userSearch.toLowerCase().split(" ")
-    //array of search terms entered by user changed to lowercase
+    //chosen category from dropdown menu
+    var chosenCat = $scope.selected;
 
-    var bestMatches = [];    //the products to show (in this order)
+    //array of search terms entered by user changed to lowercase
+    var userSearchArray = userSearch.toLowerCase().split(" ")
+
+    //the products to display
+    var bestMatches = [];
 
     for(var i = 0; i<allProducts.length; i++){
 
@@ -80,8 +89,8 @@ search.controller('SearchBoxController', function($scope, $http){
 
     bestMatches = bestMatches.filter(function(a){
 
-      if(chosenCat != null){
-        return (a[1] !== 0 && a[0].category == chosenCat)
+      if(chosenCat != "All Categories"){
+        return (a[1] !== 0 && a[0].category.toLowerCase() == chosenCat.toLowerCase())
       }
       return a[1] !== 0
     })
@@ -91,7 +100,6 @@ search.controller('SearchBoxController', function($scope, $http){
     .map(function(a){
       return a[0]
     })
-
 
     $scope.searchResults = bestMatches;
 
@@ -121,6 +129,18 @@ search.controller('SearchBoxController', function($scope, $http){
 
     }
     return count
+  };
+
+  //updates chosen category in dropdown menu and search results
+  //if there are any to display
+  $scope.updateCategory = function(category){
+
+    $scope.selected = category
+
+    if($scope.search_term != null){
+      $scope.update()
+    }
+
   };
 
 });

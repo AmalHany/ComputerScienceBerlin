@@ -19,11 +19,7 @@
 
   <!-- <br /><br /> -->
 
-
-
-
   <div class="col-lg-6">  <!-- whole search box and both buttons -->
-
 
     <!-- Category button -->
 
@@ -34,17 +30,24 @@
         <button type="button" class="btn btn-default dropdown-toggle"
         data-toggle="dropdown" aria-haspopup="true"
         aria-expanded="false">
-        Categories
+
+        {{selected}}
 
         <span class="caret"></span></button>
 
-        <ul class="dropdown-menu" ng-model = "cat">
+        <ul class="dropdown-menu">
 
-          <li><a href="#">Clothes</a></li>
-          <li><a href="#">Electronics</a></li>
-          <li><a href="#">Books</a></li>
+          <li>
+            <a href="#" ng-click = "updateCategory('All Categories')">
+            All Categories</a>
+          </li>
+
           <li role="separator" class="divider"></li>
-          <li><a href="#">Bateekh</a></li>
+
+            <li ng-repeat = "category in categories">
+              <a href="#" ng-click = "updateCategory(category)">{{category}}</a>
+            </li>
+
         </ul>
       </div>
 
