@@ -8,6 +8,12 @@ var sugar = require("sugar")
 
 // Create the application.
 var app = express();
+var server = require('http').createServer(app);
+
+// Create realtime socket interface
+app.socketIo = require('socket.io').listen(server);
+app.socketIo.on('connection', function (socket) {
+});
 
 // Choose module to parse html
 app.engine('html', engines.hogan);
@@ -21,7 +27,7 @@ app.use(express.static(__dirname + '/public'));
 
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost/netapp');
+mongoose.connect('mongodb://localhost/test_App');
 mongoose.connection.once('open', function() {
 
   // Load the models.
@@ -39,5 +45,6 @@ mongoose.connection.once('open', function() {
   });
 
   console.log('Listening on port 3000...');
-  app.listen(3000);
+
+  server.listen(3000);
 });

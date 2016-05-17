@@ -1,15 +1,19 @@
-var mainApp = angular.module('mainApp', [ 'ngRoute', 'searchApp']);
+
+  var mainApp = angular.module('mainApp', [ 'ngRoute', 'wishListApp', 'searchApp']);
 
   mainApp.config(['$routeProvider',
                     function($routeProvider) {
 
-                      $routeProvider.
+                    	$routeProvider.
+                        when('/wishlist/:wishlistId', {
+                          templateUrl: '/partials/WishList/wishlist.html',
+                          controller: 'WishListController'
 
-                      when('/search', {
-                          templateUrl: '/partials/search/searchBox.html',
-                          controller: 'SearchBoxController'
+                        })
+                        .when('/search', {
+                            templateUrl: '/partials/Search/searchBox.html',
+                            controller: 'SearchBoxController'
                         });
-
-                    }
+                      }
                   ]
   );

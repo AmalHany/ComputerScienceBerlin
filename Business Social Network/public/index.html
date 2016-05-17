@@ -10,15 +10,45 @@
   <script src="/js/mainApp.js"></script>
 </head>
 
-<body ng-app="mainApp">
+  <head>
+    <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" >
 
-  <div ng-include src="'partials/search/toolbar.html'"></div>
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/bower_components/angular/angular.min.js" ></script>
+    <script src="/bower_components/angular-route/angular-route.min.js" ></script>
+    <script src="/bower_components/socket.io-client/socket.io.js" ></script>
+    <script src="/js/controllers.js"></script>
+    <script src="/js/mainApp.js"></script>
+  </head>
 
-  <br /><br />
+  <body ng-app="mainApp">
 
-  <!-- <div ng-include src = "'partials/search/searchResults.html'"></div> -->
 
-  <div ng-view></div>
-</body>
+
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/#/">Social Network</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-right">
+
+            <div ng-include src="'partials/Search/toolbar.html'"></div>
+
+            <!-- <div ng-include src = "'partials/Search/searchResults.html'"></div> -->
+
+            <li><a href="#/signUp">Sign Up</a></li>
+            <li><a href="#/signIn">Login</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div ng-view></div>
+
+  </body>
+
 
 </html>
