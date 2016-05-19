@@ -21,6 +21,7 @@
     "gulp-flatten": "^0.2.0",
     "gulp-nodemon": "^2.0.6",
     "hogan": "^1.0.2",
+    "jsonwebtoken": "^7.0.0",
     "lodash": "latest",
     "method-override": "latest",
     "mongoose": "latest",

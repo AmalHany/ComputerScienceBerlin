@@ -43,7 +43,8 @@ gulp.task('start', function () {
     tasks: ['setup'],
     env: { 'NODE_ENV': 'development',
 		 			 'APPID':  '234922790201545',
-				   'APPSECRET': '84eaac99cf37fef83728fb538b183355'}
+				   'APPSECRET': '84eaac99cf37fef83728fb538b183355',
+				 	 'MYSECRET' : 'asdb2832u3en2n3e201271b2dwdnllsda7lkcv'}
   })
 });
 
