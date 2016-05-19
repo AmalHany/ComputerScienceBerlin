@@ -41,7 +41,8 @@ UserSchema.methods.generateJwt = function() {
   return jwt.sign({
     _id: this._id,
     email: this.email,
-    name: this.getFullName(),
+    first_name: this.first_name,
+    last_name: this.last_name,
     exp: parseInt(expiry.getTime() / 1000),
   }, process.env.MYSECRET);
 };
