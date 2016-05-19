@@ -8,7 +8,7 @@ app.get('/wishlists/:wishlist_id', function(req, res){
                    .exec(function(err, wishlists){
                      if (err) throw err;
                      var newArr = [];
-                      while(wishlists.products.length) 
+                      while(wishlists.products.length)
                         newArr.push(wishlists.products.splice(0,3));
                      res.json(newArr);
                    });
@@ -17,7 +17,7 @@ app.get('/wishlists/:wishlist_id', function(req, res){
 
 
   app.delete('/wishlists/:wishlist_id', function(req, res){
-  var ObjectId = require('mongoose').Types.ObjectId;  
+  var ObjectId = require('mongoose').Types.ObjectId;
   var wishlist_id = req.body.wishlistID,
    product_id = req.body.productID;
   console.info(wishlist_id);
@@ -36,7 +36,7 @@ app.get('/wishlists/:wishlist_id', function(req, res){
 
 
 });
-	
+
 	return function(req, res, next) {
       next();
   };

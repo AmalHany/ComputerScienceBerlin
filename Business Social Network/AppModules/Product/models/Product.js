@@ -16,7 +16,11 @@ var ProductSchema = new mongoose.Schema({
    reviews : [ReviewSchema],
    ratings : [{type: Number, min: 0, max: 10}],
    category : {type: Schema.Types.ObjectId, ref: 'ProductCategory'},
-   images : [{type: String}]
+   images : [{type: String}],
+ },
+ {
+     timestamps :true
+
 });
 
 
