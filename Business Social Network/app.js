@@ -7,6 +7,7 @@ var _ = require('lodash');
 var sugar = require("sugar")
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var jwt = require('express-jwt');
 
 // Create the application.
 var app = express();
@@ -41,6 +42,11 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, function(username, pa
 
 // add authentication layer to middleware stack
 app.use(passport.initialize());
+app.auth = jwt({
+  secret: process.env.MYSECRET,
+  userProperty: 'payload'
+});
+
 
 // Create realtime socket interface
 app.socketIo = require('socket.io').listen(server);
@@ -73,6 +79,14 @@ mongoose.connection.once('open', function() {
   app.get('/', function(req, res){
     app.set('views', 'public');
     res.render('index.html');
+  });
+
+  // handle UnauthorizedError
+  app.use(function (err, req, res, next) {
+    if (err.name === 'UnauthorizedError') {
+      res.status(401);
+      res.json({"message" : err.name + ": " + err.message});
+    }
   });
 
   console.log('Listening on port 3000...');
