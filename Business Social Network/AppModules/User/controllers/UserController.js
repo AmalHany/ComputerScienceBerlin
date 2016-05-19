@@ -3,7 +3,7 @@ module.exports = function(app, route, express) {
   var passport = require('passport');
 
   // register as a new user
-  app.post('/register', function(req, res){
+  app.post('/users/register', function(req, res){
     var user = new app.models.User();
 
     user.first_name = req.body.first_name;
@@ -29,7 +29,7 @@ module.exports = function(app, route, express) {
   });
 
   // login as a new user
-  app.post('/login', function(req, res){
+  app.post('/users/login', function(req, res){
     passport.authenticate('local', function(err, user, info){
       var token;
       // If Passport throws/catches an error
@@ -52,7 +52,7 @@ module.exports = function(app, route, express) {
   });
 
   // get user profile if logged in
-  app.get('/profile/USERID', app.auth, function(req, res){
+  app.get('/users/profile/USERID', app.auth, function(req, res){
     // If no user ID exists in the JWT return a 401
     if (!req.payload._id) {
       res.status(401).json({

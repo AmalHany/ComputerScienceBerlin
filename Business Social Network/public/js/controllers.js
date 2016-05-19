@@ -134,78 +134,125 @@ function getRecommendationProducts($http){
 //   $scope.tests = response;
 // });
 
-(function () {
+function authentication ($http, $window) {
 
-  angular.module('mainApp').service('authentication', authentication);
+  var saveToken = function (token) {
+    $window.sessionStorage['mean-token'] = token;
+  };
 
-  authentication.$inject = ['$http', '$window'];
-  function authentication ($http, $window) {
+  var getToken = function () {
+    return $window.sessionStorage['mean-token'];
+  };
 
-    var saveToken = function (token) {
-      $window.sessionStorage['mean-token'] = token;
-    };
+  logout = function() {
+    $window.sessionStorage.removeItem('mean-token');
+  };
 
-    var getToken = function () {
-      return $window.sessionStorage['mean-token'];
-    };
+  var isLoggedIn = function() {
+    var token = getToken();
+    var payload;
 
-    logout = function() {
-      $window.sessionStorage.removeItem('mean-token');
-    };
+    if(token){
+      payload = token.split('.')[1];
+      payload = $window.atob(payload);
+      payload = JSON.parse(payload);
 
-    var isLoggedIn = function() {
+      return payload.exp > Date.now() / 1000;
+    } else {
+      return false;
+    }
+  };
+
+  var currentUser = function() {
+    if(isLoggedIn()){
       var token = getToken();
-      var payload;
+      var payload = token.split('.')[1];
+      payload = $window.atob(payload);
+      payload = JSON.parse(payload);
+      return {
+        email : payload.email,
+        first_name : payload.first_name,
+        last_name : payload.last_name
+      };
+    }
+  };
 
-      if(token){
-        payload = token.split('.')[1];
-        payload = $window.atob(payload);
-        payload = JSON.parse(payload);
+  var register = function(user) {
+    return $http.post('/users/register', user).success(function(data){
+      saveToken(data.token);
+    });
+  };
 
-        return payload.exp > Date.now() / 1000;
-      } else {
-        return false;
-      }
-    };
+  var login = function(user) {
+    return $http.post('/users/login', user).success(function(data) {
+      saveToken(data.token);
+    });
+  };
 
-    var currentUser = function() {
-      if(isLoggedIn()){
-        var token = getToken();
-        var payload = token.split('.')[1];
-        payload = $window.atob(payload);
-        payload = JSON.parse(payload);
-        return {
-          email : payload.email,
-          first_name : payload.first_name,
-          last_name : payload.last_name
-        };
-      }
-    };
+  return {
+    saveToken : saveToken,
+    getToken : getToken,
+    logout : logout,
+    isLoggedIn : isLoggedIn,
+    currentUser : currentUser,
+    register : register,
+    login : login
+  };
+}
 
-    var register = function(user) {
-      return $http.post('/users/register', user).success(function(data){
-        saveToken(data.token);
-      });
-    };
+var userAuthApp = angular.module('userAuthApp', []);
 
-    var login = function(user) {
-      return $http.post('/users/login', user).success(function(data) {
-        saveToken(data.token);
-      });
-    };
+userAuthApp.controller('RegisterController',['$scope', '$location', '$http', '$window', function($scope, $location, $http, $window) {
+  $scope.credentials = {};
 
-    return {
-      saveToken : saveToken,
-      getToken : getToken,
-      logout : logout,
-      isLoggedIn : isLoggedIn,
-      currentUser : currentUser,
-      register : register,
-      login : login
-    };
-  }
+  $scope.onSubmit = function () {
 
-})();
+    $http.post('/users/register', $scope.credentials).success(function(data){
+      $window.sessionStorage['mean-token'] = data.token;
+    })
+    .error(function(err){
+      alert(err);
+    })
+    .then(function(){
+      $location.path('profile');
+    });
+  };
+
+}]);
+
+userAuthApp.controller('LoginController',['$scope', '$location', '$http', '$window', function($scope, $location, $http, $window) {
+  $scope.credentials = {};
+
+  $scope.onSubmit = function () {
+
+    $http.post('/users/login', $scope.credentials).success(function(data) {
+      $window.sessionStorage['mean-token'] = data.token;
+    })
+    .error(function(err){
+      alert(err);
+    })
+    .then(function(){
+      $location.path('profile');
+    });
+  };
+
+}]);
+
+userAuthApp.controller('ProfileController',['$scope', '$http', '$window', function($scope, $http, $window) {
+  $scope.user = {};
+
+  $http.get('/users/profile', {
+    headers: {
+      Authorization: 'Bearer '+ $window.sessionStorage['mean-token']
+    }
+  })
+  .success(function(data) {
+    $scope.user = data;
+  })
+  .error(function (e) {
+    console.log(e);
+  });
+}]);
 
 var wishListApp = angular.module('wishListApp', []);
 
