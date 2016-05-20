@@ -16,7 +16,7 @@
                         })
                         .when('/message', {
                             templateUrl: '/partials/Message/message.html',
-                            controller: 'MessageController'
+                            controller: 'messageCRUD'
                         });
 
                         ;

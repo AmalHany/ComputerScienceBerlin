@@ -1,6 +1,6 @@
 // to connect angular 
 var messageApp = angular.module('messageApp', []);
-messageApp.controller('messageCRUD', function($scope, $http){
+messageApp.controller('messageCRUD', function($scope, $http,$filter){
 
 
      $scope.getMessage = function(){
@@ -10,11 +10,12 @@ messageApp.controller('messageCRUD', function($scope, $http){
           headers: {"Content-Type": "application/json;charset=utf-8"}
         };
         $http(config).then(function(response) {
-            $scope.messages = response.data;
+            $scope.message = response.data;
         });
       }
 
       $scope.sendMessage = function(){
+      	console.log("OO");
       	if($scope.fromBusiness !== null
         && $scope.fromBusiness !== ""
         && $scope.fromBusiness !== undefined
@@ -40,6 +41,10 @@ messageApp.controller('messageCRUD', function($scope, $http){
           });
       	}
       }
+      $scope.CurrentDate = new Date();
+      $scope.ddMMyyyy = $filter('date')(new Date(), 'dd/MM/yyyy');
+      $scope.hhmmsstt = $filter('date')(new Date(), 'hh:mm:ss a');
+
 
       // $scope.removemessage = function(x){
       //   var config = {
@@ -52,6 +57,8 @@ messageApp.controller('messageCRUD', function($scope, $http){
       //       $scope.getMessage();
       //   });
       // }
+       $scope.getMessage();
+
 
 });
 

@@ -35,10 +35,29 @@
              <input style="width: 600px; height:100px;" class="form-control" type="text" ng-model="content">
             </td>
      </tr>
-
-           
+      </table>
             
-
-
+            <br>
+            <input class="btn btn-success icon-add" type="submit" value="Send Message">
+    </form>  
 </table>
+ 
+             <div ng-repeat="x in message" class="list-group">
+             <span> Your message </span>
+             <span> " </span>
+             <span ng-bind="x.content"> </span>
+             <span> " </span>
+             <span>  have been sent to </span>
+             <span ng-bind="x.toBusiness"></span>
+             <span> at  </span>
+             <span ng-bind = "hhmmsstt"> </span>
+             <span> on </span>
+             <span ng-bind = "ddMMyyyy"> </span>
+
+             </div>  
+
+
+
+
+
 
