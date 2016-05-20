@@ -29,7 +29,7 @@ messageApp.controller('messageCRUD', function($scope, $http,$filter){
       		var config = {
             method: "POST",
             url: "/message",
-            data: {fromBusiness: $scope.fromBusiness,toBusiness:$scope.toBusiness,content:$scope.content},
+            data: {fromBusiness: $scope.fromBusiness,toBusiness:$scope.toBusiness,content:$scope.content,subject:$scope.subject},
             headers: {"Content-Type": "application/json;charset=utf-8"}
           };
           $http(config).then(function(response) {
@@ -37,6 +37,7 @@ messageApp.controller('messageCRUD', function($scope, $http,$filter){
               $scope.fromBusiness = null;
               $scope.toBusiness = null;
               $scope.content = null;
+              $scope.subject=null;
           });
       	}
       }

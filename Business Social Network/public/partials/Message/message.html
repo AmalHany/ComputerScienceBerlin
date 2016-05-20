@@ -22,16 +22,18 @@
             <input style="width: 150px;" class="form-control" placeholder=""  type="text" ng-model="toBusiness">
          </td>
          <br>
-         <td>
+	</tr>
+</table>
+<br>
+	<table>
+		<td>
 			<label> Subject </label>
          </td>
          <td>
-            <input style="width: 150px;" class="form-control" placeholder=""  type="text" ng-model="subject">
+            <input style="width: 250px;" class="form-control" placeholder=""  type="text" ng-model="subject">
          </td>
          <br>
-
-	</tr>
-</table>
+	</table>
 <br>
 <table>
 	<tr>
@@ -47,22 +49,25 @@
       </table>
             
             <br>
-            <input class="btn btn-success icon-add" type="submit" value="Send Message">
+            <input class="btn btn-primary icon-add" style="margin-left: 700px;" type="submit" value="Send">
     </form>  
 </table>
  
              <div ng-repeat="x in message" class="list-group">
+             <span class="glyphicon glyphicon-envelope" style="margin-left: 20px;"role="group" aria-hidde="true"></span>
              <span> Your message </span>
              <span> " </span>
              <span ng-bind="x.content"> </span>
              <span> " </span>
-             <span>  have been sent to </span>
+             <span>  have been sent </span>
+             <span class="glyphicon glyphicon-arrow-right" role="group" aria-hidde="true"></span>
              <span ng-bind="x.toBusiness"></span>
+             <span class="glyphicon glyphicon-user" role="group" aria-hidde="true"></span>
              <span> at  </span>
              <span ng-bind = "hhmmsstt"> </span>
              <span> on </span>
              <span ng-bind = "ddMMyyyy"> </span>
-             <button class="btn btn-primary "
+             <button class="btn btn-success "
              ng-click="removemessage(x)">Ok</button>
              </div>  
 
