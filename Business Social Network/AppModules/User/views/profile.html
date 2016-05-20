@@ -1,12 +1,9 @@
 <div ng-controller="ProfileController">
-  <form class="form-horizontal">
-    <div class="form-group">
-      <label class="col-sm-3 control-label">Full name</label>
-      <p class="form-control-static" ng-bind="user.first_name"></p>
+    <div>
+      <span ng-bind="user.first_name"></span>
+      <span ng-bind="user.last_name"></span>
     </div>
     <div class="form-group">
-      <label class="col-sm-3 control-label">Email</label>
-      <p class="form-control-static" ng-bind="user.email"></p>
+      Logged in Succedfully!
     </div>
-  </form>
 </div>
