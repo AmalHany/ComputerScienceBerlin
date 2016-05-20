@@ -54,17 +54,17 @@ module.exports = function(app, route, express) {
   // get user profile if logged in
   app.get('/users/profile', app.auth, function(req, res){
     // If no user ID exists in the JWT return a 401
-    if (!req.payload._id) {
+    if (!req.user._id) {
       res.status(401).json({
         "message" : "UnauthorizedError: private profile"
       });
     } else {
       // Otherwise continue
-      app.models.User.findById(req.payload._id).exec(function(err, user) {
+      app.models.User.findById(req.user._id).exec(function(err, user) {
           user.hash = undefined;
           user.salt = undefined;
           res.status(200).json(user);
-        });
+      });
     }
   });
 

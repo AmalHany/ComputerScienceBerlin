@@ -44,9 +44,8 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, function(username, pa
 app.use(passport.initialize());
 app.auth = jwt({
   secret: process.env.MYSECRET,
-  userProperty: 'payload'
+  userProperty: 'user'
 });
-
 
 // Create realtime socket interface
 app.socketIo = require('socket.io').listen(server);
