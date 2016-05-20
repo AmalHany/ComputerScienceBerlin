@@ -1,13 +1,13 @@
 var userAuthApp = angular.module('userAuthApp', ['MessageSocketService']);
 
-userAuthApp.controller('RegisterController',['$scope', '$location', '$http', '$window', function($scope, $location, $http, $window) {
+userAuthApp.controller('RegisterController',['$scope', '$location', '$http', '$window', 'messageSocket', function($scope, $location, $http, $window, messageSocket) {
   $scope.credentials = {};
 
   $scope.onSubmit = function () {
 
     $http.post('/users/register', $scope.credentials).success(function(data){
       $window.sessionStorage['mean-token'] = data.token;
-      $rootScope.isLoggedIn = true;
+      populateUser($http, $rootScope, $window, messageSocket);
     })
     .error(function(err){
       alert(err);
@@ -19,14 +19,15 @@ userAuthApp.controller('RegisterController',['$scope', '$location', '$http', '$w
 
 }]);
 
-userAuthApp.controller('LoginController',['$rootScope', '$scope', '$location', '$http', '$window', function($rootScope, $scope, $location, $http, $window, MessageSocket) {
+userAuthApp.controller('LoginController',['$rootScope', '$scope', '$location', '$http', '$window', 'messageSocket', function($rootScope, $scope, $location, $http, $window, messageSocket) {
   $scope.credentials = {};
 
   $scope.onSubmit = function () {
 
-    $http.post('/users/login', $scope.credentials).success(function(data) {
+    $http.post('/users/login', $scope.credentials)
+    .success(function(data) {
       $window.sessionStorage['mean-token'] = data.token;
-      $rootScope.isLoggedIn = true;
+      populateUser($http, $rootScope, $window, messageSocket);
     })
     .error(function(err){
       alert(err);
@@ -38,26 +39,7 @@ userAuthApp.controller('LoginController',['$rootScope', '$scope', '$location', '
 
 }]);
 
-userAuthApp.controller('NavigationController',['$rootScope', '$scope', '$location', '$http', '$window', 'MessageSocket', function($rootScope, $scope, $location, $http, $window, MessageSocket){
-
-  $rootScope.isLoggedIn = false;
-  $rootScope.currentUser = null;
-
-  var token = $window.sessionStorage['mean-token'];
-
-  if(token){
-    var user;
-    user = token.split('.')[1];
-    user = $window.atob(user);
-    user = JSON.parse(user);
-
-    $rootScope.isLoggedIn = user.exp > Date.now() / 1000;
-
-    if($rootScope.isLoggedIn)
-    {
-      $rootScope.currentUser = user;
-    }
-  }
+userAuthApp.controller('NavigationController',['$rootScope', '$scope', '$location', '$window', function($rootScope, $scope, $location, $window){
 
   $scope.logout = function(){
     $window.sessionStorage.removeItem('mean-token');
@@ -67,6 +49,55 @@ userAuthApp.controller('NavigationController',['$rootScope', '$scope', '$locatio
   };
 
 }]);
+
+function populateUser($http, $rootScope, $window, messageSocket){
+
+  var token = $window.sessionStorage['mean-token'];
+
+  $rootScope.currentUser = {};
+  $rootScope.currentUser.inbox = [];
+  $rootScope.isLoggedIn = false;
+
+  if(token)
+  {
+    var user;
+    user = token.split('.')[1];
+    user = $window.atob(user);
+    user = JSON.parse(user);
+
+    $rootScope.isLoggedIn = user.exp > Date.now() / 1000;
+
+    if($rootScope.isLoggedIn)
+    {
+
+      $http.get('/users/profile', {
+        headers: {
+          Authorization: 'Bearer '+ token
+        }
+      })
+      .success(function(data) {
+        $rootScope.currentUser = data;
+      })
+      .error(function (e) {
+        console.log(e);
+      });
+
+      $http.get('/messages/myMessages', {
+        headers: {
+          Authorization: 'Bearer '+ token
+        }
+      })
+      .success(function(data) {
+        $rootScope.currentUser.inbox = data;
+        messageSocket.connect();
+      })
+      .error(function (e) {
+        console.log(e);
+      });
+
+    }
+  }
+}
 
 // function connect_socket(url, token) {
 //   var socket = io.connect(url, {

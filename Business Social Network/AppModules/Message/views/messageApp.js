@@ -1,6 +1,6 @@
 var messageApp = angular.module('messageApp', ['MessageSocketService']);
 
-messageApp.controller('MessageController',['$rootScope', '$window', '$http', '$scope', 'MessageSocket', function($rootScope, $window, $http, $scope, MessageSocket) {
+messageApp.controller('MessageController',['$rootScope', '$window', '$http', '$scope', 'messageSocket', function($rootScope, $window, $http, $scope, messageSocket) {
 
   $scope.toUser = '';
   $scope.content = '';
@@ -8,7 +8,7 @@ messageApp.controller('MessageController',['$rootScope', '$window', '$http', '$s
   $scope.to_business = '';
 
   $scope.send = function(){
-    MessageSocket.sendMessage({
+    messageSocket.sendMessage({
       toUser: $scope.toUser,
       content: $scope.content,
       from_business: $scope.from_business,
@@ -19,3 +19,23 @@ messageApp.controller('MessageController',['$rootScope', '$window', '$http', '$s
   };
 
 }]);
+
+// messageApp.controller('MessageController',['$rootScope', '$window', '$http', '$scope', 'messageSocket', function($rootScope, $window, $http, $scope, messageSocket) {
+//
+//   $scope.toUser = '';
+//   $scope.content = '';
+//   $scope.from_business = '';
+//   $scope.to_business = '';
+//
+//   $scope.send = function(){
+//     messageSocket.sendMessage({
+//       toUser: $scope.toUser,
+//       content: $scope.content,
+//       from_business: $scope.from_business,
+//       to_business: $scope.to_business
+//     });
+//     $scope.toUser = '';
+//     $scope.content = '';
+//   };
+//
+// }]);

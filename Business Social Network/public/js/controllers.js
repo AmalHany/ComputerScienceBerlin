@@ -1,6 +1,6 @@
 var messageApp = angular.module('messageApp', ['MessageSocketService']);
 
-messageApp.controller('MessageController',['$rootScope', '$window', '$http', '$scope', 'MessageSocket', function($rootScope, $window, $http, $scope, MessageSocket) {
+messageApp.controller('MessageController',['$rootScope', '$window', '$http', '$scope', 'messageSocket', function($rootScope, $window, $http, $scope, messageSocket) {
 
   $scope.toUser = '';
   $scope.content = '';
@@ -8,7 +8,7 @@ messageApp.controller('MessageController',['$rootScope', '$window', '$http', '$s
   $scope.to_business = '';
 
   $scope.send = function(){
-    MessageSocket.sendMessage({
+    messageSocket.sendMessage({
       toUser: $scope.toUser,
       content: $scope.content,
       from_business: $scope.from_business,
@@ -20,18 +20,37 @@ messageApp.controller('MessageController',['$rootScope', '$window', '$http', '$s
 
 }]);
 
+// messageApp.controller('MessageController',['$rootScope', '$window', '$http', '$scope', 'messageSocket', function($rootScope, $window, $http, $scope, messageSocket) {
+//
+//   $scope.toUser = '';
+//   $scope.content = '';
+//   $scope.from_business = '';
+//   $scope.to_business = '';
+//
+//   $scope.send = function(){
+//     messageSocket.sendMessage({
+//       toUser: $scope.toUser,
+//       content: $scope.content,
+//       from_business: $scope.from_business,
+//       to_business: $scope.to_business
+//     });
+//     $scope.toUser = '';
+//     $scope.content = '';
+//   };
+//
+// }]);
+
 var MessageSocketService = angular.module('MessageSocketService', [])
-.service('MessageSocket', ['$rootScope', '$window', function ($rootScope, $window) {
+.service('messageSocket', ['$rootScope', '$window', function ($rootScope, $window) {
 
-  var MessageSocket = {};
-  MessageSocket.socket = {};
+  var messageSocket = {};
+  messageSocket.socket = {};
 
-  MessageSocket.connect = function(){
-    MessageSocket.socket = io.connect('/chat', {
+  messageSocket.connect = function(){
+    messageSocket.socket = io.connect('/chat', {
       query: 'token=' + $window.sessionStorage['mean-token']
     });
-
-    MessageSocket.socket.on('connect', function () {
+    messageSocket.socket.on('connect', function () {
       console.log("authorized");
     })
     .on('recMessage', function(newMsg) {
@@ -49,8 +68,8 @@ var MessageSocketService = angular.module('MessageSocketService', [])
     });
   };
 
-  MessageSocket.recieveMessages = function(){
-    MessageSocket.socket.on('recMessage', function(newMsg) {
+  messageSocket.recieveMessages = function(){
+    messageSocket.socket.on('recMessage', function(newMsg) {
       $rootScope.$apply(function() {
         $rootScope.currentUser.inbox.push(newMsg);
         console.log(newMsg);
@@ -58,16 +77,16 @@ var MessageSocketService = angular.module('MessageSocketService', [])
     })
   };
 
-  MessageSocket.sendMessage = function(msg){
+  messageSocket.sendMessage = function(msg){
     //expected msg object
     //msg.content; text in message
     //msg.from_business; id of sender's business
     //msg.to_business; id of receiver's business
     //msg.to_user; id of receiver
-    MessageSocket.socket.emit('sendMessage', msg);
+    messageSocket.socket.emit('sendMessage', msg);
   };
 
-  return MessageSocket;
+  return messageSocket;
 }]);
 
 var search = angular.module("searchApp", []);
@@ -208,14 +227,14 @@ function getRecommendationProducts($http){
 
 var userAuthApp = angular.module('userAuthApp', ['MessageSocketService']);
 
-userAuthApp.controller('RegisterController',['$scope', '$location', '$http', '$window', function($scope, $location, $http, $window) {
+userAuthApp.controller('RegisterController',['$scope', '$location', '$http', '$window', 'messageSocket', function($scope, $location, $http, $window, messageSocket) {
   $scope.credentials = {};
 
   $scope.onSubmit = function () {
 
     $http.post('/users/register', $scope.credentials).success(function(data){
       $window.sessionStorage['mean-token'] = data.token;
-      $rootScope.isLoggedIn = true;
+      populateUser($http, $rootScope, $window, messageSocket);
     })
     .error(function(err){
       alert(err);
@@ -227,14 +246,15 @@ userAuthApp.controller('RegisterController',['$scope', '$location', '$http', '$w
 
 }]);
 
-userAuthApp.controller('LoginController',['$rootScope', '$scope', '$location', '$http', '$window', function($rootScope, $scope, $location, $http, $window, MessageSocket) {
+userAuthApp.controller('LoginController',['$rootScope', '$scope', '$location', '$http', '$window', 'messageSocket', function($rootScope, $scope, $location, $http, $window, messageSocket) {
   $scope.credentials = {};
 
   $scope.onSubmit = function () {
 
-    $http.post('/users/login', $scope.credentials).success(function(data) {
+    $http.post('/users/login', $scope.credentials)
+    .success(function(data) {
       $window.sessionStorage['mean-token'] = data.token;
-      $rootScope.isLoggedIn = true;
+      populateUser($http, $rootScope, $window, messageSocket);
     })
     .error(function(err){
       alert(err);
@@ -246,26 +266,7 @@ userAuthApp.controller('LoginController',['$rootScope', '$scope', '$location', '
 
 }]);
 
-userAuthApp.controller('NavigationController',['$rootScope', '$scope', '$location', '$http', '$window', 'MessageSocket', function($rootScope, $scope, $location, $http, $window, MessageSocket){
-
-  $rootScope.isLoggedIn = false;
-  $rootScope.currentUser = null;
-
-  var token = $window.sessionStorage['mean-token'];
-
-  if(token){
-    var user;
-    user = token.split('.')[1];
-    user = $window.atob(user);
-    user = JSON.parse(user);
-
-    $rootScope.isLoggedIn = user.exp > Date.now() / 1000;
-
-    if($rootScope.isLoggedIn)
-    {
-      $rootScope.currentUser = user;
-    }
-  }
+userAuthApp.controller('NavigationController',['$rootScope', '$scope', '$location', '$window', function($rootScope, $scope, $location, $window){
 
   $scope.logout = function(){
     $window.sessionStorage.removeItem('mean-token');
@@ -275,6 +276,55 @@ userAuthApp.controller('NavigationController',['$rootScope', '$scope', '$locatio
   };
 
 }]);
+
+function populateUser($http, $rootScope, $window, messageSocket){
+
+  var token = $window.sessionStorage['mean-token'];
+
+  $rootScope.currentUser = {};
+  $rootScope.currentUser.inbox = [];
+  $rootScope.isLoggedIn = false;
+
+  if(token)
+  {
+    var user;
+    user = token.split('.')[1];
+    user = $window.atob(user);
+    user = JSON.parse(user);
+
+    $rootScope.isLoggedIn = user.exp > Date.now() / 1000;
+
+    if($rootScope.isLoggedIn)
+    {
+
+      $http.get('/users/profile', {
+        headers: {
+          Authorization: 'Bearer '+ token
+        }
+      })
+      .success(function(data) {
+        $rootScope.currentUser = data;
+      })
+      .error(function (e) {
+        console.log(e);
+      });
+
+      $http.get('/messages/myMessages', {
+        headers: {
+          Authorization: 'Bearer '+ token
+        }
+      })
+      .success(function(data) {
+        $rootScope.currentUser.inbox = data;
+        messageSocket.connect();
+      })
+      .error(function (e) {
+        console.log(e);
+      });
+
+    }
+  }
+}
 
 // function connect_socket(url, token) {
 //   var socket = io.connect(url, {
