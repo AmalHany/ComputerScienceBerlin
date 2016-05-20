@@ -7,14 +7,31 @@ module.exports = function(app, route, express) {
     app.models.User.findById(socket.decoded_token._id).exec(function(err, user){
       if(!err)
       {
-        socket.on("sendMessage", function(msg){
-          // var message = app.models.Message();
-          // message.content = msg.content;
-          // message.fromBusiness = msg.;
-          // message.toBusiness = ;
-          // message.fromUser = user._id;
-          // message.toUser = ;
+        socket.join(user._id);
 
+        socket.on("sendMessage", function(msg){
+          var message = app.models.Message();
+          message.content = msg.content;
+          message.fromBusiness = msg.from_business;
+          message.toBusiness = msg.to_business;
+          message.fromUser = user._id;
+          message.toUser = msg.to_user;
+          message.save(function(err){
+            if(err){
+              console.log(err);
+            }else{
+              var notifyMsg = {
+                _id: message._id,
+                content: message.content,
+                fromBusiness: message.fromBusiness,
+                fromUser: message.fromUser,
+                toBusiness: message.toBusiness,
+                sent_at: message.sent_at,
+                seen: message.seen
+              };
+              socket.broadcast.to(message.toUser).emit("recMessage", notifyMsg);
+            }
+          });
         });
       }
     });
