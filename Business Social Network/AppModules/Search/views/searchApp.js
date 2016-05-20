@@ -1,6 +1,6 @@
 var search = angular.module("searchApp", []);
 
-search.controller('SearchBoxController', function($scope, $http){
+search.controller('SearchBoxController', function($scope, $location){
 
   var userSearch;
 
@@ -102,6 +102,7 @@ search.controller('SearchBoxController', function($scope, $http){
     })
 
     $scope.searchResults = bestMatches;
+    $location.path("/search/" + userSearch)
 
   }
 

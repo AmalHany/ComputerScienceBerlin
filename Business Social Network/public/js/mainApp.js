@@ -10,8 +10,8 @@
                           controller: 'WishListController'
 
                         })
-                        .when('/search', {
-                            templateUrl: '/partials/Search/searchBox.html',
+                        .when('/search/:searchTerm', {
+                            templateUrl: '/partials/Search/searchResults.html',
                             controller: 'SearchBoxController'
                         });
                       }
