@@ -8,6 +8,12 @@ module.exports = function(app, route, express) {
       if(!err)
       {
         socket.on("sendMessage", function(msg){
+          // var message = app.models.Message();
+          // message.content = msg.content;
+          // message.fromBusiness = msg.;
+          // message.toBusiness = ;
+          // message.fromUser = user._id;
+          // message.toUser = ;
 
         });
       }
