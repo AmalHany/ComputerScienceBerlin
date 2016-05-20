@@ -15,17 +15,6 @@ module.exports = function(app, route, express) {
 
   });
 
-  // send a message
-  app.post('/messages/sendMessage', app.auth, function(req, res){
-    if (!req.user._id) {
-      res.status(401).json({
-        "message" : "UnauthorizedError: private profile"
-      });
-    }else{
-
-    }
-  });
-
   // get all user messages as threads
   app.get('/messages/myMessages', app.auth, function(req, res){
     if (!req.user._id) {
