@@ -5,3 +5,40 @@
 <div class = "active">
 	<h2> Sending Message </h2>
 </div>
+<form ng-submit="sendMessage()" class="navbar-form form-inline">
+<table>
+	<tr>
+		<td>
+          <label> Sender </label>
+         </td>
+         <td>
+            <input style="width: 150px;" class="form-control" type="text" ng-model="fromBusiness">
+         </td>
+         <td>
+			<label> SendTo </label>
+         </td>
+         <td>
+            <input style="width: 150px;" class="form-control" type="text" ng-model="toBusiness">
+         </td>
+
+	</tr>
+</table>
+<br>
+<table>
+	<tr>
+         <td>
+            <label>
+            Content
+			</label>
+         </td>
+            <td>
+             <input style="width: 600px; height:100px;" class="form-control" type="text" ng-model="content">
+            </td>
+     </tr>
+
+           
+            
+
+
+</table>
+
