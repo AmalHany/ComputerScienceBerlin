@@ -1,3 +1,4 @@
+
 var search = angular.module("searchApp", []);
 
 search.controller('SearchBoxController', function($scope, $http){
