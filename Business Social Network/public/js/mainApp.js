@@ -29,11 +29,16 @@ var mainApp = angular.module('mainApp', [ 'ngRoute', 'userAuthApp', 'wishListApp
       //$locationProvider.html5Mode(true);
   }
 
-  // if an unauthenticated user tries to visit the profile page they will be redirected to the login
+
   function run($rootScope, $location, $http, $window) {
     $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute) {
+      // if an unauthenticated user tries to visit the profile page they will be redirected to the login
       if ($location.path() === '/profile' && !$rootScope.isLoggedIn) {
         $location.path('/login');
+      }
+      // if user logged in do not route to login or registration page
+      if (($location.path() === '/login' || $location.path() === '/register') && $rootScope.isLoggedIn) {
+        event.preventDefault();
       }
     });
   }

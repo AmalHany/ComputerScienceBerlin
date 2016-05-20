@@ -61,6 +61,8 @@ module.exports = function(app, route, express) {
     } else {
       // Otherwise continue
       app.models.User.findById(req.payload._id).exec(function(err, user) {
+          user.hash = undefined;
+          user.salt = undefined;
           res.status(200).json(user);
         });
     }

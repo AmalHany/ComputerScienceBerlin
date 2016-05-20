@@ -134,72 +134,6 @@ function getRecommendationProducts($http){
 //   $scope.tests = response;
 // });
 
-function authentication ($http, $window) {
-
-  var saveToken = function (token) {
-    $window.sessionStorage['mean-token'] = token;
-  };
-
-  var getToken = function () {
-    return $window.sessionStorage['mean-token'];
-  };
-
-  logout = function() {
-    $window.sessionStorage.removeItem('mean-token');
-  };
-
-  var isLoggedIn = function() {
-    var token = getToken();
-    var payload;
-
-    if(token){
-      payload = token.split('.')[1];
-      payload = $window.atob(payload);
-      payload = JSON.parse(payload);
-
-      return payload.exp > Date.now() / 1000;
-    } else {
-      return false;
-    }
-  };
-
-  var currentUser = function() {
-    if(isLoggedIn()){
-      var token = getToken();
-      var payload = token.split('.')[1];
-      payload = $window.atob(payload);
-      payload = JSON.parse(payload);
-      return {
-        email : payload.email,
-        first_name : payload.first_name,
-        last_name : payload.last_name
-      };
-    }
-  };
-
-  var register = function(user) {
-    return $http.post('/users/register', user).success(function(data){
-      saveToken(data.token);
-    });
-  };
-
-  var login = function(user) {
-    return $http.post('/users/login', user).success(function(data) {
-      saveToken(data.token);
-    });
-  };
-
-  return {
-    saveToken : saveToken,
-    getToken : getToken,
-    logout : logout,
-    isLoggedIn : isLoggedIn,
-    currentUser : currentUser,
-    register : register,
-    login : login
-  };
-}
-
 var userAuthApp = angular.module('userAuthApp', []);
 
 userAuthApp.controller('RegisterController',['$scope', '$location', '$http', '$window', function($scope, $location, $http, $window) {
@@ -220,26 +154,26 @@ userAuthApp.controller('RegisterController',['$scope', '$location', '$http', '$w
 
 }]);
 
-userAuthApp.controller('LoginController',['$scope', '$location', '$http', '$window', function($scope, $location, $http, $window) {
+userAuthApp.controller('LoginController',['$rootScope', '$scope', '$location', '$http', '$window', function($rootScope, $scope, $location, $http, $window) {
   $scope.credentials = {};
 
   $scope.onSubmit = function () {
 
     $http.post('/users/login', $scope.credentials).success(function(data) {
       $window.sessionStorage['mean-token'] = data.token;
+      $rootScope.isLoggedIn = true;
     })
     .error(function(err){
       alert(err);
     })
     .then(function(){
-      $location.path('profile');
+      $location.path('/profile');
     });
   };
 
 }]);
 
 userAuthApp.controller('ProfileController',['$rootScope', '$scope', '$http', '$window', function($rootScope, $scope, $http, $window) {
-
   $scope.user = {};
 
   $http.get('/users/profile', {
@@ -250,7 +184,6 @@ userAuthApp.controller('ProfileController',['$rootScope', '$scope', '$http', '$w
   .success(function(data) {
     $scope.user = data;
     $rootScope.currentUser = data;
-    $rootScope.isLoggedIn = true;
   })
   .error(function (e) {
     console.log(e);
