@@ -50,12 +50,9 @@ app.auth = jwt({
 
 // Create realtime socket interface
 app.socketIo = require('socket.io').listen(server);
-app.socketIo.use(socketioJwt.authorize({
+app.authSocket = socketioJwt.authorize({
   secret: process.env.MYSECRET,
   handshake: true
-}));
-app.socketIo.on('connection', function (socket) {
-     //console.log(socket.decoded_token.email, 'connected');
 });
 
 // Choose module to parse html
