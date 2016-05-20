@@ -136,9 +136,36 @@ function getRecommendationProducts($http){
 
 var wishListApp = angular.module('wishListApp', []);
 
+wishListApp.controller('WishListNotificationController',
+  function($scope, $http,$routeParams) {
+    var wishlist_id= '573f4399853cb2ca1affb6dc';
+    $scope.getNotifications = function(){
+
+      var config ={
+        method: "PUT",
+        url: "/wishlists/" + wishlist_id,
+        headers: {"Content-Type": "application/json;charset=utf-8"}
+      };
+              $http(config).then(function(response) {
+               //console.log(response.data);
+               if(response.data.flag == '1'){
+                 alert('Updated');
+               }
+
+
+        });
+
+    }
+$scope.getNotifications();
+
+
+
+  }
+);
+
 wishListApp.controller('WishListController',
   function($scope, $http,$routeParams) {
-    
+
     $scope.getWishList = function(){
 
       var config ={
@@ -147,8 +174,8 @@ wishListApp.controller('WishListController',
         headers: {"Content-Type": "application/json;charset=utf-8"}
       };
               $http(config).then(function(response) {
-              // console.log(response.data);
-            $scope.wishlist = response.data;
+               //console.log(response.data);
+            $scope.wishlist = response.data.newArr;
 
 
         });
