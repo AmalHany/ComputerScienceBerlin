@@ -239,6 +239,7 @@ userAuthApp.controller('LoginController',['$scope', '$location', '$http', '$wind
 }]);
 
 userAuthApp.controller('ProfileController',['$rootScope', '$scope', '$http', '$window', function($rootScope, $scope, $http, $window) {
+
   $scope.user = {};
 
   $http.get('/users/profile', {
@@ -254,6 +255,48 @@ userAuthApp.controller('ProfileController',['$rootScope', '$scope', '$http', '$w
   .error(function (e) {
     console.log(e);
   });
+}]);
+
+userAuthApp.controller('NavigationController',['$rootScope', '$scope', '$location', '$http', '$window', function($rootScope, $scope, $location, $http, $window){
+  $rootScope.isLoggedIn = (function() {
+    var token = $window.sessionStorage['mean-token'];
+    var payload;
+
+    if(token){
+      payload = token.split('.')[1];
+      payload = $window.atob(payload);
+      payload = JSON.parse(payload);
+
+      return payload.exp > Date.now() / 1000;
+    } else {
+      return false;
+    }
+  })();
+
+  $rootScope.currentUser = null;
+
+  if($rootScope.isLoggedIn)
+  {
+    $rootScope.currentUser = (function() {
+        var token = $window.sessionStorage['mean-token'];
+        var payload = token.split('.')[1];
+        payload = $window.atob(payload);
+        payload = JSON.parse(payload);
+        return {
+          email : payload.email,
+          first_name : payload.first_name,
+          last_name : payload.last_name
+        };
+    })();
+  }
+
+  $scope.logout = function(){
+    $window.sessionStorage.removeItem('mean-token');
+    $rootScope.currentUser = null;
+    $rootScope.isLoggedIn = false;
+    $location.path('/');
+  };
+
 }]);
 
 var wishListApp = angular.module('wishListApp', []);
