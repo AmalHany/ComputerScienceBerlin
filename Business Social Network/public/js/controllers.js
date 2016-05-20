@@ -185,22 +185,6 @@ search.controller('SearchBoxController', function($scope, $http){
 
 });
 
-function getRecommendationProducts($http){
-  var tags = [];
-  var config = {
-    method: "GET",
-    url: '/socialRecs'
-  };
-  return $http(config).then(function(response) {
-    return response.data;
-  });
-};
-
-//usage
-// getRecommendationProducts($http).then(function(response){
-//   $scope.tests = response;
-// });
-
 var wishListApp = angular.module('wishListApp', []);
 
 wishListApp.controller('WishListController',
@@ -245,3 +229,19 @@ wishListApp.controller('WishListController',
 
   }
 );
+
+function getRecommendationProducts($http){
+  var tags = [];
+  var config = {
+    method: "GET",
+    url: '/socialRecs'
+  };
+  return $http(config).then(function(response) {
+    return response.data;
+  });
+};
+
+//usage
+// getRecommendationProducts($http).then(function(response){
+//   $scope.tests = response;
+// });
