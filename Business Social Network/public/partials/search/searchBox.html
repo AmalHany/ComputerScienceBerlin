@@ -15,10 +15,7 @@
 </head>
 
 <div ng-controller = "SearchBoxController">
-
-
-  <!-- <br /><br /> -->
-
+  
   <div class="col-lg-6">  <!-- whole search box and both buttons -->
 
     <!-- Category button -->
@@ -39,42 +36,35 @@
 
           <li>
             <a href="#" ng-click = "updateCategory('All Categories')">
-            All Categories</a>
-          </li>
+              All Categories</a>
+            </li>
 
-          <li role="separator" class="divider"></li>
+            <li role="separator" class="divider"></li>
 
             <li ng-repeat = "category in categories">
               <a href="#" ng-click = "updateCategory(category)">{{category}}</a>
             </li>
 
-        </ul>
+          </ul>
+        </div>
+
+        <!-- input box -->
+        <input type="text" ng-model = "search_term" ng-bind = "search_term" id = "search_box"
+        class="form-control" ng-change = "update()" placeholder="What are you looking for?">
+
+        <!-- search button-->
+        <span class="input-group-btn">
+
+          <button type="button" class="btn btn-default" ng-click = "search()" >
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search!
+          </button>
+
+        </span>
+
       </div>
-
-
-      <!-- input box -->
-      <input type="text" ng-model = "search_term" ng-bind = "search_term" id = "search_box"
-      class="form-control" ng-change = "update()" placeholder="What are you looking for?">
-
-      <!-- search button-->
-      <span class="input-group-btn">
-
-        <button type="button" class="btn btn-default" ng-click = "search()" >
-          <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search!
-        </button>
-
-      </span>
 
     </div>
 
-
   </div>
 
-  <br /><br />
-
-
-  <div ng-include src = "'partials/Search/searchResults.html'">  </div>
-
-</div>
-
-</html>
+  </html>

@@ -2,7 +2,41 @@ var search = angular.module("searchApp", []);
 
 search.controller('SearchBoxController', function($scope, $location){
 
-  var userSearch;
+  //show all categories by default
+  $scope.selected = "All Categories";
+
+  //get all categories
+  //dummy data:
+  $scope.categories = ["Clothes", "Electronics", "Books", "Bateekh"];
+  var selectedCategory = "All Categories";
+  var userSearch = '';
+
+  $scope.update = function(){
+
+    userSearch = $scope.search_term;
+
+    if(userSearch.length > 0){
+      $location.path('/search/' + selectedCategory + '/' + userSearch);
+    }
+
+    else{
+      $location.path('/');
+    }
+
+  }
+
+  $scope.updateCategory = function(category){
+
+    $scope.selected = category;
+    selectedCategory = category;
+
+
+  }
+
+
+});
+
+search.controller('SearchResultsController', function($scope, $routeParams){
 
   //dummy data for testing:
 
@@ -43,105 +77,72 @@ search.controller('SearchBoxController', function($scope, $location){
   };
 
   var allProducts = [test1, test2, test3, test4];
-  var allCats = ["Clothes", "Electronics", "Books", "Bateekh"]
 
-  $scope.categories = allCats
+  //get category and search term from URL
+  var chosenCat = $routeParams.category;
+  var userSearch = $routeParams.searchTerm;
 
-  //show all categories by default
-  $scope.selected = "All Categories"
+  //array of search terms entered by user changed to lowercase
+  var userSearchArray = userSearch.toLowerCase().split(" ");
 
-  //this will run whenever the input changes
-  $scope.update = function(){
+  var bestMatches = [];
 
-    //user search is the term the user entered in the search
-    userSearch = $scope.search_term;
-    $scope.searchTerm = userSearch
+  for(var i = 0; i<allProducts.length; i++){
 
-    //chosen category from dropdown menu
-    var chosenCat = $scope.selected;
+    //change all tags to lowercase so comparison is more accurate
+    var productTags = ("" + allProducts[i].tags).toLowerCase().split(",");
 
-    //array of search terms entered by user changed to lowercase
-    var userSearchArray = userSearch.toLowerCase().split(" ")
+    //change product name to lowercase and placed in array
+    var productNameArray = allProducts[i].name.toLowerCase().split(" ");
 
-    //the products to display
-    var bestMatches = [];
+    var tagCount =  search.count(userSearchArray, productTags);
+    var nameCount = search.count(userSearchArray, productNameArray);
 
-    for(var i = 0; i<allProducts.length; i++){
+    //match points indicate how much a product matches the search
+    var matchPoints = tagCount + nameCount
 
-      //change all tags to lowercase so comparison is more accurate
-      var productTags = ("" + allProducts[i].tags).toLowerCase().split(",")
+    bestMatches.push([allProducts[i], matchPoints]);
 
-      //change product name to lowercase and placed in array
-      var productNameArray = allProducts[i].name.toLowerCase().split(" ")
+  };
 
-      var tagCount = count(userSearchArray, productTags)
-      var nameCount = count(userSearchArray, productNameArray)
-      var matchPoints = tagCount + nameCount
-      //match points indicate how much a product matches the search
+  //filters out the products with 0 matchPoints
+  //then sorts the remaining products based on their matchPoints
+  //and then finally returns only the product and ignores the matchPoints
 
-      bestMatches.push([allProducts[i], matchPoints])
+  bestMatches = bestMatches.filter(function(a){
 
-    };
+    if(chosenCat != "All Categories"){
+      return (a[1] !== 0 && a[0].category.toLowerCase() == chosenCat.toLowerCase());
+    }
+    return a[1] !== 0;
+  })
+  .sort(function(a,b){
+    return b[1] - a[1];
+  })
+  .map(function(a){
+    return a[0];
+  })
 
-    //filters out the products with 0 matchPoints
-    //then sorts the remaining products based on their matchPoints
-    //and then finally returns only the product and ignores the matchPoints
+  $scope.searchResults = bestMatches;
+  $scope.searchTerm = userSearch;
 
-    bestMatches = bestMatches.filter(function(a){
+})
 
-      if(chosenCat != "All Categories"){
-        return (a[1] !== 0 && a[0].category.toLowerCase() == chosenCat.toLowerCase())
-      }
-      return a[1] !== 0
-    })
-    .sort(function(a,b){
-      return b[1] - a[1]
-    })
-    .map(function(a){
-      return a[0]
-    })
+//counts how many times the search terms occur in another array (name/tags)
+search.count = function(search, comp){
 
-    $scope.searchResults = bestMatches;
-    $location.path("/search/" + userSearch)
+  //to loop on the length of the larger array
+  var len = (search.length >= comp.length) ? search.length : comp.length ;
+
+  var count = 0;
+
+  for(var i = 0; i < len; i++){
+
+    if(comp.indexOf(search[i]) !== -1){
+      //increment count if current search term is found in other array
+      count++ ;
+    }
 
   }
-
-  //on button click
-  $scope.search = function(){
-
-    $scope.update()
-
-  };
-
-  //counts how many times the search terms occur in another array (name/tags)
-  count = function(search, comp){
-
-    var len = (search.length >= comp.length) ? search.length : comp.length
-    //to loop on the length of the larger array
-
-    var count = 0
-
-    for(var i = 0; i < len; i++){
-
-      if(comp.indexOf(search[i]) !== -1){
-        count++
-        //increment count if current search term is found in other array
-      }
-
-    }
-    return count
-  };
-
-  //updates chosen category in dropdown menu and search results
-  //if there are any to display
-  $scope.updateCategory = function(category){
-
-    $scope.selected = category
-
-    if($scope.search_term != null){
-      $scope.update()
-    }
-
-  };
-
-});
+  return count;
+};

@@ -1,64 +1,68 @@
 <html>
 
 <div class = "container"
-  ng-controller = "SearchBoxController"
-  ng-show = "searchTerm.length > 0">
+ng-controller = "SearchResultsController"
+ng-show = "searchTerm.length > 0">
+
+<h1 ng-if = "searchResults.length != 1">
+  Your search for "{{searchTerm}}" returned {{searchResults.length}} results
+</h1>
+
+<h1 ng-if = "searchResults.length == 1">
+  Your search for "{{searchTerm}}" returned {{searchResults.length}} result
+</h1>
+
+<br /> <br />
+
+<table class = "table" >
+
+  <thead>
+
+    <tr>
+      <th>Product Name</th>
+      <th>Price</th>
+      <th>Seller</th>
+      <th>Reviews and Ratings</th>
+      <th>Product Tags</th>
+      <th>Category</th>
+    </tr>
 
 
-  <h1 ng-if = "searchResults.length != 1">
-    Your search for "{{searchTerm}}" returned {{searchResults.length}} results
-  </h1>
+    <tr ng-repeat = "product in searchResults">
 
-  <h1 ng-if = "searchResults.length == 1">
-    Your search for "{{searchTerm}}" returned {{searchResults.length}} result
-  </h1>
+      <td>
+        <a href = "">{{product.name}}</a>
+      </td>
 
-  <br /> <br />
+      <td>
+        {{product.price | currency: "&euro;"}}
+      </td>
 
-  <table class = "table" >
+      <td>
+        <a href = " ">{{product.seller}}
+        </a>
+      </td>
 
-    <thead>
+      <td>
+        {{product.review}}
+      </td>
 
-      <tr>
-        <th>Product Name</th>
-        <th>Price</th>
-        <th>Seller</th>
-        <th>Reviews and Ratings</th>
-        <th>Product Tags</th>
-      </tr>
+      <td>
+        <li ng-repeat = "tag in product.tags">
+          {{tag}}
+        </li>
+      </td>
 
+      <td>
+        {{product.category}}
+      </td>
 
-      <tr ng-repeat = "product in searchResults">
+    </tr>
 
-        <td>
-          <a href = "">{{product.name}}</a>
-        </td>
-
-        <td>
-          {{product.price | currency: "&euro;"}}
-        </td>
-
-        <td>
-          <a href = " ">{{product.seller}}
-          </a>
-        </td>
-
-        <td>
-          {{product.review}}
-        </td>
-
-        <td>
-          <li ng-repeat = "tag in product.tags">
-            {{tag}}
-          </li>
-        </td>
-
-      </tr>
-
-    </thead>
+  </thead>
 
 
-  </table>
+</table>
 
 
 </div>
