@@ -14,6 +14,7 @@ var MessageSocketService = angular.module('MessageSocketService', [])
     .on('recMessage', function(newMsg) {
       $rootScope.$apply(function() {
         $rootScope.currentUser.inbox.push(newMsg);
+        $rootScope.$emit('updateMessages');
       });
     })
     .on('disconnect', function () {
@@ -24,15 +25,6 @@ var MessageSocketService = angular.module('MessageSocketService', [])
         console.log("User's token is invalid");
       }
     });
-  };
-
-  messageSocket.recieveMessages = function(){
-    messageSocket.socket.on('recMessage', function(newMsg) {
-      $rootScope.$apply(function() {
-        $rootScope.currentUser.inbox.push(newMsg);
-        console.log(newMsg);
-      });
-    })
   };
 
   messageSocket.sendMessage = function(msg){

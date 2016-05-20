@@ -43,8 +43,10 @@ userAuthApp.controller('NavigationController',['$rootScope', '$scope', '$locatio
 
   $scope.logout = function(){
     $window.sessionStorage.removeItem('mean-token');
-    $rootScope.currentUser = null;
+    $rootScope.currentUser = {};
+    $rootScope.currentUser.inbox = [];
     $rootScope.isLoggedIn = false;
+    $rootScope.$emit('updateMessages');
     $location.path('/');
   };
 
@@ -80,21 +82,24 @@ function populateUser($http, $rootScope, $window, messageSocket){
       })
       .error(function (e) {
         console.log(e);
-      });
-
-      $http.get('/messages/myMessages', {
-        headers: {
-          Authorization: 'Bearer '+ token
-        }
       })
-      .success(function(data) {
-        $rootScope.currentUser.inbox = data;
-        messageSocket.connect();
-      })
-      .error(function (e) {
-        console.log(e);
+      .then(function(){
+        $http.get('/messages/myMessages', {
+          headers: {
+            Authorization: 'Bearer '+ token
+          }
+        })
+        .success(function(data) {
+          $rootScope.currentUser.inbox = data;
+          messageSocket.connect();
+        })
+        .error(function (e) {
+          console.log(e);
+        })
+        .then(function(){
+          $rootScope.$emit('updateMessages');
+        });
       });
-
     }
   }
 }

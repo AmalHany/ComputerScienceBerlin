@@ -48,5 +48,5 @@ var mainApp = angular.module('mainApp', [ 'ngRoute','messageApp', 'userAuthApp',
 
   mainApp
   .config(['$routeProvider', '$locationProvider', config])
-  .run(['$rootScope', '$location', '$http', '$window', run])
-  .run(['$http', '$rootScope', '$window','messageSocket', populateUser]);
+  .run(['$http', '$rootScope', '$window','messageSocket', populateUser])
+  .run(['$rootScope', '$location', '$http', '$window', run]);

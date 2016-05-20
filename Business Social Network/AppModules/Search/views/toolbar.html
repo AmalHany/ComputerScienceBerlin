@@ -5,9 +5,14 @@
 <style>
 
 #icons{
-
   font-size:120%
+}
 
+.badge-notify{
+   background:red;
+   position:relative;
+   top: -9px;
+   left: -35px;
 }
 
 </style>
@@ -67,15 +72,22 @@
       <ul class="nav navbar-nav navbar-right">
 
 
-        <li> <a href="#" class = "glyphicon glyphicon-shopping-cart"></a></li>
+        <li>
+          <button class = "btn btn-default btn-lg btn-link glyphicon glyphicon-shopping-cart"></a>
+        </li>
 
-        <li><a href="#" class = "glyphicon glyphicon-inbox"></a></li>
+        <li ng-controller="MessageNotifyController">
+          <button class="btn btn-default btn-lg btn-link glyphicon glyphicon-comment">
+          </button>
+          <span ng-hide="newMessages.length === 0" class="badge badge-notify" style="font-size:10px;" ng-bind="newMessages.length"></span>
+        </li>
 
         <li class="dropdown">
-
-          <a href="" class="glyphicon glyphicon-user"
+          <button class="btn btn-default btn-lg btn-link glyphicon glyphicon-user"
           data-toggle="dropdown" role="button" aria-haspopup="true"
-          aria-expanded="false"> <span class="caret"></span></a>
+          aria-expanded="false">
+            <span class="caret"></span>
+          </button>
 
           <ul class="dropdown-menu" ng-controller="NavigationController">
             <li ng-hide="isLoggedIn"><a href="#/register">Register</a></li>
@@ -84,7 +96,6 @@
             <li ng-show="isLoggedIn" role="separator" class="divider"></li>
             <li ng-show="isLoggedIn"><a ng-click="logout()" ng-href="#">Logout</a></li>
           </ul>
-
         </li>
       </div>
     </ul>
