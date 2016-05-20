@@ -1,5 +1,5 @@
 
-var mainApp = angular.module('mainApp', [ 'ngRoute', 'userAuthApp', 'wishListApp', 'searchApp']);
+var mainApp = angular.module('mainApp', [ 'ngRoute','messageApp', 'userAuthApp', 'wishListApp', 'searchApp', 'MessageSocketService']);
 
   function config($routeProvider, $locationProvider) {
 
@@ -20,9 +20,9 @@ var mainApp = angular.module('mainApp', [ 'ngRoute', 'userAuthApp', 'wishListApp
           templateUrl: '/partials/User/login.html',
           controller: 'LoginController'
       })
-      .when('/profile', {
-          templateUrl: '/partials/User/profile.html',
-          controller: 'ProfileController'
+      .when('/message', {
+          templateUrl: '/partials/Message/message.html',
+          controller: 'MessageController'
       })
       .otherwise({redirectTo: '/'});;
 
@@ -43,6 +43,43 @@ var mainApp = angular.module('mainApp', [ 'ngRoute', 'userAuthApp', 'wishListApp
     });
   }
 
+  function populateUser($http, $rootScope, $window, MessageSocket){
+
+    var token = $window.sessionStorage['mean-token'];
+    $rootScope.currentUser = {};
+    $rootScope.currentUser.inbox = [];
+
+    if(token)
+    {
+
+      $http.get('/users/profile', {
+        headers: {
+          Authorization: 'Bearer '+ token
+        }
+      })
+      .success(function(data) {
+        $rootScope.currentUser = data;
+      })
+      .error(function (e) {
+        console.log(e);
+      });
+
+      $http.get('/messages/myMessages', {
+        headers: {
+          Authorization: 'Bearer '+ token
+        }
+      })
+      .success(function(data) {
+        $rootScope.currentUser.inbox = data;
+        MessageSocket.connect();
+      })
+      .error(function (e) {
+        console.log(e);
+      });
+    }
+  }
+
   mainApp
   .config(['$routeProvider', '$locationProvider', config])
-  .run(['$rootScope', '$location', '$http', '$window', run]);
+  .run(['$rootScope', '$location', '$http', '$window', run])
+  .run(['$http', '$rootScope', '$window','MessageSocket', populateUser]);

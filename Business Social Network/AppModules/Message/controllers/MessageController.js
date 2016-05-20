@@ -8,28 +8,19 @@ module.exports = function(app, route, express) {
       if(!err)
       {
         socket.join(user._id);
-
         socket.on("sendMessage", function(msg){
+          var ObjectId = require('mongoose').Types.ObjectId;
           var message = app.models.Message();
           message.content = msg.content;
-          message.fromBusiness = msg.from_business;
-          message.toBusiness = msg.to_business;
-          message.fromUser = user._id;
-          message.toUser = msg.to_user;
+          //message.fromBusiness = new ObjectId(msg.fromBusiness);
+          //message.toBusiness = new ObjectId(msg.toBusiness);
+          message.fromUser = new ObjectId(user._id);
+          message.toUser = new ObjectId(msg.toUser);
           message.save(function(err){
             if(err){
               console.log(err);
             }else{
-              var notifyMsg = {
-                _id: message._id,
-                content: message.content,
-                fromBusiness: message.fromBusiness,
-                fromUser: message.fromUser,
-                toBusiness: message.toBusiness,
-                sent_at: message.sent_at,
-                seen: message.seen
-              };
-              socket.broadcast.to(message.toUser).emit("recMessage", notifyMsg);
+              socket.broadcast.to(msg.toUser).emit("recMessage", message);
             }
           });
         });
@@ -45,7 +36,12 @@ module.exports = function(app, route, express) {
         "message" : "UnauthorizedError: private profile"
       });
     }else{
-
+      app.models.Message.find({toUser: req.user._id}, function(err, messages){
+        if(!err)
+        {
+          res.json(messages);
+        }
+      });
     }
   });
 

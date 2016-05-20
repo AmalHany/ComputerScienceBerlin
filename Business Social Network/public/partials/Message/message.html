@@ -1,0 +1,24 @@
+<div ng-app='messageApp'>
+
+  <div ng-controller='MessageController'>
+    <div ng-bind='currentUser._id'></div>
+    <div ng-repeat='msg in currentUser.inbox  track by $index'>
+      <p ng-bind='msg.from'></p>
+      <p ng-bind='msg.content'></p>
+      <p ng-bind='msg.sent_at'></p>
+    </div>
+
+    <form ng-submit="send()">
+      <div class="form-group">
+        <label for="toUser">To</label>
+        <input type="text" class="form-control" ng-model="toUser">
+      </div>
+      <div class="form-group">
+        <label for="content">Message</label>
+        <input type="text" class="form-control" ng-model="content">
+      </div>
+      <button type="submit" class="btn btn-default">Send</button>
+    </form>
+  </div>
+
+</div>
