@@ -8,6 +8,7 @@ var sugar = require("sugar")
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var jwt = require('express-jwt');
+var socketioJwt = require('socketio-jwt');
 
 // Create the application.
 var app = express();
@@ -49,23 +50,23 @@ app.auth = jwt({
 
 // Create realtime socket interface
 app.socketIo = require('socket.io').listen(server);
+app.socketIo.use(socketioJwt.authorize({
+  secret: process.env.MYSECRET,
+  handshake: true
+}));
 app.socketIo.on('connection', function (socket) {
+     //console.log(socket.decoded_token.email, 'connected');
 });
 
 // Choose module to parse html
 app.engine('html', engines.hogan);
 
-
+// request format middleware
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(methodOverride('X-HTTP-Method-Override'));
 
 app.use(express.static(__dirname + '/public'));
-
-
-
-
-
 
 // Connect to MongoDB
 mongoose.connect('mongodb://localhost/test_App');
