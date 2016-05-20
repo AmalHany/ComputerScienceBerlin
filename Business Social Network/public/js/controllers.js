@@ -41,9 +41,7 @@ messageApp.controller('messageCRUD', function($scope, $http,$filter){
           });
       	}
       }
-      $scope.CurrentDate = new Date();
-      $scope.ddMMyyyy = $filter('date')(new Date(), 'dd/MM/yyyy');
-      $scope.hhmmsstt = $filter('date')(new Date(), 'hh:mm:ss a');
+
 
 
       // $scope.removemessage = function(x){
@@ -57,6 +55,10 @@ messageApp.controller('messageCRUD', function($scope, $http,$filter){
       //       $scope.getMessage();
       //   });
       // }
+
+      $scope.CurrentDate = new Date();
+      $scope.ddMMyyyy = $filter('date')(new Date(), 'dd/MM/yyyy');
+      $scope.hhmmsstt = $filter('date')(new Date(), 'hh:mm:ss a');
        $scope.getMessage();
 
 
