@@ -1,8 +1,10 @@
 
+// create main angular application and add dependencies
 var mainApp = angular.module('mainApp', [ 'ngRoute','messageApp', 'userAuthApp', 'wishListApp', 'searchApp', 'MessageSocketService']);
 
   function config($routeProvider, $locationProvider) {
 
+    // angular application routing
     $routeProvider.
       when('/wishlist/:wishlistId', {
         templateUrl: '/partials/WishList/wishlist.html',
@@ -12,14 +14,17 @@ var mainApp = angular.module('mainApp', [ 'ngRoute','messageApp', 'userAuthApp',
           templateUrl: '/partials/Search/searchBox.html',
           controller: 'SearchBoxController'
       })
+      // route to registration page
       .when('/register', {
           templateUrl: '/partials/User/register.html',
           controller: 'RegisterController'
       })
+      // route to login page
       .when('/login', {
           templateUrl: '/partials/User/login.html',
           controller: 'LoginController'
       })
+      // route to test message interface page
       .when('/message', {
           templateUrl: '/partials/Message/message.html',
           controller: 'MessageController'
@@ -48,5 +53,7 @@ var mainApp = angular.module('mainApp', [ 'ngRoute','messageApp', 'userAuthApp',
 
   mainApp
   .config(['$routeProvider', '$locationProvider', config])
+  // populate this session's user information for global use
   .run(['$http', '$rootScope', '$window','messageSocket', populateUser])
+  // run routing constraints
   .run(['$rootScope', '$location', '$http', '$window', run]);

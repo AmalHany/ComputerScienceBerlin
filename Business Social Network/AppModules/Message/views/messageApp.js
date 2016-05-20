@@ -1,5 +1,6 @@
 var messageApp = angular.module('messageApp', ['MessageSocketService']);
 
+// message controller for testing purpose
 messageApp.controller('MessageController',[ '$scope', 'messageSocket', function($scope, messageSocket) {
 
   $scope.toUser = '';
@@ -20,9 +21,11 @@ messageApp.controller('MessageController',[ '$scope', 'messageSocket', function(
 
 }]);
 
+// controller to handle inbox notifications
 messageApp.controller('MessageNotifyController',['$rootScope','$scope', function($rootScope, $scope) {
   $scope.newMessages = [];
 
+  // on updateMessage event group unseen messages from the inbox
   $rootScope.$on('updateMessages', function(){
     $scope.newMessages = [];
     $rootScope.currentUser.inbox.forEach(function(msg){

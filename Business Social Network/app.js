@@ -43,6 +43,7 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, function(username, pa
 
 // add authentication layer to middleware stack
 app.use(passport.initialize());
+// decode javascript object token and check if its correct before protected express routes
 app.auth = jwt({
   secret: process.env.MYSECRET,
   userProperty: 'user'
@@ -50,6 +51,7 @@ app.auth = jwt({
 
 // Create realtime socket interface
 app.socketIo = require('socket.io').listen(server);
+// decode javascript object token and check if its correct before protected realtime socket namespaces
 app.authSocket = socketioJwt.authorize({
   secret: process.env.MYSECRET,
   handshake: true
@@ -63,16 +65,19 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(methodOverride('X-HTTP-Method-Override'));
 
+// add asset directory to api paths
 app.use(express.static(__dirname + '/public'));
 
 // Connect to MongoDB
 mongoose.connect('mongodb://localhost/test_App');
 mongoose.connection.once('open', function() {
 
+  // add all controllers as middleware in express
   _.each(routes, function(controller, route) {
     app.use(route, controller(app, route, express));
   });
 
+  // send angular application and templates
   app.get('/', function(req, res){
     app.set('views', 'public');
     res.render('index.html');

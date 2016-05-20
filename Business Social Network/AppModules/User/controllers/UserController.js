@@ -12,15 +12,19 @@ module.exports = function(app, route, express) {
     user.date_of_birth = req.body.date_of_birth;
     user.gender = req.body.gender;
 
+    // set password hash in database
     user.setPassword(req.body.password);
 
+    // save user
     user.save(function(err) {
       if(err){
         console.log(err);
       }else{
         var token;
+        // generate json web token for session management
         token = user.generateJwt();
         res.status(200);
+        // send json web token to client
         res.json({
           "token" : token
         });
@@ -39,8 +43,10 @@ module.exports = function(app, route, express) {
       }
       // If a user is found
       if(user){
+        // generate json web token for session management
         token = user.generateJwt();
         res.status(200);
+        // send json web token to client
         res.json({
           "token" : token
         });
