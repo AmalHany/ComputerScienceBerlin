@@ -5,7 +5,7 @@ search.controller('SearchBoxController', function($scope, $location){
   //show all categories by default
   $scope.selected = "All Categories";
 
-  //get all categories
+  //get all categories to display in dropdown menu
   //dummy data:
   $scope.categories = ["Clothes", "Electronics", "Books", "Bateekh"];
   var selectedCategory = "All Categories";
@@ -30,6 +30,13 @@ search.controller('SearchBoxController', function($scope, $location){
     $scope.selected = category;
     selectedCategory = category;
 
+    if(userSearch.length > 0){
+      $location.path('/search/' + selectedCategory + '/' + userSearch);
+    }
+
+    else{
+      $location.path('/');
+    }
 
   }
 
@@ -87,7 +94,7 @@ search.controller('SearchResultsController', function($scope, $routeParams){
 
   var bestMatches = [];
 
-  for(var i = 0; i<allProducts.length; i++){
+  for(var i = 0; i < allProducts.length; i++){
 
     //change all tags to lowercase so comparison is more accurate
     var productTags = ("" + allProducts[i].tags).toLowerCase().split(",");
@@ -123,6 +130,7 @@ search.controller('SearchResultsController', function($scope, $routeParams){
     return a[0];
   })
 
+  //send the search results and the search term to the search results page
   $scope.searchResults = bestMatches;
   $scope.searchTerm = userSearch;
 

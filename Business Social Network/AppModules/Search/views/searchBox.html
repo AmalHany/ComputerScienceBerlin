@@ -15,7 +15,7 @@
 </head>
 
 <div ng-controller = "SearchBoxController">
-  
+
   <div class="col-lg-6">  <!-- whole search box and both buttons -->
 
     <!-- Category button -->
@@ -35,14 +35,14 @@
         <ul class="dropdown-menu">
 
           <li>
-            <a href="#" ng-click = "updateCategory('All Categories')">
+            <a ng-click = "updateCategory('All Categories')">
               All Categories</a>
             </li>
 
             <li role="separator" class="divider"></li>
 
             <li ng-repeat = "category in categories">
-              <a href="#" ng-click = "updateCategory(category)">{{category}}</a>
+              <a  ng-click = "updateCategory(category)">{{category}}</a>
             </li>
 
           </ul>
