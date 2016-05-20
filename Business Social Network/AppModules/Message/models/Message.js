@@ -5,6 +5,7 @@ var MessageSchema = new mongoose.Schema({
    sent_at: { type: Date, default: Date.now },
    content: { type: String, required: true },
    //seen: { type: Boolean, default: false },
+   subject: { type: String},
    fromBusiness: { type: String, required: true },
    toBusiness: { type: String, required: true },
    // fromUser: { type: Schema.Types.ObjectId, ref: 'User', requried: true },

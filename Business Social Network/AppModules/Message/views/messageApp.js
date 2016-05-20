@@ -26,7 +26,6 @@ messageApp.controller('messageCRUD', function($scope, $http,$filter){
         && $scope.content !== ""
         && $scope.content !== undefined)
       	{
-
       		var config = {
             method: "POST",
             url: "/message",
@@ -42,24 +41,23 @@ messageApp.controller('messageCRUD', function($scope, $http,$filter){
       	}
       }
 
-
-
-      // $scope.removemessage = function(x){
-      //   var config = {
-      //     method: "DELETE",
-      //     url: "/message",
-      //     data: {messageID: x._id},
-      //     headers: {"Content-Type": "application/json;charset=utf-8"}
-      //   };
-      //   $http(config).then(function(response) {
-      //       $scope.getMessage();
-      //   });
-      // }
+      $scope.removemessage = function(x){
+        var config = {
+          method: "DELETE",
+          url: "/message",
+          data: {messageID: x._id},
+          headers: {"Content-Type": "application/json;charset=utf-8"}
+        };
+        $http(config).then(function(response) {
+            $scope.getMessage();
+        });
+      }
 
       $scope.CurrentDate = new Date();
       $scope.ddMMyyyy = $filter('date')(new Date(), 'dd/MM/yyyy');
       $scope.hhmmsstt = $filter('date')(new Date(), 'hh:mm:ss a');
-       $scope.getMessage();
+       
+      $scope.getMessage();
 
 
 });

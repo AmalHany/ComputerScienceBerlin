@@ -5,6 +5,7 @@
 <div class = "active">
 	<h2> Sending Message </h2>
 </div>
+<br>
 <form ng-submit="sendMessage()" class="navbar-form form-inline">
 <table>
 	<tr>
@@ -15,11 +16,19 @@
             <input style="width: 150px;" class="form-control" type="text" ng-model="fromBusiness">
          </td>
          <td>
-			<label> SendTo </label>
+			<label> To </label>
          </td>
          <td>
-            <input style="width: 150px;" class="form-control" type="text" ng-model="toBusiness">
+            <input style="width: 150px;" class="form-control" placeholder=""  type="text" ng-model="toBusiness">
          </td>
+         <br>
+         <td>
+			<label> Subject </label>
+         </td>
+         <td>
+            <input style="width: 150px;" class="form-control" placeholder=""  type="text" ng-model="subject">
+         </td>
+         <br>
 
 	</tr>
 </table>
@@ -32,7 +41,7 @@
 			</label>
          </td>
             <td>
-             <input style="width: 600px; height:100px;" class="form-control" type="text" ng-model="content">
+             <input style="width: 600px; height:100px;" placeholder="write your message here" class="form-control" type="text" ng-model="content">
             </td>
      </tr>
       </table>
@@ -56,10 +65,7 @@
              <button class="btn btn-primary "
              ng-click="removemessage(x)">Ok</button>
              </div>  
-          
-            
 
-            
       </div>
 
 
