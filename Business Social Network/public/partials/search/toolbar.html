@@ -82,7 +82,7 @@
             <li ng-hide="isLoggedIn"><a href="#/login">Sign in</a></li>
             <li ng-show="isLoggedIn" ng-bind="currentUser.first_name"><a href="profile"></a></li>
             <li ng-show="isLoggedIn" role="separator" class="divider"></li>
-            <li ng-show="isLoggedIn"><a onClick="logout()" href="#">Logout</a></li>
+            <li ng-show="isLoggedIn"><a ng-click="logout()" ng-href="#">Logout</a></li>
           </ul>
 
         </li>

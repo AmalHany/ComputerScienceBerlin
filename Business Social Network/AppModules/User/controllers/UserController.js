@@ -52,7 +52,7 @@ module.exports = function(app, route, express) {
   });
 
   // get user profile if logged in
-  app.get('/users/profile/USERID', app.auth, function(req, res){
+  app.get('/users/profile', app.auth, function(req, res){
     // If no user ID exists in the JWT return a 401
     if (!req.payload._id) {
       res.status(401).json({

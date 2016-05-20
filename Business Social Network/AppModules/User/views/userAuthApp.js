@@ -36,7 +36,7 @@ userAuthApp.controller('LoginController',['$scope', '$location', '$http', '$wind
 
 }]);
 
-userAuthApp.controller('ProfileController',['$scope', '$http', '$window', function($scope, $http, $window) {
+userAuthApp.controller('ProfileController',['$rootScope', '$scope', '$http', '$window', function($rootScope, $scope, $http, $window) {
   $scope.user = {};
 
   $http.get('/users/profile', {
@@ -46,6 +46,8 @@ userAuthApp.controller('ProfileController',['$scope', '$http', '$window', functi
   })
   .success(function(data) {
     $scope.user = data;
+    $rootScope.currentUser = data;
+    $rootScope.isLoggedIn = true;
   })
   .error(function (e) {
     console.log(e);

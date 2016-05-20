@@ -42,8 +42,8 @@ var mainApp = angular.module('mainApp', [ 'ngRoute', 'userAuthApp', 'wishListApp
     });
   }
 
-  mainApp.controller('NavigationController',['$scope', '$location', '$http', '$window', function($scope, $location, $http, $window){
-    $scope.isLoggedIn = (function() {
+  mainApp.controller('NavigationController',['$rootScope', '$scope', '$location', '$http', '$window', function($rootScope, $scope, $location, $http, $window){
+    $rootScope.isLoggedIn = (function() {
       var token = $window.sessionStorage['mean-token'];
       var payload;
 
@@ -58,11 +58,11 @@ var mainApp = angular.module('mainApp', [ 'ngRoute', 'userAuthApp', 'wishListApp
       }
     })();
 
-    $scope.currentUser = null;
+    $rootScope.currentUser = null;
 
-    if($scope.isLoggedIn)
+    if($rootScope.isLoggedIn)
     {
-      $scope.currentUser = (function() {
+      $rootScope.currentUser = (function() {
           var token = $window.sessionStorage['mean-token'];
           var payload = token.split('.')[1];
           payload = $window.atob(payload);
@@ -77,6 +77,8 @@ var mainApp = angular.module('mainApp', [ 'ngRoute', 'userAuthApp', 'wishListApp
 
     $scope.logout = function(){
       $window.sessionStorage.removeItem('mean-token');
+      $rootScope.currentUser = null;
+      $rootScope.isLoggedIn = false;
       $location.path('/');
     };
 
