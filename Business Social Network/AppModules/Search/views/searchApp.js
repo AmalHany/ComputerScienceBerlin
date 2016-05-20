@@ -9,12 +9,13 @@ search.controller('SearchBoxController', function($scope, $location){
   //dummy data:
   $scope.categories = ["Clothes", "Electronics", "Books", "Bateekh"];
   var selectedCategory = "All Categories";
-  var userSearch = '';
+  var userSearch = ' ';
 
   $scope.update = function(){
 
     userSearch = $scope.search_term;
 
+    //update URL if necessary
     if(userSearch.length > 0){
       $location.path('/search/' + selectedCategory + '/' + userSearch);
     }
@@ -30,6 +31,7 @@ search.controller('SearchBoxController', function($scope, $location){
     $scope.selected = category;
     selectedCategory = category;
 
+  //update URL if necessary
     if(userSearch.length > 0){
       $location.path('/search/' + selectedCategory + '/' + userSearch);
     }

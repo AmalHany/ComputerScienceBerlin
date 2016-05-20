@@ -1,8 +1,5 @@
-<html>
-
-<div class = "container"
-ng-controller = "SearchResultsController"
-ng-show = "searchTerm.length > 0">
+<div class = "container" ng-controller = "SearchResultsController"
+  ng-show = "searchTerm.length > 0">
 
 <h1 ng-if = "searchResults.length != 1">
   Your search for "{{searchTerm}}" returned {{searchResults.length}} results
@@ -66,5 +63,3 @@ ng-show = "searchTerm.length > 0">
 
 
 </div>
-
-</html>

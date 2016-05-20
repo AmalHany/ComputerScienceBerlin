@@ -1,5 +1,4 @@
-
-  var mainApp = angular.module('mainApp', [ 'ngRoute', 'wishListApp', 'searchApp']);
+var mainApp = angular.module('mainApp', [ 'ngRoute', 'wishListApp', 'searchApp']);
 
   mainApp.config(['$routeProvider',
                     function($routeProvider) {
