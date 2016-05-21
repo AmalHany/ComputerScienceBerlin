@@ -2,44 +2,54 @@ module.exports = function(app, route, express) {
 
   var graph = require('fbgraph');// facebook graph api module
 
-  app.get('/socialRecs', function(req, res){
-    var access_token = "CAACEdEose0cBAAtunrmyO8YFqhOnzKwbOr7qHOQJqFJlcYfQ6bU149m0m0EbdN3hR6yDPimtMFncA9KE8KSkGJfUKGMz3Pa0ZAH3idSE7WxIfNUI7jvB1oWAKdZATFV3HC1qAUTws5YPZAYPpIk3Je5GjCbMFvkYDFG9wCz56ZAVLxklCMwi4WMRmFNn8f3iRaAZA8QxDXSgWIyf6bOQC";//user facebook access token
-    var query = "me?fields=age_range,gender,feed{description,message,likes},likes{about,name},location,books{name,description,written_by},movies{genre,name,description},groups{name},television{genre,name},music{name,genre},events{name}";// facebook graph api query string
-    graph.setAccessToken(access_token);// perform the query to the session's user account
-    graph.get(query, function(err, response) {// perform a get request to facebook graph api
-      var mytags = getTags(response);// process the response json object to extract usefull tags
+  app.get('/socialRecs', app.auth,function(req, res){
 
-      app.models.Product.aggregate([//query all products and set match count by the number of common tags in the product and the social recommendaton tags
-        {
-          $project: {
-            name: 1,
-            match_count: {
-              $size: {
-                $setIntersection: [ "$tags", mytags]
-              }
-            }
-          }
-        },
-        {
-          $match: {
-            match_count: { "$gt": 0 }
-          }
-        },
-        {
-          $sort: { match_count: -1 }
-        },
-        { $limit : 20 }
-      ], function(err, result){
-        if(err){
-          console.log(err);
-        }
-        else {
-          res.json(result);
-        }
+    if (!req.user._id) {
+      res.status(401).json({
+        "message" : "UnauthorizedError: private profile"
       });
+    } else {
+      // Otherwise continue
+      app.models.User.findById(req.user._id).exec(function(err, user) {
+        var access_token = user.facebook.token;//user facebook access token
+        var query = "me?fields=age_range,gender,feed{description,message,likes},likes{about,name},location,books{name,description,written_by},movies{genre,name,description},groups{name},television{genre,name},music{name,genre},events{name}";// facebook graph api query string
+        graph.setAccessToken(access_token);// perform the query to the session's user account
+        graph.get(query, function(err, response) {// perform a get request to facebook graph api
+          var mytags = getTags(response);// process the response json object to extract usefull tags
 
-    });
+          app.models.Product.aggregate([//query all products and set match count by the number of common tags in the product and the social recommendaton tags
+            {
+              $project: {
+                name: 1,
+                match_count: {
+                  $size: {
+                    $setIntersection: [ "$tags", mytags]
+                  }
+                }
+              }
+            },
+            {
+              $match: {
+                match_count: { "$gt": 0 }
+              }
+            },
+            {
+              $sort: { match_count: -1 }
+            },
+            { $limit : 20 }
+          ], function(err, result){
+            if(err){
+              console.log(err);
+            }
+            else {
+              res.json(result);
+            }
+          });
 
+        });
+
+      });
+    }
   });
 
   var getTags = function(fbObj){
