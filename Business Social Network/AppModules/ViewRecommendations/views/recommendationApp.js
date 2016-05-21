@@ -50,7 +50,7 @@
     url: '/socialRecs'
   };
   $http(config).then(function(response) {
-    $scope.products= response.data;
+    $scope.products = response.data;
   });
 };
 
