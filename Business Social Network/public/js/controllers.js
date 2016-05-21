@@ -1,5 +1,6 @@
 var messageApp = angular.module('messageApp', ['MessageSocketService']);
 
+// message controller for testing purpose
 messageApp.controller('MessageController',[ '$scope', 'messageSocket', function($scope, messageSocket) {
 
   $scope.toUser = '';
@@ -20,9 +21,11 @@ messageApp.controller('MessageController',[ '$scope', 'messageSocket', function(
 
 }]);
 
+// controller to handle inbox notifications
 messageApp.controller('MessageNotifyController',['$rootScope','$scope', function($rootScope, $scope) {
   $scope.newMessages = [];
 
+  // on updateMessage event group unseen messages from the inbox
   $rootScope.$on('updateMessages', function(){
     $scope.newMessages = [];
     $rootScope.currentUser.inbox.forEach(function(msg){
@@ -33,22 +36,28 @@ messageApp.controller('MessageNotifyController',['$rootScope','$scope', function
 
 }]);
 
+// create service for realtime messaging socket management
 var MessageSocketService = angular.module('MessageSocketService', [])
 .service('messageSocket', ['$rootScope', '$window', function ($rootScope, $window) {
 
   var messageSocket = {};
   messageSocket.socket = {};
 
+  // initialize socket connection with server
   messageSocket.connect = function(){
+    // connect using JWT for authentication
     messageSocket.socket = io.connect('/chat', {
       query: 'token=' + $window.sessionStorage['mean-token']
     });
+    // check connection status
     messageSocket.socket.on('connect', function () {
       console.log("authorized");
     })
+    // when a message is received update client user inbox
     .on('recMessage', function(newMsg) {
       $rootScope.$apply(function() {
         $rootScope.currentUser.inbox.push(newMsg);
+        // emit event to MessageNotifyController to update message notifications
         $rootScope.$emit('updateMessages');
       });
     })
@@ -63,11 +72,12 @@ var MessageSocketService = angular.module('MessageSocketService', [])
   };
 
   messageSocket.sendMessage = function(msg){
-    //expected msg object
-    //msg.content; text in message
-    //msg.from_business; id of sender's business
-    //msg.to_business; id of receiver's business
-    //msg.to_user; id of receiver
+    // expected msg object
+    // msg.content; text in message
+    // msg.from_business; id of sender's business
+    // msg.to_business; id of receiver's business
+    // msg.to_user; id of receiver
+    // send new message to server realtime socket hub
     messageSocket.socket.emit('sendMessage', msg);
   };
 
@@ -212,19 +222,26 @@ function getRecommendationProducts($http){
 
 var userAuthApp = angular.module('userAuthApp', ['MessageSocketService']);
 
-userAuthApp.controller('RegisterController',['$scope', '$location', '$http', '$window', 'messageSocket', function($scope, $location, $http, $window, messageSocket) {
+userAuthApp.controller('RegisterController',['$rootScope', '$scope', '$location', '$http', '$window', 'messageSocket', function($rootScope, $scope, $location, $http, $window, messageSocket) {
   $scope.credentials = {};
 
+  // submit user credentials form
   $scope.onSubmit = function () {
 
+    // send post request to API with basic user information to register the user
     $http.post('/users/register', $scope.credentials).success(function(data){
+      // obtain json web token of the regitered user
       $window.sessionStorage['mean-token'] = data.token;
-      populateUser($http, $rootScope, $window, messageSocket);
+      // populate global angular user object
+      populateUser($http, $rootScope, $window, messageSocket, function(){
+        $rootScope.$emit('setStatusAlert', "Logged in succesfully as " + $rootScope.currentUser.first_name);
+      });
     })
     .error(function(err){
-      alert(err);
+      $rootScope.$emit('setErrorAlert', err.message);
     })
     .then(function(){
+      // redirect to root page
       $location.path('/');
     });
   };
@@ -234,17 +251,24 @@ userAuthApp.controller('RegisterController',['$scope', '$location', '$http', '$w
 userAuthApp.controller('LoginController',['$rootScope', '$scope', '$location', '$http', '$window', 'messageSocket', function($rootScope, $scope, $location, $http, $window, messageSocket) {
   $scope.credentials = {};
 
+  // submit user credentials form
   $scope.onSubmit = function () {
 
+    // send post request to API with basic user information to login the user
     $http.post('/users/login', $scope.credentials)
     .success(function(data) {
+      // obtain json web token of the logged in user
       $window.sessionStorage['mean-token'] = data.token;
-      populateUser($http, $rootScope, $window, messageSocket);
+      // populate global angular user object
+      populateUser($http, $rootScope, $window, messageSocket, function(){
+        $rootScope.$emit('setStatusAlert', "Logged in succesfully as " + $rootScope.currentUser.first_name);
+      });
     })
     .error(function(err){
-      alert(err);
+      $rootScope.$emit('setErrorAlert', err.message);
     })
     .then(function(){
+      // redirect to root page
       $location.path('/');
     });
   };
@@ -253,21 +277,30 @@ userAuthApp.controller('LoginController',['$rootScope', '$scope', '$location', '
 
 userAuthApp.controller('NavigationController',['$rootScope', '$scope', '$location', '$window', function($rootScope, $scope, $location, $window){
 
+  // on logout
   $scope.logout = function(){
+    // delete session json web token
     $window.sessionStorage.removeItem('mean-token');
+    // clear global user object
     $rootScope.currentUser = {};
+    // clear global user inbox
     $rootScope.currentUser.inbox = [];
+    // change global state to not logged in
     $rootScope.isLoggedIn = false;
+    // emit event to messageNotifyController to clear message notifications
     $rootScope.$emit('updateMessages');
+    // redirect to root page
     $location.path('/');
+    $rootScope.$emit('setStatusAlert', "Logged out succesfully");
   };
 
 }]);
 
-function populateUser($http, $rootScope, $window, messageSocket){
+function populateUser($http, $rootScope, $window, messageSocket, callback){
 
   var token = $window.sessionStorage['mean-token'];
 
+  // initialize global variables
   $rootScope.currentUser = {};
   $rootScope.currentUser.inbox = [];
   $rootScope.isLoggedIn = false;
@@ -275,62 +308,56 @@ function populateUser($http, $rootScope, $window, messageSocket){
   if(token)
   {
     var user;
+    // decode token
     user = token.split('.')[1];
     user = $window.atob(user);
     user = JSON.parse(user);
 
+    // check if token is not expired
     $rootScope.isLoggedIn = user.exp > Date.now() / 1000;
 
     if($rootScope.isLoggedIn)
     {
-
+      // populate global user object with more detailed user information
+      // API call with JWT to get logged user details
       $http.get('/users/profile', {
         headers: {
           Authorization: 'Bearer '+ token
         }
       })
       .success(function(data) {
+        // set global user
         $rootScope.currentUser = data;
       })
       .error(function (e) {
         console.log(e);
       })
       .then(function(){
+        // API call with JWT to get logged user inbox
         $http.get('/messages/myMessages', {
           headers: {
             Authorization: 'Bearer '+ token
           }
         })
         .success(function(data) {
+          // populate inbox object
           $rootScope.currentUser.inbox = data;
+          // fire up realtime socket to long poll for new messages
           messageSocket.connect();
         })
         .error(function (e) {
           console.log(e);
         })
         .then(function(){
+          // emit event to messageNotifyController to update new messages notification
           $rootScope.$emit('updateMessages');
+          if(callback !== undefined)
+            callback();
         });
       });
     }
   }
 }
-
-// function connect_socket(url, token) {
-//   var socket = io.connect(url, {
-//     query: 'token=' + token
-//   });
-//
-//   socket.on('connect', function () {
-//     console.log('authenticated');
-//   }).on('disconnect', function () {
-//     console.log('disconnected');
-//   }).on("error", function(error) {
-//     if (error.type == "UnauthorizedError" || error.code == "invalid_token") {
-//       console.log("User's token is invalid");
-//     }
-//   });
-// }
 
 var wishListApp = angular.module('wishListApp', []);
 

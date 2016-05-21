@@ -57,3 +57,38 @@ var mainApp = angular.module('mainApp', [ 'ngRoute','messageApp', 'userAuthApp',
   .run(['$http', '$rootScope', '$window','messageSocket', populateUser])
   // run routing constraints
   .run(['$rootScope', '$location', '$http', '$window', run]);
+
+  mainApp.controller('AlertController', ['$rootScope', '$scope', function($rootScope, $scope){
+    $scope.errorAlert = 'clear';
+    $scope.statusAlert = 'clear';
+
+    $scope.errorHide = true;
+    $scope.statusHide = true;
+
+    // show error alert prompt for 5 seconds
+    $rootScope.$on('setErrorAlert', function(event, msg){
+      $scope.errorAlert = msg;
+      $scope.errorHide = false;
+      setTimeout(function ()
+       {
+         $scope.$apply(function()
+         {
+           $scope.errorHide = true;
+         });
+       }, 5000);
+    });
+
+    // show status alert prompt for 5 seconds
+    $rootScope.$on('setStatusAlert', function(event, msg){
+      $scope.statusAlert = msg;
+      $scope.statusHide = false;
+      setTimeout(function ()
+       {
+         $scope.$apply(function()
+         {
+           $scope.statusHide = true;
+         });
+       }, 5000);
+    });
+
+  }]);

@@ -1,6 +1,6 @@
 var userAuthApp = angular.module('userAuthApp', ['MessageSocketService']);
 
-userAuthApp.controller('RegisterController',['$scope', '$location', '$http', '$window', 'messageSocket', function($scope, $location, $http, $window, messageSocket) {
+userAuthApp.controller('RegisterController',['$rootScope', '$scope', '$location', '$http', '$window', 'messageSocket', function($rootScope, $scope, $location, $http, $window, messageSocket) {
   $scope.credentials = {};
 
   // submit user credentials form
@@ -11,10 +11,12 @@ userAuthApp.controller('RegisterController',['$scope', '$location', '$http', '$w
       // obtain json web token of the regitered user
       $window.sessionStorage['mean-token'] = data.token;
       // populate global angular user object
-      populateUser($http, $rootScope, $window, messageSocket);
+      populateUser($http, $rootScope, $window, messageSocket, function(){
+        $rootScope.$emit('setStatusAlert', "Logged in succesfully as " + $rootScope.currentUser.first_name);
+      });
     })
     .error(function(err){
-      alert(err);
+      $rootScope.$emit('setErrorAlert', err.message);
     })
     .then(function(){
       // redirect to root page
@@ -36,10 +38,12 @@ userAuthApp.controller('LoginController',['$rootScope', '$scope', '$location', '
       // obtain json web token of the logged in user
       $window.sessionStorage['mean-token'] = data.token;
       // populate global angular user object
-      populateUser($http, $rootScope, $window, messageSocket);
+      populateUser($http, $rootScope, $window, messageSocket, function(){
+        $rootScope.$emit('setStatusAlert', "Logged in succesfully as " + $rootScope.currentUser.first_name);
+      });
     })
     .error(function(err){
-      alert(err);
+      $rootScope.$emit('setErrorAlert', err.message);
     })
     .then(function(){
       // redirect to root page
@@ -65,11 +69,12 @@ userAuthApp.controller('NavigationController',['$rootScope', '$scope', '$locatio
     $rootScope.$emit('updateMessages');
     // redirect to root page
     $location.path('/');
+    $rootScope.$emit('setStatusAlert', "Logged out succesfully");
   };
 
 }]);
 
-function populateUser($http, $rootScope, $window, messageSocket){
+function populateUser($http, $rootScope, $window, messageSocket, callback){
 
   var token = $window.sessionStorage['mean-token'];
 
@@ -124,6 +129,8 @@ function populateUser($http, $rootScope, $window, messageSocket){
         .then(function(){
           // emit event to messageNotifyController to update new messages notification
           $rootScope.$emit('updateMessages');
+          if(callback !== undefined)
+            callback();
         });
       });
     }

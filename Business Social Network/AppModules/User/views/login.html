@@ -1,5 +1,8 @@
-<div ng-controller="LoginController">
-  <form ng-submit="onSubmit()">
+<div ng-controller="LoginController" class="container">
+  <div class="col-md-4"></div>
+  <form ng-submit="onSubmit()" class="col-md-4">
+    <h3>Please Sign In</h3>
+    <br>
     <div class="form-group">
       <label for="email">Email address</label>
       <input type="email" class="form-control" id="email" placeholder="Enter email" ng-model="credentials.email">
