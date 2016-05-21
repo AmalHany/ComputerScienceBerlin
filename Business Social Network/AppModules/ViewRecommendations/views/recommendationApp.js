@@ -41,9 +41,24 @@
     $scope.products=allProducts
 
  */
+
+
+ function getRecommendationProducts($http){
+  var tags = [];
+  var config = {
+    method: "GET",
+    url: '/socialRecs'
+  };
+  $http(config).then(function(response) {
+    $scope.products= response.data;
+  });
+};
+
+/*
  getRecommendationProducts($http).then(function(response){
    $scope.products = response;
  });
+ */
  
 
   });
