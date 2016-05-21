@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+//attributes of messageSchema
 var MessageSchema = new mongoose.Schema({
    sent_at: { type: Date, default: Date.now },
    content: { type: String, required: true },

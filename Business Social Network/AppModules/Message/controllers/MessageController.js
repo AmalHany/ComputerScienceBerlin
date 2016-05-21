@@ -1,13 +1,11 @@
 module.exports = function(app, route, express) {
-	
-	//get message
+	//to get all messages
 	app.get('/message', function(req, res){
     app.models.Message.find({}, function(err, message) {
       res.json(message);
     });
   });
-
-	//send message 
+	//to send new message
 	app.post('/message', function(req, res){
     var fromBusiness = req.body.fromBusiness;
     var toBusiness= req.body.toBusiness;
@@ -17,13 +15,12 @@ module.exports = function(app, route, express) {
       toBusiness: toBusiness,
       content:content      
     });
-    //save the new message
     newMessage.save(function(err) {
       if (err) throw err;
     });
     res.sendStatus(200);
   });
-
+	//to delete a message with the id
 	app.delete('/message', function(req, res){
     app.models.Message.remove({ _id: req.body.messageID }, function (err) {
         if(!err)
