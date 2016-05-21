@@ -16,10 +16,18 @@
   <body ng-app="mainApp">
 
     <div ng-include src="'partials/Search/toolbar.html'"></div>
-    <!-- <div ng-include src = "'partials/Search/searchResults.html'"></div> -->
+
+    <div ng-controller="AlertController">
+      <div ng-hide="errorHide" class="panel panel-danger">
+        <div class="panel-heading text-center" ng-bind="errorAlert"></div>
+      </div>
+      <div ng-hide="statusHide" class="panel panel-success" >
+        <div class="panel-heading text-center" ng-bind="statusAlert"></div>
+      </div>
+    </div>
 
     <div ng-view></div>
-    
+
   </body>
 
 

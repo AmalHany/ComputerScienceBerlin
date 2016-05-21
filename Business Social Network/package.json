@@ -11,8 +11,10 @@
   "dependencies": {
     "body-parser": "latest",
     "consolidate": "^0.14.0",
+    "crypto": "0.0.3",
     "del": "^2.2.0",
     "express": "latest",
+    "express-jwt": "^3.4.0",
     "fbgraph": "latest",
     "glossary": "latest",
     "gulp": "^3.9.1",
@@ -20,11 +22,16 @@
     "gulp-flatten": "^0.2.0",
     "gulp-nodemon": "^2.0.6",
     "hogan": "^1.0.2",
+    "jsonwebtoken": "^7.0.0",
     "lodash": "latest",
     "method-override": "latest",
     "mongoose": "latest",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1",
+    "passport-local": "^1.0.0",
     "run-sequence": "^1.1.5",
-    "sugar": "^1.4.1",
-    "socket.io": "^1.4.6"
+    "socket.io": "^1.4.6",
+    "socketio-jwt": "^4.3.4",
+    "sugar": "^1.4.1"
   }
 }

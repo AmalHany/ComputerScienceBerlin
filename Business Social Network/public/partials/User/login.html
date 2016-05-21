@@ -1,0 +1,17 @@
+<div ng-controller="LoginController" class="container">
+  <div class="col-md-4"></div>
+  <form ng-submit="onSubmit()" class="col-md-4">
+    <h3>Please Sign In</h3>
+    <br>
+    <div class="form-group">
+      <label for="email">Email address</label>
+      <input type="email" class="form-control" id="email" placeholder="Enter email" ng-model="credentials.email">
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" id="password" placeholder="Password" ng-model="credentials.password">
+    </div>
+    <button type="submit" class="btn btn-default">Sign in</button>
+  </form>
+  <a href="/users/login/facebook" class="btn btn-primary"><Strong>Sign in with Facebook</Strong></a>
+</div>
