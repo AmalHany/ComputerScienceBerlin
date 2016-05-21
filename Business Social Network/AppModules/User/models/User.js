@@ -9,9 +9,16 @@ var UserSchema = new mongoose.Schema({
    // store password hash for more security
    hash: String,
    salt: String,
+   facebook: {
+    id: String,
+    token: String,
+    email: String,
+    name: String,
+    username: String,
+    },
    first_name: { type: String, required: true },
    last_name: { type: String, required: true },
-   date_of_birth: { type: Date, required: true },
+   date_of_birth: { type: Date, default: Date.now },
    about: { type: String },
    image_path: { type: String },
    gender: { type: String, required: true, enum: ['male', 'female']},

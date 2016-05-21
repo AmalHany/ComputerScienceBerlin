@@ -7,6 +7,7 @@ var _ = require('lodash');
 var sugar = require("sugar")
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var FacebookStrategy = require('passport-facebook').Strategy;
 var jwt = require('express-jwt');
 var socketioJwt = require('socketio-jwt');
 
@@ -40,6 +41,41 @@ passport.use(new LocalStrategy({ usernameField: 'email' }, function(username, pa
     });
   }
 ));
+// facebook authentication
+
+passport.use(new FacebookStrategy({
+    clientID: process.env.APPID,
+    clientSecret: process.env.APPSECRET,
+    callbackURL: '/users/login/facebook/callback' },
+    function(token, refreshToken, profile, done) {
+      process.nextTick(function() {
+        app.models.User.findOne({ 'facebook.id': profile.id }, function(err, user) {
+          if (err)
+            return done(err);
+          if (user) {
+            return done(null, user);
+          } else {
+            var newUser = new app.models.User();
+            newUser.facebook.id = profile.id;
+            newUser.facebook.token = token;
+            newUser.facebook.name = profile.name.givenName + ' ' + profile.name.familyName;
+            newUser.facebook.email = profile.id +"@facebook";//(profile.emails[0].value || '').toLowerCase();
+            newUser.first_name = profile.displayName.split(" ")[0];
+            newUser.last_name = profile.displayName.split(" ")[1];
+            newUser.email = profile.id +"@facebook";//(profile.emails[0].value || '').toLowerCase();
+            newUser.date_of_birth = "01/07/1995";
+            newUser.gender = "female";//profile.gender;
+
+            newUser.save(function(err) {
+              if (err)
+                throw err;
+              return done(null, newUser);
+            });
+          }
+        });
+      });
+    })
+);
 
 // add authentication layer to middleware stack
 app.use(passport.initialize());

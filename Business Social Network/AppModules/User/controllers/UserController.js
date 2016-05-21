@@ -57,6 +57,25 @@ module.exports = function(app, route, express) {
     })(req, res);
   });
 
+  // login as a new user
+  app.get('/users/login/facebook',
+    passport.authenticate( 'facebook', { session: false, scope: ['email'] })
+  );
+
+  app.get('/users/login/facebook/callback', function(req, res){
+    passport.authenticate('facebook', function(err, user, info){
+      if(user)
+      {
+        var token;
+          token = user.generateJwt();
+          res.status(200);
+          res.send("<script>sessionStorage.setItem('mean-token', '" + token + "');window.history.go(-1);</script>");
+      }else{
+        res.send("<script>window.history.go(-2);</script>");
+      }
+    })(req, res);
+  });
+
   // get user profile if logged in
   app.get('/users/profile', app.auth, function(req, res){
     // If no user ID exists in the JWT return a 401
@@ -73,6 +92,8 @@ module.exports = function(app, route, express) {
       });
     }
   });
+
+
 
   return function(req, res, next) {
       next();
