@@ -1,0 +1,24 @@
+<h1> Recommendations </h1>
+ <div ng-app="recommendationApp">
+ <br>
+    <div ng-controller="recommendationCtrl">
+          <div ng-repeat="product in products">
+          	&nbsp;&nbsp;&nbsp;Product Name : {{ product.name }}
+          	<br>
+          	&nbsp;&nbsp;&nbsp;Product Price : {{ product.price }}
+          	<br>
+          	&nbsp;&nbsp;&nbsp;Product Seller : {{ product.seller }}
+          	<br>
+          	&nbsp;&nbsp;&nbsp;Product Review : {{ product.review }}
+          	<br>
+          	&nbsp;&nbsp;&nbsp;Product Tags :-
+            <ul>
+          	<div ng-repeat="tag in product.tags">
+          		 {{ tag }}
+          	</div>
+          	</ul>
+          	<br>
+          </div>
+    </div>
+</div>
+
