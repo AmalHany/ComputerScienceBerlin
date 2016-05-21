@@ -4,7 +4,7 @@
   recApp.controller('recommendationCtrl', function($scope, $http) {
       
 
-    
+    /*
   var test1 = {
     name: "test1 bob",
     price: 200,
@@ -40,11 +40,11 @@
     var allProducts = [test1, test2, test3, test4];
     $scope.products=allProducts
 
- /*
+ */
  getRecommendationProducts($http).then(function(response){
    $scope.products = response;
  });
- */
+ 
 
   });
 
