@@ -1,22 +1,24 @@
 <link rel="stylesheet" type="text/css" href="/assets/Message/message.css" >
-
 <div ng-app="messageApp">
 <div ng-controller="messageCRUD">
 <div class = "active">
 	<h2> Sending Message </h2>
 </div>
 <br>
+<!-- scope of send message -->
 <form ng-submit="sendMessage()" class="navbar-form form-inline">
 <table>
 	<tr>
 		<td>
+		<!-- the one who will send the message -->
           <label> Sender </label>
          </td>
          <td>
             <input style="width: 150px;" class="form-control" type="text" ng-model="fromBusiness">
          </td>
          <td>
-			<label> To </label>
+<!--          the one who will receive the message
+ -->			<label> To </label>
          </td>
          <td>
             <input style="width: 150px;" class="form-control" placeholder=""  type="text" ng-model="toBusiness">
@@ -27,7 +29,8 @@
 <br>
 	<table>
 		<td>
-			<label> Subject </label>
+<!-- 		the subject of the message
+ -->			<label> Subject </label>
          </td>
          <td>
             <input style="width: 250px;" class="form-control" placeholder=""  type="text" ng-model="subject">
@@ -39,7 +42,8 @@
 	<tr>
          <td>
             <label>
-            Content
+		<!--the content of the message-->  
+			Content
 			</label>
          </td>
             <td>
@@ -47,30 +51,33 @@
             </td>
      </tr>
       </table>
-            
             <br>
+            <!-- the button send -->
             <input class="btn btn-primary icon-add" style="margin-left: 700px;" type="submit" value="Send">
     </form>  
 </table>
- 
              <div ng-repeat="x in message" class="list-group">
              <span class="glyphicon glyphicon-envelope" style="margin-left: 20px;"role="group" aria-hidde="true"></span>
              <span> Your message </span>
              <span> " </span>
+             <!-- content of the message -->
              <span ng-bind="x.content"> </span>
              <span> " </span>
              <span>  have been sent </span>
              <span class="glyphicon glyphicon-arrow-right" role="group" aria-hidde="true"></span>
+             <!-- the receiver of the message -->
              <span ng-bind="x.toBusiness"></span>
              <span class="glyphicon glyphicon-user" role="group" aria-hidde="true"></span>
              <span> at  </span>
+             <!-- hour/min/sec -->
              <span ng-bind = "hhmmsstt"> </span>
              <span> on </span>
+             <!-- day/month/year -->
              <span ng-bind = "ddMMyyyy"> </span>
+             <!-- the button to remove the message -->
              <button class="btn btn-success "
              ng-click="removemessage(x)">Ok</button>
              </div>  
-
       </div>
 
 
