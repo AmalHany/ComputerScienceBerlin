@@ -9,5 +9,6 @@ module.exports = {
   'transactions': require('./AppModules/Transaction/controllers/TransactionController'),
   'tags': require('./AppModules/Tag/controllers/TagController'),
   'businessCategories': require('./AppModules/BusinessCategory/controllers/BusinessCategoryController'),
-  'productCategories': require('./AppModules/ProductCategory/controllers/ProductCategoryController')
+  'productCategories': require('./AppModules/ProductCategory/controllers/ProductCategoryController'),
+  'report': require('./AppModules/Report/controllers/ReportController')
 };
