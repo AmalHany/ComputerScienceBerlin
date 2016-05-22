@@ -12,13 +12,9 @@
         html  { overflow-y:scroll; }
         body  { padding-top:50px; }
     </style>
-<!--Html -->
 </head>
 <body style="background-color:lightgrey;">
- <!--This tells the division to use the signup controller-->
 <div ng-controller = "signupController">
-   <!--When this form is submitted it will call our createUser method in the controller-->
-<form ng-submit = "createUser()"> 
 <label> Email : </label>
 <input type="text" placeholder="Enter your Email" ng-model="userEmail" id="textEmail"></input>
 <BR> 
