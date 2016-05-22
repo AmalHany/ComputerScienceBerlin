@@ -10,18 +10,25 @@ search.controller('SearchBoxController', function($scope, $location){
   $scope.categories = ["Clothes", "Electronics", "Books", "Bateekh"];
   var selectedCategory = "All Categories";
   var userSearch = ' ';
+  var previousPath = $location.path();
 
   $scope.update = function(){
 
     userSearch = $scope.search_term;
+    var route = '/search/' + selectedCategory + '/' + userSearch
 
     //update URL if necessary
     if(userSearch.length > 0){
-      $location.path('/search/' + selectedCategory + '/' + userSearch);
+      $location.path(route);
     }
 
     else{
-      $location.path('/');
+      // var previousPath = $location.path().replace(route, '');
+      // previousPath = previousPath.substring(0, -1);
+
+      //this will only work if the page is refreshed
+      $location.path(previousPath);
+
     }
 
   }
@@ -30,14 +37,19 @@ search.controller('SearchBoxController', function($scope, $location){
 
     $scope.selected = category;
     selectedCategory = category;
+    var route = '/search/' + selectedCategory + '/' + userSearch
 
   //update URL if necessary
     if(userSearch.length > 0){
-      $location.path('/search/' + selectedCategory + '/' + userSearch);
+      $location.path(route);
     }
 
     else{
-      $location.path('/');
+        // var previousPath = $location.path().replace(route, '');
+        // previousPath = previousPath.substring(0, -1);
+
+        //this will only work if the page is refreshed
+        $location.path(previousPath);
     }
 
   }
@@ -45,7 +57,20 @@ search.controller('SearchBoxController', function($scope, $location){
 
 });
 
-search.controller('SearchResultsController', function($scope, $routeParams){
+search.controller('SearchResultsController', function($scope, $routeParams, $http){
+
+  //get all products
+
+      // var config = {
+      //   method: "GET",
+      //   url: '/search/:category/' + $routeParams.searchTerm,
+      //   headers: {"Content-Type": "application/json;charset=utf-8"}
+      // };
+      //
+      // $http(config).then(function(response) {
+      //     console.log(response.data);
+      // });
+
 
   //dummy data for testing:
 

@@ -1,11 +1,10 @@
- 
+
 var mongoose = require('mongoose');
 var db = mongoose.connection;
 
 
 var WishList= require('./../AppModules/WishList/models/WishList');
 var Product= require('./../AppModules/Product/models/Product');
-
 
 
 var p1 = new Product({Name: "sa3a", Price: "18"});

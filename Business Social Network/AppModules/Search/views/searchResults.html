@@ -2,11 +2,11 @@
   ng-show = "searchTerm.length > 0">
 
 <h1 ng-if = "searchResults.length != 1">
-  Your search for "{{searchTerm}}" returned {{searchResults.length}} results
+  Your search for "<span ng-bind = "searchTerm"></span>" returned <span ng-bind = "searchResults.length"></span> results
 </h1>
 
 <h1 ng-if = "searchResults.length == 1">
-  Your search for "{{searchTerm}}" returned {{searchResults.length}} result
+  Your search for "<span ng-bind = "searchTerm"></span>" returned 1 result
 </h1>
 
 <br /> <br />
@@ -28,7 +28,9 @@
     <tr ng-repeat = "product in searchResults">
 
       <td>
-        <a href = "">{{product.name}}</a>
+        <a href = "">
+          <span ng-bind = "product.name"></span>
+        </a>
       </td>
 
       <td>
@@ -36,22 +38,23 @@
       </td>
 
       <td>
-        <a href = " ">{{product.seller}}
+        <a href = " ">
+          <span ng-bind = "product.seller"></span>
         </a>
       </td>
 
       <td>
-        {{product.review}}
+        <span ng-bind = "product.review"></span>
       </td>
 
       <td>
         <li ng-repeat = "tag in product.tags">
-          {{tag}}
+          <span ng-bind = "tag"></span>
         </li>
       </td>
 
       <td>
-        {{product.category}}
+        <span ng-bind = "product.category"></span>
       </td>
 
     </tr>
