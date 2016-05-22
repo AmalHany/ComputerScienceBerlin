@@ -1,0 +1,133 @@
+<!doctype html>
+<!--Tells the html page to load our angular module-->
+<html ng-app = "signupApp"> 
+<head>                
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Sign Up </title>
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <style>
+        html  { overflow-y:scroll; }
+        body  { padding-top:50px; }
+    </style>
+<!--Html -->
+</head>
+<body style="background-color:lightgrey;">
+ <!--This tells the division to use the signup controller-->
+<div ng-controller = "signupController">
+   <!--When this form is submitted it will call our createUser method in the controller-->
+<form ng-submit = "createUser()"> 
+<label> Email : </label>
+<input type="text" placeholder="Enter your Email" ng-model="userEmail" id="textEmail"></input>
+<BR> 
+<label> Password: </label>
+<input type="password" placeholder="Enter your password" ng-model="userPass" id="textPass"></input>
+<BR>
+<label> First Name: </label>
+<input type="text" placeholder="Enter your First Name" ng-model="userFName" id=t extFname></input>
+<BR>
+<label> Last Name : </label>
+<input type="text" placeholder="Enter your Last Name" ng-model="userLName" id=t extLname></input>
+<BR>
+<label> Age : </label>
+<input type="text" placeholder="Enter your Age" ng-model="userAge" id=t extAge></input>
+<BR>
+<label> Gender : </label>
+<input type="text" placeholder="Enter your Gender" ng-model="userGender" id=t extGender></input>
+<BR>
+<button type="submit" onclick = "window.open('Business.html')"> Sign Up </button>
+<!--Return confirm just creates a pop up-->
+<button type ="submit" onclick = "window.open('login.html');"> Login </button> <!--window.open links to another site-->
+</form>
+</div>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-resource.js"></script>
+<script type="text/javascript" src="/js/app.js"></script>
+<script type="text/javascript" src="/js/controllers/signup-controller.js"></script>
+<!--Calls the different scripts to use, angular, angular resource. Its also essential to call our module and controller, however it HAS to be in the SAME order, module first, controller second, else it won't work and you'll be hunted by undefined errors for the rest of your days. -->
+</body>
+<style>
+a {
+    position: absolute;
+    transition: .5s ease;
+    left : 250px; 
+    top :50px;
+}
+a2 {
+    position: absolute;
+    transition: .5s ease;
+    left : 550px; 
+    top : 50px;
+}
+input {
+  width: 200px;
+}
+label {
+  display: inline-block;
+  width: 125px;
+}
+a3 {
+    position: absolute;
+    transition: .5s ease;
+    left : 850px; 
+    top : 50px;
+       
+}
+textEmail {
+    position: absolute;
+    transition: .5s ease;
+    left : 850px; 
+    top : 500px;
+}
+
+h2 {
+    position: absolute;
+    transition: .5s ease;
+    left: 425px;
+    top: 175px;
+}
+
+h3 {font-weight: bold;
+    font-size: 24px;
+    position: absolute;
+    transition: .5s ease;
+    left: 425px;
+    top: 275px;
+}
+
+h4 {font-weight: bold;
+    font-size: 24px;
+    position: absolute;
+    transition: .5s ease;
+    left: 425px;
+    top: 325px;
+}
+h5 {font-weight: bold;
+    font-size: 24px;
+    position: absolute;
+    transition: .5s ease;
+    left: 425px;
+    top: 375px;
+}
+
+h6 {font-weight: bold;
+    font-size: 24px;
+    position: absolute;
+    transition: .5s ease;
+    left: 425px;
+    top: 425px;
+}
+
+h7 {font-weight: bold;
+    font-size: 24px;
+    position: absolute;
+    transition: .5s ease;
+    left: 425px;
+    top: 475px;
+}
+</style>
+<!--CSS Mumbojumbo-->
+</html>
+
