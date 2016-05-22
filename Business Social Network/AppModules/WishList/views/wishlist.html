@@ -8,14 +8,14 @@
   <div ng-repeat="products in wishlist">
   	<div class="row">
    <div ng-repeat="product in products">
-        
+
 		  <!-- <div class="col-sm-6 col-md-4">
 		    <div class="thumbnail">
 		      <img src="/assets/WishList/noun_126735_cc.svg"  class="default-img">
 		      <div class="caption">
 		        <span ng-bind="product.Name"></span>
 		        <span ng-bind="product.Price"></span><span class="dollar">$</span>
-		        <p><a href="#" class="btn btn-primary" role="button">Buy</a> 
+		        <p><a href="#" class="btn btn-primary" role="button">Buy</a>
 		        	<a href="#" class="btn btn-danger" role="button">Remove</a></p>
 		      </div>
 		    </div>
@@ -26,10 +26,10 @@
     <div class="hovereffect">
         <img class="img-responsive default-img" src="/assets/WishList/noun_126735_cc.svg" alt="">
         <div class="overlay">
-           <h2 ng-bind="product.Name"></h2>
-           <h2>{{product.Price | currency: "&euro;"}}</h2>
+           <h2 ng-bind="product.name"></h2>
+           <h2>{{product.price | currency: "&euro;"}}</h2>
            <br><br><br><br><br>
-    
+
 
 		<button type="button" class="btn btn-default" aria-label="Left Align" data-toggle="tooltip" data-placement="bottom" title="Buy">
   <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
@@ -49,7 +49,7 @@
 
 
 
-               
+
       </div>
     </div>
   </div>

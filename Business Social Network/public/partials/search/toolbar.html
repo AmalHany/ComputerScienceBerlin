@@ -11,6 +11,11 @@
 }
 
 </style>
+<script>
+$(function(){
+$('body').tooltip({ selector: '[data-toggle="tooltip"]' });
+});
+</script>
 
 </head>
 
@@ -58,19 +63,17 @@
 
       <form class="navbar-form navbar-default" role="search"
       ng-include src = "'partials/Search/searchBox.html'">
-
-      
-
     </form>
 
     <div id = "icons">
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav navbar-right" ng-controller= 'WishListNotificationController'>
 
 
-        <li> <a href="#" class = "glyphicon glyphicon-shopping-cart"></a></li>
+        <li> <a href="#/wishlist/573f4399853cb2ca1affb6dc" class = "glyphicon glyphicon-shopping-cart"
+          data-toggle="tooltip" data-placement="bottom" title="Wishlist" ></a></li>
 
         <li><a href="#" class = "glyphicon glyphicon-inbox"></a></li>
-
+        <li> <a href="#" class = "glyphicon glyphicon-flag" data-toggle="tooltip" data-placement="bottom" ng-attr-title="{{notificationCount}}"></a></li>
         <li class="dropdown">
 
           <a href="#" class="glyphicon glyphicon-user"
@@ -83,8 +86,12 @@
             <li role="separator" class="divider"></li>
             <li><a href="#">Logout</a></li>
           </ul>
+
+
+
         </li>
       </div>
+
     </ul>
   </div><!-- /.navbar-collapse -->
 </div><!-- /.container-fluid -->
