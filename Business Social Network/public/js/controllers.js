@@ -38,10 +38,12 @@ search.controller('SearchBoxController', function($scope, $http){
     tags: ["black", "purple", "male", "clothes"]
   };
 
-
-
-  var allProducts = [test1, test2, test3, test4];
-
+  function getAllProducts(){
+    return $http.get('/products');  
+  }
+  getAllProducts().success(function(products){
+    var allProducts = products;
+  })
 
   $scope.update = function(){   //this will run whenever the input changes
 
@@ -53,8 +55,9 @@ search.controller('SearchBoxController', function($scope, $http){
 
 
     var bestMatches = [];    //the products to show (in this order)
-
-    for(var i = 0; i<allProducts.length; i++){
+    getAllProducts().success(function(products){
+      var allProducts = products;
+      for(var i = 0; i<allProducts.length; i++){
 
       var productTags = ("" + allProducts[i].tags).toLowerCase().split(",")
       //change all tags to lowercase so comparison is more accurate
@@ -69,14 +72,8 @@ search.controller('SearchBoxController', function($scope, $http){
 
       bestMatches.push([allProducts[i], matchPoints])
 
-    };
-
-
-    //filters out the products with 0 matchPoints
-    //then sorts the remaining products based on their matchPoints
-    //and then finally returns only the product and ignores the matchPoints
-
-    bestMatches = bestMatches.filter(function(a){
+      };
+      bestMatches = bestMatches.filter(function(a){
       return a[1] !== 0
     })
     .sort(function(a,b){
@@ -87,6 +84,9 @@ search.controller('SearchBoxController', function($scope, $http){
     })
 
     $scope.searchResults = bestMatches;
+    })
+
+    
 
   }
 
