@@ -1,6 +1,6 @@
 var userApp = angular.module('userApp', []);
 
-userApp.controller('userController',
+userApp.controller('userController',           //getting user
   function($scope, $http,$routeParams) {
     
     $scope.getUser = function(){
@@ -12,10 +12,9 @@ userApp.controller('userController',
       };
               $http(config).then(function(response) {
               $scope.user = response.data;
-
-
-        });
+         });
       }
+      
     $scope.getUser();
    }
 );
