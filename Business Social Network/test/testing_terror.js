@@ -11,7 +11,7 @@ var b1 = new BusinessCategory({name:"Fashion"});
 var b2 = new BusinessCategory({name:"Sport"});
 var b3 = new BusinessCategory({name:"Perfumes"});
 
-
+var bu1 = new Business();
 
 b1.save(function (err) {
   if (err) {
