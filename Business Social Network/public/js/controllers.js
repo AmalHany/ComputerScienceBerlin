@@ -1,3 +1,65 @@
+var BusinessApp = angular.module('businessApp', []);
+
+
+  BusinessApp.controller('view', function($scope, $http) {
+
+     $scope.getBusiness = function(){
+        var config = {
+          method: "GET",
+          url: "/business",
+          headers: {"Content-Type": "application/json;charset=utf-8"}
+        };
+        $http(config).then(function(response) {
+            $scope.businesses = response.data;
+        });
+      }
+
+      $scope.addBusiness = function(){
+        
+        if($scope.Name !== null && $scope.Name!== "" && $scope.Rate !== null
+        && $scope.Rate !== "")
+        
+        
+        {
+          var config = {
+            method: "POST",
+            url: "/business",
+            data: {name: $scope.Name},
+            headers: {"Content-Type": "application/json;charset=utf-8"}
+          };
+          $http(config).then(function(response) {
+              $scope.getBusiness();
+              $scope.Name = null;
+              $scope.Rate = null;
+    
+          });
+         }
+      }
+      $scope.getBusiness();
+    }
+    );
+
+      BusinessApp.controller('businessProfileController',function($scope, $http, $routeParams) {
+
+      $scope.getBusinessDetails = function(){
+        var config = {
+          method: "GET",
+          url: '/business/'+ $routeParams.businessId,
+         // data: {business_id: $routeParams.businessId},
+          headers: {"Content-Type": "application/json;charset=utf-8"}
+        };
+        $http(config).then(function(response) {
+            $scope.searchStr = "";
+            $scope.business = response.data;
+        });
+    }
+      
+
+      $scope.getBusinessDetails();
+
+
+  }
+  );
 var search = angular.module("searchApp", []);
 
 search.controller('SearchBoxController', function($scope, $http){
@@ -38,12 +100,10 @@ search.controller('SearchBoxController', function($scope, $http){
     tags: ["black", "purple", "male", "clothes"]
   };
 
-  function getAllProducts(){
-    return $http.get('/products');  
-  }
-  getAllProducts().success(function(products){
-    var allProducts = products;
-  })
+
+
+  var allProducts = [test1, test2, test3, test4];
+
 
   $scope.update = function(){   //this will run whenever the input changes
 
@@ -55,9 +115,8 @@ search.controller('SearchBoxController', function($scope, $http){
 
 
     var bestMatches = [];    //the products to show (in this order)
-    getAllProducts().success(function(products){
-      var allProducts = products;
-      for(var i = 0; i<allProducts.length; i++){
+
+    for(var i = 0; i<allProducts.length; i++){
 
       var productTags = ("" + allProducts[i].tags).toLowerCase().split(",")
       //change all tags to lowercase so comparison is more accurate
@@ -72,8 +131,14 @@ search.controller('SearchBoxController', function($scope, $http){
 
       bestMatches.push([allProducts[i], matchPoints])
 
-      };
-      bestMatches = bestMatches.filter(function(a){
+    };
+
+
+    //filters out the products with 0 matchPoints
+    //then sorts the remaining products based on their matchPoints
+    //and then finally returns only the product and ignores the matchPoints
+
+    bestMatches = bestMatches.filter(function(a){
       return a[1] !== 0
     })
     .sort(function(a,b){
@@ -84,9 +149,6 @@ search.controller('SearchBoxController', function($scope, $http){
     })
 
     $scope.searchResults = bestMatches;
-    })
-
-    
 
   }
 

@@ -14,9 +14,9 @@ var BusinessSchema = new mongoose.Schema({
    reviews: [ReviewSchema],
    ratings : [{type: Number, min: 0, max: 10}],
    products: [ { type: Schema.Types.ObjectId, ref: 'Product' } ],
-   category: {type: Schema.Types.ObjectId, ref: 'BusinessCategory', required: true},
+   //category: {type: Schema.Types.ObjectId, ref: 'BusinessCategory', required: true},
    followers: [{ type: Schema.Types.ObjectId, ref: 'User' }],
-   owner: { type: Schema.Types.ObjectId, ref: 'User', required: true }
+   //owner: { type: Schema.Types.ObjectId, ref: 'User', required: true }
 });
 
-module.exports = mongoose.model('Business', BusinessSchema);
+module.exports = mongoose.model('businesses', BusinessSchema);

@@ -1,0 +1,13 @@
+<div ng-app="businessApp" class="container-fluid">
+  <div ng-controller="businessProfileController">
+  	
+    <h3 ng-bind="business.name"></h3>
+    <h3 >Description:</h3>
+    <p ng-bind="business.description"> </p>
+     <span >Products:</span>
+    <div ng-repeat=" product in business.products" class="list-group">
+            <a ng-href="" ng-bind="product.name"> </a>
+      </div>
+  </div>
+
+</div>
