@@ -1,5 +1,5 @@
 
-  var mainApp = angular.module('mainApp', [ 'ngRoute', 'wishListApp', 'searchApp']);
+  var mainApp = angular.module('mainApp', [ 'ngRoute', 'wishListApp', 'searchApp', 'userApp']);
 
   mainApp.config(['$routeProvider',
                     function($routeProvider) {
@@ -15,9 +15,9 @@
                           controller: 'WishListController'
 
                         })
-                        .when('/information', {
+                        .when('/user/:userId', {
                             templateUrl: '/partials/UserInterface/UserView.html',
-                            //controller: 'SearchBoxController'
+                            controller: 'userController'
                         });
                       }
                   ]
