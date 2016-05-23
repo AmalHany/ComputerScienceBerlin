@@ -7,7 +7,6 @@ module.exports = function(app, route, express) {
 
  app.post('/x', function(req, res){
 	var name = req.body.name;
- // console.log(JSON.stringify(name));  
 var newBusiness = new Business({
 			owner:req.user,
         name: name,
@@ -17,32 +16,19 @@ var newBusiness = new Business({
 		});
 Business.createBusiness(newBusiness, function(err, user){
 			if(err) throw err;
-			//console.log(newBusiness);
       res.json(newBusiness.name);
 
 		});
-// newArray = [];
-// //while(Admin.businesses.length) 
-// 	newArray.push(newBusiness);
-// console.info(newArray[0]);
-// Admin.addnewbusiness(newBusiness);
-// console.info(Admin.businesses[0]);
-// //res.render('admin');
-// //res.render('/admin', { name: newBusiness.name });
-// a
+
   });
   app.get('/show', function(req, res){
 
-    //console.log(app);
     var x=app.models.Business.db.collection('businesses');
     x.find().toArray(function(err,items){
-     // console.log(JSON.stringify(items));
       res.json(items);
 
        });
-//   app.models.Business.db.collection.find().toArray(function (err, docs) {
-//     console.log(JSON.stringify(docs));
-// });
+
 });
    app.post('/addtocart/:cart', function(req, res){
     if(typeof req.body.cart!=='undefined'){
@@ -58,27 +44,21 @@ console.log(req.body.productid);
       if(err)return err;
       res.json(foundproduct);
     });
-//   app.models.Business.db.collection.find().toArray(function (err, docs) {
-//     console.log(JSON.stringify(docs));
-// });
+
 });
    app.get('/getmyproducts', function(req, res){
     var arry=[];
     var arry2=[];
-    //console.log(app);
     var x=app.models.Business.db.collection('businesses');
         var z=app.models.Product.db.collection('products');
 
     x.find().toArray(function(err,items){
 
-    // console.log(JSON.stringify(items));
      for(var i = 0; i<items.length; i++){ 
       console.log("here");
       console.log(items[i].products);
       if (typeof items[i].followers !== 'undefined') {
         for(var j = 0; j<items[i].followers.length; j++){
-      //console.log(typeof items[i].followers[j]);
-           // console.log(typeof req.user._id);
           var id=JSON.stringify(req.user._id);
           var follower=JSON.stringify(items[i].followers[j]);
       if(follower===id){
@@ -91,31 +71,24 @@ console.log(req.body.productid);
           Product.find({
     '_id': { $in: arry}
 }, function(err, docs){
-     console.log(docs);
      res.json(docs);
 });
-         // console.log(productarray);
-         //    res.json(productarray);
+         
 
      }
    }
    
      }
    }
-   console.log(arry);
 
        });
-//   app.models.Business.db.collection.find().toArray(function (err, docs) {
-//     console.log(JSON.stringify(docs));
-// });
+
 });
   app.get('/show2', function(req, res){
 
-    //console.log(app);
     var arry=[];
     var x=app.models.Business.db.collection('businesses');
     x.find().toArray(function(err,items){
-     // console.log(JSON.stringify(items));
     for(var i = 0; i<items.length; i++){
       if(items[i].approved==true)
         arry.push(items[i])
@@ -123,17 +96,13 @@ console.log(req.body.productid);
       res.json(arry);
 
        });
-//   app.models.Business.db.collection.find().toArray(function (err, docs) {
-//     console.log(JSON.stringify(docs));
-// });
+
 });
     app.get('/showmyproducts', function(req, res){
 
-    //console.log(app);
     var arry=[];
     var x=app.models.Business.db.collection('businesses');
     x.find().toArray(function(err,items){
-     // console.log(JSON.stringify(items));
     for(var i = 0; i<items.length; i++){
       if(items[i].approved==true)
         arry.push(items[i])
@@ -141,9 +110,7 @@ console.log(req.body.productid);
       res.json(arry);
 
        });
-//   app.models.Business.db.collection.find().toArray(function (err, docs) {
-//     console.log(JSON.stringify(docs));
-// });
+
 });
 
 
@@ -155,11 +122,9 @@ console.log(req.body.productid);
 
     app.post('/accept', function(req, res){
 
-    //console.log(app);
     var x=app.models.Business.db.collection('businesses');
     var y=app.models.Business;
     var business_id=req.body.businessID;
-   // console.log(business_id);
     y.getBusinessById(business_id,function(err,foundbusiness){
       if(err)return err;
       x.update(
@@ -185,7 +150,6 @@ console.log(req.body.productid);
    }
 )
 
-//console.log(foundbusiness);
     });
    // foundbusiness.approved=true;
     x.find().toArray(function(err,items){
