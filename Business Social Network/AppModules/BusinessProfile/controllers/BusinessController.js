@@ -28,7 +28,7 @@ module.exports = function(app, route, express) {
  
 app.get('/business/:business_id', function(req, res){
     app.models.Business.findOne({_id: req.params.business_id})
-                   .populate('businesses products')
+                   .populate('businesses products reviews')
                    .exec(function(err, businesses) {
                      if (err) throw err;
                      res.json(businesses);

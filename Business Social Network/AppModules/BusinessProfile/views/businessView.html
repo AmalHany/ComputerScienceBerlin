@@ -8,6 +8,10 @@
     <div ng-repeat=" product in business.products" class="list-group">
             <a ng-href="" ng-bind="product.name"> </a>
       </div>
+      <span >Reviews:</span>
+      <div ng-repeat=" review in business.reviews" class="list-group">
+            <a ng-href="" ng-bind="review.content"> </a>
+      </div>
   </div>
 
 </div>

@@ -15,6 +15,8 @@ var p3 = new Product({name: "ma3la2a", price: "1800"});
 var p4 = new Product({name: "kobaya", price: "180"});
 var p5 = new Product({name: "mastara", price: "18"});
 var p6 = new Product({name: "shebak", price: "10"});
+//var r1= new ReviewSchema({content:"products 7lwa awy"});
+//var r2= new ReviewSchema({content:"products 7lwa gedan"});
 
 p1.save(function (err) {
   if (err) {
@@ -71,9 +73,11 @@ p6.save(function (err) {
   }
 });
 
-var b2 = new Business ({name :"Hazem",description:"a7la shopping",products:[p1._id,p2._id]});
+//var b2 = new Business ({name :"Hazem",description:"a7la shopping",products:[p1._id,p2._id]});
+var b3 = new Business ({name :"Zara",description:"shopping",products:[p3._id,p4._id]});
+b3.reviews.push({content:"products 7lwa awy"})
 
-b2.save(function (err) {
+b3.save(function (err) {
   if (err) {
     console.info("fail1");
   }

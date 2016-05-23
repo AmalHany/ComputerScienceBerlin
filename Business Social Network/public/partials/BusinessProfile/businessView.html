@@ -2,11 +2,15 @@
   <div ng-controller="businessProfileController">
   	
     <h3 ng-bind="business.name"></h3>
-    <h3>Description:</h3>
-    <h3 ng-bind="business.description"> </h3>
+    <h3 >Description:</h3>
+    <p ng-bind="business.description"> </p>
      <span >Products:</span>
     <div ng-repeat=" product in business.products" class="list-group">
             <a ng-href="" ng-bind="product.name"> </a>
+      </div>
+      <span >Reviews:</span>
+      <div ng-repeat=" review in business.reviews" class="list-group">
+            <a ng-href="" ng-bind="review.content"> </a>
       </div>
   </div>
 

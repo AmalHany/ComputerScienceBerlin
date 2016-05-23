@@ -2,10 +2,11 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var ReviewSchema = new mongoose.Schema({
-  user: {type: Schema.Types.ObjectId, ref: 'User', required: true},
+  //user: {type: Schema.Types.ObjectId, ref: 'User', required: true},
   content:{type: String, required: true},
   date: {type: Date, default: Date.now}
 });
+module.exports = mongoose.model('reviews', ReviewSchema);
 
 var BusinessSchema = new mongoose.Schema({
    name: { type: String, required: true },
