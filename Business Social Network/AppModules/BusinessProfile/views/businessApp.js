@@ -1,8 +1,6 @@
 var BusinessApp = angular.module('businessApp', []);
 
-
-  BusinessApp.controller('view', function($scope, $http) {
-
+  BusinessApp.controller('view', function($scope, $http) {                //Getting ALl businesses
      $scope.getBusiness = function(){
         var config = {
           method: "GET",
@@ -15,12 +13,9 @@ var BusinessApp = angular.module('businessApp', []);
       }
 
       $scope.addBusiness = function(){
-        
         if($scope.Name !== null && $scope.Name!== "" && $scope.Rate !== null
-        && $scope.Rate !== "")
-        
-        
-        {
+        && $scope.Rate !== "") 
+        {                                                                 // Adding Bussines for trail
           var config = {
             method: "POST",
             url: "/business",
@@ -39,8 +34,7 @@ var BusinessApp = angular.module('businessApp', []);
     }
     );
 
-      BusinessApp.controller('businessProfileController',function($scope, $http, $routeParams) {
-
+      BusinessApp.controller('businessProfileController',function($scope, $http, $routeParams) {        //getting Business from all Businesses
       $scope.getBusinessDetails = function(){
         var config = {
           method: "GET",
@@ -53,10 +47,6 @@ var BusinessApp = angular.module('businessApp', []);
             $scope.business = response.data;
         });
     }
-      
-
       $scope.getBusinessDetails();
-
-
   }
   );

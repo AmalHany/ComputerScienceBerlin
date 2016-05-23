@@ -1,18 +1,11 @@
 
     <div ng-app="busienessApp">
-
     <div ng-controller="view">
-        
         <div class="active">
-           
             <h2> Business </h2>
-      
           <form ng-submit="addBusiness()" class="navbar-form form-inline">
-           
           <table>
-            
             <tr>
-            
             <td>
             <label>Business</label>
             </td>
@@ -31,26 +24,18 @@
           </table>
             <br>
             <br>
-            
             <input class="btn btn-default" type="submit" value="Add Business">
-            
           </form>
         </div>
-        <table>
-          
+        <table> 
         </table>
-
       <div ng-repeat=" business in businesses" class="list-group">
-
           <br>
             <span >Business:</span>
-            <a ng-href="#/business/{{business._id}}" ng-bind="business.name"> </a>
+            <a ng-href="#/business/{{business._id}}" ng-bind="business.name"> </a>    <!-- getting all Business and link them -->
             <br>
-
       </div>
-
   </div>
-
   </div>
 
   
