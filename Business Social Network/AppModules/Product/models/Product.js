@@ -16,10 +16,19 @@ var ProductSchema = new mongoose.Schema({
    reviews : [ReviewSchema],
    ratings : [{type: Number, min: 0, max: 10}],
    category : {type: Schema.Types.ObjectId, ref: 'ProductCategory'},
+   business : {type: Schema.Types.ObjectId, ref: 'Business'},
+   businessName:{type :String},
    images : [{type: String}]
 });
 
 
 
 
-module.exports = mongoose.model('Product', ProductSchema);
+var Product=module.exports = mongoose.model('Product', ProductSchema);
+module.exports.getProductById = function(id, callback){
+  Product.findById(id, callback);
+}
+module.exports.createProduct = function(newProduct, callback){
+          newProduct.save(callback);
+
+        };
