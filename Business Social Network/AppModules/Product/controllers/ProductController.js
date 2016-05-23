@@ -5,6 +5,8 @@ module.exports = function(app, route, express) {
     app.models.Product.find({}, function(err, products){
       if (err) throw err;
       res.json(products);
+    }).populate('category').populate('tags').exec(function(a){
+
     });
   });
 

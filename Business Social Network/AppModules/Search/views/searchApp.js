@@ -1,166 +1,166 @@
 var search = angular.module("searchApp", []);
+var fetchedProducts = false;  //if the all the products
+var allProducts = [];
 
-search.controller('SearchBoxController', function($scope, $location){
+search.controller('SearchBoxController', function($scope, $location, $http){
 
   //show all categories by default
   $scope.selected = "All Categories";
 
-  //get all categories to display in dropdown menu
-  //dummy data:
-  $scope.categories = ["Clothes", "Electronics", "Books", "Bateekh"];
-  var selectedCategory = "All Categories";
-  var userSearch = ' ';
-  var previousPath = $location.path();
+  var config = {
+    method: "GET",
+    url: '/productcategories',
+    headers: {"Content-Type": "application/json;charset=utf-8"}
+  };
 
-  $scope.update = function(){
+  $http(config).then(function(response) {
 
-    userSearch = $scope.search_term;
-    var route = '/search/' + selectedCategory + '/' + userSearch
+    //dummy data:
+    //$scope.categories = ["Clothes", "Electronics", "Books", "Bateekh"];
+    $scope.categories = response.data.map(function(a){
 
-    //update URL if necessary
-    if(userSearch.length > 0){
-      $location.path(route);
-    }
+      //capitilize the first letter of the category name and return it
+      //excluding the other attributes of the object
+      return a.name[0].toUpperCase() + a.name.substring(1, a.name.length);
 
-    else{
-      // var previousPath = $location.path().replace(route, '');
-      // previousPath = previousPath.substring(0, -1);
+    });
 
-      //this will only work if the page is refreshed
-      $location.path(previousPath);
+    var selectedCategory = "All Categories";
+    var userSearch = ' ';
+    var previousPath = $location.path();
 
-    }
+    $scope.update = function(){
 
-  }
+      userSearch = $scope.search_term;
+      var route = '/search/' + selectedCategory + '/' + userSearch
 
-  $scope.updateCategory = function(category){
+      //update URL if necessary
+      if(userSearch.length > 0){
+        $location.path(route);
+      }
 
-    $scope.selected = category;
-    selectedCategory = category;
-    var route = '/search/' + selectedCategory + '/' + userSearch
-
-  //update URL if necessary
-    if(userSearch.length > 0){
-      $location.path(route);
-    }
-
-    else{
+      else{
         // var previousPath = $location.path().replace(route, '');
         // previousPath = previousPath.substring(0, -1);
 
         //this will only work if the page is refreshed
         $location.path(previousPath);
+
+      }
+
     }
 
-  }
+    $scope.updateCategory = function(category){
 
+      $scope.selected = category;
+      selectedCategory = category;
+      var route = '/search/' + selectedCategory + '/' + userSearch
+
+      //update URL if necessary
+      if(userSearch.length > 0){
+        $location.path(route);
+      }
+
+      else{
+        // var previousPath = $location.path().replace(route, '');
+        // previousPath = previousPath.substring(0, -1);
+
+        //this will only work if the page is refreshed
+        $location.path(previousPath);
+      }
+
+    }
+
+  });
 
 });
 
 search.controller('SearchResultsController', function($scope, $routeParams, $http){
 
-  //get all products
+  if(!fetchedProducts){  //fetch products from server if they have not already been fetched
 
-      // var config = {
-      //   method: "GET",
-      //   url: '/search/:category/' + $routeParams.searchTerm,
-      //   headers: {"Content-Type": "application/json;charset=utf-8"}
-      // };
-      //
-      // $http(config).then(function(response) {
-      //     console.log(response.data);
-      // });
+    var config = {
+      method: "GET",
+      url: '/products',
+      headers: {"Content-Type": "application/json;charset=utf-8"}
+    };
+
+    $http(config).then(function(response) {
+
+      allProducts = response.data.map(function(a){
+
+        if(a.category != null){
+          a.category = a.category.name;
+        }
+
+        if(a.tags.length > 0){
+          a.tags = a.tags.map(function(b){
+            return b.name;
+          })
+        }
+
+      });
 
 
-  //dummy data for testing:
+    });
 
-  var test1 = {
-    name: "test1 bob",
-    price: 200,
-    seller: "H&M",
-    review: "5 stars",
-    tags: ["blue", "male", "jeans"],
-    category: "clothes"
-  };
+  } //if statement
 
-  var test2 = {
-    name: "miho car",
-    price: 1200,
-    seller: "Zara",
-    review: "2 stars",
-    tags: ["red", "female", "sweater"],
-    category: "electronics"
-  };
+  //return the search results only if products have been fetched
+  if(fetchedProducts){
 
-  var test3 = {
-    name: "sami awy",
-    price: 11900,
-    seller: "Saturn",
-    review: "5 stars",
-    tags: ["black", "purple", "sweater"],
-    category: "books"
-  };
+    console.log(allProducts);
+    //get category and search term from URL
 
-  var test4 = {
-    name: "swailem gedan",
-    price: 1024,
-    seller: "Apple",
-    review: "4 stars",
-    tags: ["black", "purple", "male", "clothes"],
-    category: "bateekh"
-  };
+    var chosenCat = $routeParams.category;
+    var userSearch = $routeParams.searchTerm;
 
-  var allProducts = [test1, test2, test3, test4];
+    //array of search terms entered by user changed to lowercase
+    var userSearchArray = userSearch.toLowerCase().split(" ");
 
-  //get category and search term from URL
-  var chosenCat = $routeParams.category;
-  var userSearch = $routeParams.searchTerm;
+    var bestMatches = [];
 
-  //array of search terms entered by user changed to lowercase
-  var userSearchArray = userSearch.toLowerCase().split(" ");
+    for(var i = 0; i < allProducts.length; i++){
 
-  var bestMatches = [];
+      //change all tags to lowercase so comparison is more accurate
+      var productTags = ("" + allProducts[i].tags).toLowerCase().split(",");
 
-  for(var i = 0; i < allProducts.length; i++){
+      //change product name to lowercase and placed in array
+      var productNameArray = allProducts[i].name.toLowerCase().split(" ");
 
-    //change all tags to lowercase so comparison is more accurate
-    var productTags = ("" + allProducts[i].tags).toLowerCase().split(",");
+      var tagCount =  search.count(userSearchArray, productTags);
+      var nameCount = search.count(userSearchArray, productNameArray);
 
-    //change product name to lowercase and placed in array
-    var productNameArray = allProducts[i].name.toLowerCase().split(" ");
+      //match points indicate how much a product matches the search
+      var matchPoints = tagCount + nameCount
 
-    var tagCount =  search.count(userSearchArray, productTags);
-    var nameCount = search.count(userSearchArray, productNameArray);
+      bestMatches.push([allProducts[i], matchPoints]);
 
-    //match points indicate how much a product matches the search
-    var matchPoints = tagCount + nameCount
+    };
 
-    bestMatches.push([allProducts[i], matchPoints]);
+    //filters out the products with 0 matchPoints
+    //then sorts the remaining products based on their matchPoints
+    //and then finally returns only the product and ignores the matchPoints
 
-  };
+    bestMatches = bestMatches.filter(function(a){
 
-  //filters out the products with 0 matchPoints
-  //then sorts the remaining products based on their matchPoints
-  //and then finally returns only the product and ignores the matchPoints
+      if(chosenCat != "All Categories"){
+        return (a[1] !== 0 && a[0].category == chosenCat);
+      }
+      return a[1] !== 0;
+    })
+    .sort(function(a,b){
+      return b[1] - a[1];
+    })
+    .map(function(a){
+      return a[0];
+    })
 
-  bestMatches = bestMatches.filter(function(a){
+    //send the search results and the search term to the search results page
+    $scope.searchResults = bestMatches;
+    $scope.searchTerm = userSearch;
 
-    if(chosenCat != "All Categories"){
-      return (a[1] !== 0 && a[0].category.toLowerCase() == chosenCat.toLowerCase());
-    }
-    return a[1] !== 0;
-  })
-  .sort(function(a,b){
-    return b[1] - a[1];
-  })
-  .map(function(a){
-    return a[0];
-  })
-
-  //send the search results and the search term to the search results page
-  $scope.searchResults = bestMatches;
-  $scope.searchTerm = userSearch;
-
+  }  //if statement
 })
 
 //counts how many times the search terms occur in another array (name/tags)
