@@ -10,4 +10,5 @@ module.exports = {
   'tags': require('./AppModules/Tag/controllers/TagController'),
   'businessCategories': require('./AppModules/BusinessCategory/controllers/BusinessCategoryController'),
   'productCategories': require('./AppModules/ProductCategory/controllers/ProductCategoryController')
+  'businessReviewsAndRates': require('./AppModules/BusinessRevRate/controllers/BusinessRevRateController')
 };
