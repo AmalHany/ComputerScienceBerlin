@@ -5,6 +5,13 @@ var ReviewSchema = new mongoose.Schema({
   content:{type: String, required: true},
   date: {type: Date, default: Date.now}
 });
+var Business=module.exports = mongoose.model('Business', BusinessSchema);
+module.exports.createBusiness = function(newBusiness, callback){
+	        newBusiness.save(callback);
+	    	}
+module.exports.getBusinessById = function(id, callback){
+	Business.findById(id, callback);
+}
 var BusinessSchema = new mongoose.Schema({
    name: { type: String, required: true },
    description: {type: String},
@@ -16,13 +23,6 @@ var BusinessSchema = new mongoose.Schema({
    owner: { type: Schema.Types.ObjectId, ref: 'User', required: true },
    approved :{type: Boolean}
 });
-var Business=module.exports = mongoose.model('Business', BusinessSchema);
-module.exports.createBusiness = function(newBusiness, callback){
-	        newBusiness.save(callback);
-	    	}
-module.exports.getBusinessById = function(id, callback){
-	Business.findById(id, callback);
-}
 module.exports.findAll = function(req,res){
   console.log("Retrieving all the links");
   mongoose.collection('businesses',function(err,collection){
