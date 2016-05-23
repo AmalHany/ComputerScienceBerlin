@@ -1,5 +1,5 @@
 
-  var mainApp = angular.module('mainApp', [ 'ngRoute', 'wishListApp', 'searchApp']);
+  var mainApp = angular.module('mainApp', [ 'ngRoute', 'wishListApp', 'searchApp','BusinessCategoryApp']);
 
   mainApp.config(['$routeProvider',
                     function($routeProvider) {
@@ -9,11 +9,15 @@
                           templateUrl: '/partials/WishList/wishlist.html',
                           controller: 'WishListController'
 
-                        })
-                        .when('/search', {
+                        }).
+                        when('/search', {
                             templateUrl: '/partials/Search/searchBox.html',
                             controller: 'SearchBoxController'
-                        });
+                        }).
+                        when('/businessCategory/:businessId',{
+                        templateUrl:'/partials/BusinessCategory/BusinessCategoryView.html',
+                       controller:'BusinessCategoryController'
+                      });
                       }
                   ]
   );

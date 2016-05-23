@@ -1,0 +1,11 @@
+<div ng-app="BusinessCategoryApp" class="container-fluid">
+  <div ng-controller="BusinessCategoryController">
+    <select  ng-model="myBcategory">
+        <option ng-repeat="category in businessCategories" ng-value="category._id" ng-bind="category.name"></option>
+    </select>
+    <br>
+    <br>
+    <button class="btn btn-primary" ng-click="submit()">Add to Category</button>
+  </div>
+
+</div>

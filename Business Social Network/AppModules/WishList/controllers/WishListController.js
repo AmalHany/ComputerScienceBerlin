@@ -30,11 +30,6 @@ app.get('/wishlists/:wishlist_id', function(req, res){
         }
         return res.json(model);
     });
-
-
-
-
-
 });
 	
 	return function(req, res, next) {

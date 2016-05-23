@@ -14,15 +14,15 @@ var server = require('http').createServer(app);
 app.socketIo = require('socket.io').listen(server);
 app.socketIo.on('connection', function (socket) {
 });
-var mongo = require('mongodb').MongoClient;
-mongo.connect('mongodb://localhost:27017/Amazon', function (err,db) 
-{
-  db.collection('products').drop();
-  for (var i = 0; i < 20; i++) {
-    db.collection('products').insert({name:"Iphone "+(i+1),price:500,rating:8,seller:"Apple",category:"Electronicts"});
-    db.collection('products').insert({name:"Tshirt "+(i+1),price:10,rating:7,seller:"American Eagle",category:"Clothes"});
-  }
-})
+// var mongo = require('mongodb').MongoClient;
+// mongo.connect('mongodb://localhost:27017/Amazon', function (err,db) 
+// {
+//   db.collection('products').drop();
+//   for (var i = 0; i < 20; i++) {
+//     db.collection('products').insert({name:"Iphone "+(i+1),price:500,rating:8,seller:"Apple",category:"Electronicts"});
+//     db.collection('products').insert({name:"Tshirt "+(i+1),price:10,rating:7,seller:"American Eagle",category:"Clothes"});
+//   }
+// })
 
 // Choose module to parse html
 app.engine('html', engines.hogan);
@@ -53,15 +53,15 @@ mongoose.connection.once('open', function() {
     res.render('index.html');
   });
 
-  app.get('/products',function(req,res){
-    var mongo = require('mongodb').MongoClient;
-    mongo.connect('mongodb://localhost:27017/Amazon', function (err,db) 
-    {
-      db.collection('products').find().toArray(function(err,products){
-        res.send(products);
-      })
-    });
-  })
+  // app.get('/products',function(req,res){
+  //   var mongo = require('mongodb').MongoClient;
+  //   mongo.connect('mongodb://localhost:27017/Amazon', function (err,db) 
+  //   {
+  //     db.collection('products').find().toArray(function(err,products){
+  //       res.send(products);
+  //     })
+  //   });
+  // })
 
   console.log('Listening on port 3000...');
 

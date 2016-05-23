@@ -5,7 +5,7 @@ var db = mongoose.connection;
 
 var WishList= require('./../AppModules/WishList/models/WishList');
 var Product= require('./../AppModules/Product/models/Product');
-
+var BusinessCategory= require('./../AppModules/BusinessCategory/models/BusinessCategory');
 
 
 var p1 = new Product({Name: "sa3a", Price: "18"});
@@ -14,6 +14,9 @@ var p3 = new Product({Name: "ma3la2a", Price: "1800"});
 var p4 = new Product({Name: "kobaya", Price: "180"});
 var p5 = new Product({Name: "mastara", Price: "18"});
 var p6 = new Product({Name: "shebak", Price: "10"});
+var b1 = new BusinessCategory({name:"Fashion"});
+var b2 = new BusinessCategory({name:"Sport"});
+var b3 = new BusinessCategory({name:"Perfumes"});
 
 p1.save(function (err) {
   if (err) {
@@ -69,7 +72,30 @@ p6.save(function (err) {
     console.info("success");
   }
 });
-
+b1.save(function (err) {
+  if (err) {
+    console.info("fail00");
+  }
+  else{
+    console.info("success");
+  }
+});
+b2.save(function (err) {
+  if (err) {
+    console.info("fail00");
+  }
+  else{
+    console.info("success");
+  }
+});
+b3.save(function (err) {
+  if (err) {
+    console.info("fail00");
+  }
+  else{
+    console.info("success");
+  }
+});
 
 
 var w1 = new WishList({products:[p1._id,p2._id,p3._id,p4._id,p5._id,p6._id]}); //'.' for current direc '..' get back

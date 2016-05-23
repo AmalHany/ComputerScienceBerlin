@@ -1,3 +1,33 @@
+var BusinessCategoryApp = angular.module('BusinessCategoryApp',[]);
+BusinessCategoryApp.controller('BusinessCategoryController',
+  function($scope, $http,$routeParams) {
+    $scope.getBusinessCategories = function(){
+      var config ={
+        method: "GET",
+        url: "/businessCategories/" + $routeParams.businessId,
+        headers: {"Content-Type": "application/json;charset=utf-8"}
+      };
+      $http(config).then(function(response) {
+            //console.log(response.data);
+            $scope.businessCategories = response.data;
+      });        
+	};
+
+	$scope.submit = function(){
+		if($scope.myBcategory !== undefined)
+		{
+			var config ={
+			method:"POST",
+		    url: "/businessCategories",
+		    data:{category_id : $scope.myBcategory, business_id:$routeParams.businessId },
+            headers: {"Content-Type": "application/json;charset=utf-8"}
+      };
+	};
+}
+	$scope.getBusinessCategories();
+  }
+);
+
 var search = angular.module("searchApp", []);
 
 search.controller('SearchBoxController', function($scope, $http){
@@ -38,12 +68,10 @@ search.controller('SearchBoxController', function($scope, $http){
     tags: ["black", "purple", "male", "clothes"]
   };
 
-  function getAllProducts(){
-    return $http.get('/products');  
-  }
-  getAllProducts().success(function(products){
-    var allProducts = products;
-  })
+
+
+  var allProducts = [test1, test2, test3, test4];
+
 
   $scope.update = function(){   //this will run whenever the input changes
 
@@ -55,9 +83,8 @@ search.controller('SearchBoxController', function($scope, $http){
 
 
     var bestMatches = [];    //the products to show (in this order)
-    getAllProducts().success(function(products){
-      var allProducts = products;
-      for(var i = 0; i<allProducts.length; i++){
+
+    for(var i = 0; i<allProducts.length; i++){
 
       var productTags = ("" + allProducts[i].tags).toLowerCase().split(",")
       //change all tags to lowercase so comparison is more accurate
@@ -72,8 +99,14 @@ search.controller('SearchBoxController', function($scope, $http){
 
       bestMatches.push([allProducts[i], matchPoints])
 
-      };
-      bestMatches = bestMatches.filter(function(a){
+    };
+
+
+    //filters out the products with 0 matchPoints
+    //then sorts the remaining products based on their matchPoints
+    //and then finally returns only the product and ignores the matchPoints
+
+    bestMatches = bestMatches.filter(function(a){
       return a[1] !== 0
     })
     .sort(function(a,b){
@@ -84,9 +117,6 @@ search.controller('SearchBoxController', function($scope, $http){
     })
 
     $scope.searchResults = bestMatches;
-    })
-
-    
 
   }
 
