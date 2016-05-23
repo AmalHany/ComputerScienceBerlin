@@ -11,6 +11,7 @@ var ProductSchema = new mongoose.Schema({
    name : {type: String, required: true},
    price : { type: Number,required: true },
    description : { type: String},
+   seller: {type: Schema.Types.ObjectId, ref: 'Business'},
    tags : [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
    purchase_count : {type: Number, default: 0},
    reviews : [ReviewSchema],
