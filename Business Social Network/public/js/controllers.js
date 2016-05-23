@@ -38,12 +38,10 @@ search.controller('SearchBoxController', function($scope, $http){
     tags: ["black", "purple", "male", "clothes"]
   };
 
-  function getAllProducts(){
-    return $http.get('/products');  
-  }
-  getAllProducts().success(function(products){
-    var allProducts = products;
-  })
+
+
+  var allProducts = [test1, test2, test3, test4];
+
 
   $scope.update = function(){   //this will run whenever the input changes
 
@@ -55,9 +53,8 @@ search.controller('SearchBoxController', function($scope, $http){
 
 
     var bestMatches = [];    //the products to show (in this order)
-    getAllProducts().success(function(products){
-      var allProducts = products;
-      for(var i = 0; i<allProducts.length; i++){
+
+    for(var i = 0; i<allProducts.length; i++){
 
       var productTags = ("" + allProducts[i].tags).toLowerCase().split(",")
       //change all tags to lowercase so comparison is more accurate
@@ -72,8 +69,14 @@ search.controller('SearchBoxController', function($scope, $http){
 
       bestMatches.push([allProducts[i], matchPoints])
 
-      };
-      bestMatches = bestMatches.filter(function(a){
+    };
+
+
+    //filters out the products with 0 matchPoints
+    //then sorts the remaining products based on their matchPoints
+    //and then finally returns only the product and ignores the matchPoints
+
+    bestMatches = bestMatches.filter(function(a){
       return a[1] !== 0
     })
     .sort(function(a,b){
@@ -84,9 +87,6 @@ search.controller('SearchBoxController', function($scope, $http){
     })
 
     $scope.searchResults = bestMatches;
-    })
-
-    
 
   }
 
@@ -134,6 +134,27 @@ function getRecommendationProducts($http){
 //   $scope.tests = response;
 // });
 
+var userApp = angular.module('userApp', []);
+
+userApp.controller('userController',
+  function($scope, $http,$routeParams) {
+    
+    $scope.getUser = function(){
+
+      var config ={
+        method: "GET",
+        url: "/users/" + $routeParams.userId,
+        headers: {"Content-Type": "application/json;charset=utf-8"}
+      };
+              $http(config).then(function(response) {
+              $scope.user = response.data;
+
+
+        });
+      }
+    $scope.getUser();
+   }
+);
 var wishListApp = angular.module('wishListApp', []);
 
 wishListApp.controller('WishListController',
