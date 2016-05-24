@@ -5,6 +5,7 @@ var ReviewSchema = new mongoose.Schema({
   content:{type: String, required: true},
   date: {type: Date, default: Date.now}
 });
+//this is similar to the  business model but without the category restricitions
 var BusinessSchema = new mongoose.Schema({
    name: { type: String, required: true },
    description: {type: String},
@@ -17,12 +18,10 @@ var BusinessSchema = new mongoose.Schema({
    owner: { type: Schema.Types.ObjectId, ref: 'User', required: true },
    approved :{type: Boolean}
 });
-
 var Business=module.exports = mongoose.model('Business', BusinessSchema);
 //this is for saving business in database 
 module.exports.createBusiness = function(newBusiness, callback){
 	        newBusiness.save(callback);
-
 	    	}
 // returning a business by quering name
 module.exports.getBusinessByUsername = function(username, callback){
