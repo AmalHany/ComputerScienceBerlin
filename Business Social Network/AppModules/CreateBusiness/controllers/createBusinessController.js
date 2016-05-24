@@ -1,4 +1,5 @@
 module.exports = function(app, route, express) {
+  // i am using my model which is very similar to the one in devel just changed the requirements for testing 
 	var Business = require('../models/business');
   //this is the method for the registration
  app.post('/registerBusiness', function(req, res){
