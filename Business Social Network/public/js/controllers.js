@@ -1,5 +1,5 @@
 var search = angular.module("searchApp", []);
-var fetchedProducts = false;  //if the all the products
+var fetchedProducts = false;  //if the all the products have been fetched from server
 var allProducts = [];
 
 search.controller('SearchBoxController', function($scope, $location, $http){
@@ -77,7 +77,8 @@ search.controller('SearchBoxController', function($scope, $location, $http){
 
 search.controller('SearchResultsController', function($scope, $routeParams, $http){
 
-  if(!fetchedProducts){  //fetch products from server if they have not already been fetched
+  //fetch products from server if they have not already been fetched
+  if(!fetchedProducts){
 
     var config = {
       method: "GET",
@@ -87,21 +88,8 @@ search.controller('SearchResultsController', function($scope, $routeParams, $htt
 
     $http(config).then(function(response) {
 
-      allProducts = response.data.map(function(a){
-
-        if(a.category != null){
-          a.category = a.category.name;
-        }
-
-        if(a.tags.length > 0){
-          a.tags = a.tags.map(function(b){
-            return b.name;
-          })
-        }
-
-      });
-
-
+      allProducts = response.data;
+      fetchedProducts = true;
     });
 
   } //if statement
@@ -109,9 +97,7 @@ search.controller('SearchResultsController', function($scope, $routeParams, $htt
   //return the search results only if products have been fetched
   if(fetchedProducts){
 
-    console.log(allProducts);
     //get category and search term from URL
-
     var chosenCat = $routeParams.category;
     var userSearch = $routeParams.searchTerm;
 
