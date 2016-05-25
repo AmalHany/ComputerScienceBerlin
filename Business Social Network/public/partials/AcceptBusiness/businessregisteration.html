@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+</html>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="/css/bootstrap.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+<div ng-controller = "acceptBusinessCtrl"  ng-init = "getuser()">
+
+<div ng-app="acceptBusinessApp" class="container">     
+ <div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+              
+                      </ul>
+        </nav>
+      </div>
+
+
+      <div class="row">
+        <div class="col-lg-12">
+            <div class="alert alert-info">{{success_msg}}</div>
+        </div>
+
+        
+      </div>
+
+<h2 class="page-header">Register</h2>
+  <div class="form-group" > name : <input type="text" placeholder="name" ng-model="name"> </input>
+            <br></div>
+  
+  <button type="button" class="btn btn-default" ng-click="createbusiness()"  >Register</button>
+
+<h1 ng-if = "myusername== 'admin'">
+   <button type="button" class="btn btn-default" ng-click="showallbusiness('/show')" >Admin</button>
+
+  </h1>
+   
+
+
+    </div> <!-- /container -->
+
+
+
+</body>
+</html>
+

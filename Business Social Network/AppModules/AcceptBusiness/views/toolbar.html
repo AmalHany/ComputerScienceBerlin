@@ -1,0 +1,237 @@
+<!-- main page
+ --><html>
+
+<head>
+
+<style>
+
+#icons{
+
+  font-size:120%
+
+}
+
+#navbar{
+
+
+
+}
+
+</style>
+
+</head>
+
+<nav class="navbar navbar-default" id = "navbar">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+
+    <div class="navbar-header">
+
+      <button type="button" class="navbar-toggle collapsed"
+      data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+      aria-expanded="false">
+
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a  class="navbar-brand" href="#">Business Social Network</a>
+
+    </div>
+      <a  class="navbar-brand" href="/#/business">Create business</a>
+            <a  class="navbar-brand" href="/#/admin">Businesses</a>
+
+
+<!--       <li role="presentation"><a href="/business">CreateBusiness</a></li>
+ -->
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Browse <span class="sr-only">(current)</span></a></li>
+        <li><a href="#">Sell</a></li>
+        <li class="dropdown">
+
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+          role="button" aria-haspopup="true"
+          aria-expanded="false">Categories <span class="caret"></span></a>
+
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+
+
+
+    </form>
+
+    <div id = "icons">
+      <ul class="nav navbar-nav navbar-right">
+
+
+        <li> <a href="#" class = "glyphicon glyphicon-shopping-cart"></a></li>
+
+        <li><a href="#" class = "glyphicon glyphicon-inbox"></a></li>
+
+        <li class="dropdown">
+
+          <a href="#" class="glyphicon glyphicon-user"
+          data-toggle="dropdown" role="button" aria-haspopup="true"
+          aria-expanded="false"> <span class="caret"></span></a>
+
+          <ul class="dropdown-menu">
+            <li><a href="#">Account</a></li>
+            <li><a href="#">Settings</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">Logout</a></li>
+          </ul>
+        </li>
+      </div>
+    </ul>
+  </div><!-- /.navbar-collapse -->
+</div><!-- /.container-fluid -->
+
+</nav>
+
+<link rel="stylesheet" type="text/css" href="/assets/WishList/wishlist.css" >
+
+<div ng-app="acceptBusinessApp" class="container-fluid">
+
+  <div ng-controller="acceptBusinessCtrl"  ng-init = "subscribers()"> 
+    <div class="col-md-10">
+    <div class="row">
+           <div ng-repeat="product in products">
+
+      <!-- <div class="col-sm-6 col-md-4">
+        <div class="thumbnail">
+          <img src="/assets/WishList/noun_126735_cc.svg"  class="default-img">
+          <div class="caption">
+            <span ng-bind="product.Name"></span>
+            <span ng-bind="product.Price"></span><span class="dollar">$</span>
+            <p><a href="#" class="btn btn-primary" role="button">Buy</a> 
+              <a href="#" class="btn btn-danger" role="button">Remove</a></p>
+          </div>
+        </div>
+      </div>
+     -->
+   
+     <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+    <div class="hovereffect">
+        <img class="img-responsive default-img" src="/assets/WishList/noun_126735_cc.svg" alt="">
+        <div class="overlay">
+           <h2 ng-bind="product.name"></h2>
+           <h2>{{product.price | currency: "&euro;"}}</h2>
+           <br><br><br><br><br>
+    
+
+    <button type="button" class="btn btn-default" ng-click="addtoshop(product)" aria-label="Left Align" data-toggle="tooltip" data-placement="bottom" title="Add to cart">
+  <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+    </button>
+
+
+
+    <button type="button" class="btn btn-default" aria-label="Left Align" ng-click="removeProduct(product)" data-toggle="tooltip" data-placement="bottom" title="Remove">
+  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+    </button>
+</div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+<div class="col-md-2">
+        <table class = "table"     ng-show = "cart.length > 0">
+
+    <thead>
+
+      <tr>
+        <th>Product Name</th>
+        <th>Price</th>
+        <th></th>
+        <th></th>
+
+        
+      </tr>
+
+
+      <tr ng-repeat = "product in cart">
+
+        <td>
+          <a href = "">{{product.name}}</a>
+        </td>
+
+        <td>
+          {{product.price | currency: "&euro;"}}
+        </td>
+         <td>
+          ({{getCount(product,myuser)}})
+        </td>
+        
+   <td>
+          <a href="" ng-click="removeproduct(product)"> Remove   
+          </a>
+           
+        </td>
+
+      </tr>
+
+    </thead>
+
+
+  </table>
+ <table class = "table"     ng-if = "cart.length > 0">
+
+    <thead>
+
+      <tr>
+    <th></th>
+                <th></th>
+
+        <th></th>
+
+          </tr>
+          <tr>
+            <td>
+      <p><strong> Total: </strong></p>
+        </td>
+
+     <td>
+      ({{total(cart,myuser) | currency: "&euro;"}})
+        </td>
+    
+        <td>
+          <a href="" ng-click="checkout()"> Checkout   
+          </a>
+           
+        </td>
+
+  </tr>
+  </thead>
+  </table>
+</div>
+
+
+
+
+
+               
+      </div>
+    
+  </div>
+
+
+  </div>
+
+</div>
+
+
+</html>
