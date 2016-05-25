@@ -38,10 +38,12 @@ gulp.task('collect-assets',function(){
 gulp.task('start', function () {
   nodemon({
     script: 'app.js',
-    ext: 'js html',
-    ignore: ['public/js/controllers.js', 'public/partials/'],
+    ext: 'js html css svg',
+    ignore: ['public/js/controllers.js', 'public/partials/','public/assets/'],
     tasks: ['setup'],
-    env: { 'NODE_ENV': 'development' }
+    env: { 'NODE_ENV': 'development',
+		 			 'APPID':  '234922790201545',
+				   'APPSECRET': '84eaac99cf37fef83728fb538b183355'}
   })
 });
 

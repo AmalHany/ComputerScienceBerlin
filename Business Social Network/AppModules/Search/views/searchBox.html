@@ -1,0 +1,50 @@
+<html ng-app = "searchApp">
+
+<head>
+
+<style>
+
+#search_box{
+
+  width: 200px;
+
+}
+
+</style>
+
+</head>
+
+<div ng-controller = "SearchBoxController">
+
+
+  <!-- <br /><br /> -->
+
+  <div class="col-lg-6">  <!-- whole search box and button -->
+
+    <div class="input-group">
+
+      <!-- input box -->
+      <input type="text" ng-model = "search_term" ng-bind = "search_term" id = "search_box"
+      class="form-control" ng-change = "update()" placeholder="What are you looking for?">
+
+      <!-- search button-->
+      <span class="input-group-btn">
+
+        <button type="button" class="btn btn-default" ng-click = "search()" >
+          <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search!
+        </button>
+
+      </span>
+
+    </div>
+
+
+  </div>
+  <br /><br />
+
+
+  <div ng-include src = "'partials/Search/searchResults.html'">  </div>
+
+</div>
+
+</html>
