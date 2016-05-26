@@ -1,5 +1,5 @@
 
-  var mainApp = angular.module('mainApp', [ 'ngRoute', 'wishListApp', 'searchApp','removeProductApp']);
+  var mainApp = angular.module('mainApp', [ 'ngRoute', 'wishListApp', 'searchApp']);
 
   mainApp.config(['$routeProvider',
                     function($routeProvider) {
@@ -14,11 +14,6 @@
                             templateUrl: '/partials/Search/searchBox.html',
                             controller: 'SearchBoxController'
                         });
-			.when('/', {
-                          templateUrl: '/partials/RemoveProduct/toolbar.html',
-                          controller: 'removeProductCtrl'
-                        });
-
                       }
                   ]
   );
