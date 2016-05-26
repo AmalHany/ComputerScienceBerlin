@@ -13,7 +13,7 @@
                         .when('/search', {
                             templateUrl: '/partials/Search/searchBox.html',
                             controller: 'SearchBoxController'
-                        });
+                        })
 			.when('/', {
                           templateUrl: '/partials/RemoveProduct/toolbar.html',
                           controller: 'removeProductCtrl'
