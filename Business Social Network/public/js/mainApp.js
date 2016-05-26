@@ -18,7 +18,6 @@
                           templateUrl: '/partials/RemoveProduct/toolbar.html',
                           controller: 'removeProductCtrl'
                         });
-
                       }
                   ]
   );
