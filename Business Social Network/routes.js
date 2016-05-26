@@ -8,6 +8,7 @@ module.exports = {
   'businesses': require('./AppModules/Business/controllers/BusinessController'),
   'transactions': require('./AppModules/Transaction/controllers/TransactionController'),
   'tags': require('./AppModules/Tag/controllers/TagController'),
+   'subscribers': require('./AppModules/Checkout/controllers/checkoutController'),
   'businessCategories': require('./AppModules/BusinessCategory/controllers/BusinessCategoryController'),
   'productCategories': require('./AppModules/ProductCategory/controllers/ProductCategoryController')
 };
