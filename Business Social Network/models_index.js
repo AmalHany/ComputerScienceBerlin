@@ -1,3 +1,8 @@
+// module.exports = {
+// 	 	Business: require('./AppModules/CreateBusiness/models/business'),
+// 	 	Admin: require('./AppModules/CreateBusiness/models/adminstrator')
+
+// };
 module.exports = {
   WishList: require('./AppModules/WishList/models/WishList'),
   Product: require('./AppModules/Product/models/Product'),
@@ -7,5 +12,7 @@ module.exports = {
   User: require('./AppModules/User/models/User'),
   Tag: require('./AppModules/Tag/models/Tag'),
   BusinessCategory: require('./AppModules/BusinessCategory/models/BusinessCategory'),
-  ProductCategory: require('./AppModules/ProductCategory/models/ProductCategory')
+  ProductCategory: require('./AppModules/ProductCategory/models/ProductCategory'),
+    Report: require('./AppModules/ShowReports/models/Report')
+
 };

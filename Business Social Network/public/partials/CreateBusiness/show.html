@@ -1,0 +1,72 @@
+<!-- kareem -->
+<html>
+
+<div class = "container"
+  ng-controller = "createBusinessCtrl"
+  ng-init = "trial()"
+    ng-show = "trial.length > 0"
+>
+
+
+  <h1 ng-if = "trial.length != 1">
+    Your Businesses Database has  {{searchResults.length}} businesses
+  </h1>
+
+  
+
+  <br /> <br />
+
+  <table class = "table" >
+
+    <thead>
+
+      <tr>
+        <th>Name</th>
+        <th>The User that created this business</th>
+        <th>User's ID</th>
+        <th>Approval</th>
+         <th>Approved</th>
+
+
+       
+      </tr>
+
+
+      <tr ng-repeat = "business in trial">
+
+        <td>
+          <a href = "">{{business.name}}</a>
+        </td>
+
+        <td>
+                   <a href = "">{{business.username}}</a>
+
+        </td>
+
+        <td>
+          <a href = " ">{{business.userid}}
+          </a>
+        </td>
+           <td>
+          <a href="" ng-click="accept(business)"> Accept   
+          </a>
+           
+        </td>
+
+        <td>
+          {{business.approved}}
+          
+        </td>
+
+      
+      </tr>
+
+    </thead>
+
+
+  </table>
+
+
+</div>
+
+</html>

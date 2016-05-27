@@ -1,0 +1,33 @@
+<html>
+<div class = "container"
+  ng-controller = "createBusinessCtrl"
+  ng-init = "abod()"
+    ng-show = "abod.length > 0"
+>
+  <br /> <br />
+  <table class = "table" >
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th>The User that created this report</th>
+        <th>User's ID</th>
+      </tr>
+      <tr ng-repeat = "report in trial">
+<!-- <tr ng-if = "business.approved== 'true'">
+ -->        <td>
+          <a href = "">{{report.description}}</a>
+        </td>
+        <td>
+                   <a href = "">{{report.username}}</a>
+        </td>
+        <td>
+          <a href = " ">{{report.userid}}
+          </a>
+        </td>
+        
+           
+      </tr>
+    </thead>
+  </table>
+</div>
+</html>
