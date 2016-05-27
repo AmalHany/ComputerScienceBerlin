@@ -1,0 +1,15 @@
+<div ng-app="myApp">
+    <div ng-controller="myCtrl">
+        <div>
+           <br>
+           <div class="container-fluid">User ID : <input type="text" placeholder="User ID" ng-model="id"></input>
+            <br><br></div>
+            <div class="container-fluid">Report : <input type="text" placeholder="Report" ng-model="report"></input>
+            <br><br></div>
+            <form ng-submit="update()">
+            <button type="submit" class="btn btn-primary">Send Report</button>
+            </form>
+            {{message}}
+         </div>
+    </div>
+  </div>
