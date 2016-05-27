@@ -1,5 +1,4 @@
-
-  var mainApp = angular.module('mainApp', [ 'ngRoute', 'wishListApp', 'searchApp']);
+var mainApp = angular.module('mainApp', [ 'ngRoute', 'wishListApp', 'searchApp']);
 
   mainApp.config(['$routeProvider',
                     function($routeProvider) {
@@ -10,9 +9,9 @@
                           controller: 'WishListController'
 
                         })
-                        .when('/search', {
-                            templateUrl: '/partials/Search/searchBox.html',
-                            controller: 'SearchBoxController'
+                        .when('/search/:category/:searchTerm', {
+                            templateUrl: '/partials/Search/searchResults.html',
+                            controller: 'SearchResultsController'
                         });
                       }
                   ]
