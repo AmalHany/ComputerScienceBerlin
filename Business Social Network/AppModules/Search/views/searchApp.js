@@ -127,11 +127,11 @@ search.controller('SearchResultsController', function($scope, $routeParams, $htt
     //filters out the products with 0 matchPoints
     //then sorts the remaining products based on their matchPoints
     //and then finally returns only the product and ignores the matchPoints
-
+  //  console.log(bestMatches);
     bestMatches = bestMatches.filter(function(a){
 
       if(chosenCat != "All Categories"){
-        return (a[1] !== 0 && a[0].category == chosenCat);
+        return (a[1] !== 0 && a[0].category.toLowerCase() == chosenCat.toLowerCase());
       }
       return a[1] !== 0;
     })
@@ -140,7 +140,7 @@ search.controller('SearchResultsController', function($scope, $routeParams, $htt
     })
     .map(function(a){
       return a[0];
-    })
+    });
 
     //send the search results and the search term to the search results page
     $scope.searchResults = bestMatches;
