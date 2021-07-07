@@ -1,0 +1,30 @@
+<div ng-app="userApp" class="container-fluid">
+
+  <div ng-controller="signUpController">
+
+    <form ng-submit="addUser()" class="navbar-form form-inline">
+        <div class="form-group">
+              First Name:
+              <br>
+              <input style="width: 500px;" class="form-control" type="text" ng-model="newUser.fName">
+              <br>
+              Last Name:
+              <br>
+              <input style="width: 500px;" class="form-control" type="text" ng-model="newUser.lName">
+              <br>
+              User Name:
+              <br>
+              <input style="width: 500px;" class="form-control" type="text" ng-model="newUser.uName">
+              <br>
+              Password:
+              <br>
+              <input style="width: 500px;" class="form-control" type="text" ng-model="newUser.pass">
+        </div>
+        <br>
+        <br>
+        <input class="btn btn-primary" type="submit" value="SIGN UP">
+    </form>
+
+  </div>
+
+</div>

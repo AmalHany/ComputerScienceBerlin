@@ -1,0 +1,23 @@
+<div ng-app="blogApp" class="container-fluid">
+
+  <div ng-controller="blogController">
+    <h3 ng-bind="blog.title"></h3>
+    <p ng-bind="blog.description"></p>
+    <div>
+      by:
+      <p ng-bind="blog.user.f_name"></p>
+    </div>
+
+    <div>
+      <input style="width: 500px;" class="form-control" type="text" ng-model="searchStr">
+    </div>
+
+    <div>
+      <div ng-repeat="post in blog.posts | filter: searchStr">
+        <a ng-href="#/post/{{post._id}}" ng-bind="post.title"></a>
+        <span ng-bind="post.date"></span>
+      </div>
+    </div>
+  </div>
+
+</div>

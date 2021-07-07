@@ -1,0 +1,23 @@
+<div ng-app="userApp" class="container-fluid">
+
+  <div ng-controller="signInController">
+
+    <form ng-submit="signUser()" class="navbar-form form-inline">
+        <p ng-bind="error" style="color: #ff0000;"></p>
+        <div class="form-group">
+              User Name:
+              <br>
+              <input style="width: 500px;" class="form-control" type="text" ng-model="user.uName">
+              <br>
+              Password:
+              <br>
+              <input style="width: 500px;" class="form-control" type="text" ng-model="user.pass">
+        </div>
+        <br>
+        <br>
+        <input class="btn btn-primary" type="submit" value="SIGN IN">
+    </form>
+
+  </div>
+
+</div>
